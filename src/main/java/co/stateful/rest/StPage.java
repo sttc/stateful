@@ -47,6 +47,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name = "page")
 @XmlAccessorType(XmlAccessType.NONE)
-public class DemoPage extends BasePage<DemoPage, BaseRs> {
+public class StPage extends BasePage<StPage, BaseRs> {
 
 }

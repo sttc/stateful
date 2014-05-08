@@ -57,9 +57,9 @@ public class BaseRs extends BaseResource {
     @Inset.Runtime
     public final Inset insetVersion() {
         return new VersionInset(
-            Manifests.read("Requs-Version"),
-            Manifests.read("Requs-Revision"),
-            Manifests.read("Requs-Date")
+            Manifests.read("Stateful-Version"),
+            Manifests.read("Stateful-Revision"),
+            Manifests.read("Stateful-Date")
         );
     }
 

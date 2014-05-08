@@ -56,7 +56,7 @@ public final class ErrorRs extends BaseRs {
     public Response get() {
         return new PageBuilder()
             .stylesheet("/xsl/error.xsl")
-            .build(DemoPage.class)
+            .build(StPage.class)
             .init(this)
             .render()
             .status(HttpURLConnection.HTTP_NOT_FOUND)

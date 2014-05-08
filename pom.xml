@@ -35,7 +35,9 @@
         <artifactId>parent</artifactId>
         <version>0.19.3</version>
     </parent>
+    <groupId>co.stateful</groupId>
     <artifactId>stateful</artifactId>
+    <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>stateful</name>
     <pluginRepositories>
@@ -140,17 +142,6 @@
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
         </dependency>
-        <dependency>
-            <groupId>net.sourceforge.saxon</groupId>
-            <artifactId>saxon</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>net.sourceforge.saxon</groupId>
-            <artifactId>saxon</artifactId>
-            <classifier>dom</classifier>
-            <scope>runtime</scope>
-        </dependency>
     </dependencies>
     <build>
         <pluginManagement>
@@ -167,9 +158,9 @@
                         <warSourceExcludes>js/**, css/**</warSourceExcludes>
                         <archive>
                             <manifestEntries>
-                                <Requs-Version>${project.version}</Requs-Version>
-                                <Requs-Revision>${buildNumber}</Requs-Revision>
-                                <Requs-Date>${maven.build.timestamp}</Requs-Date>
+                                <Stateful-Version>${project.version}</Stateful-Version>
+                                <Stateful-Revision>${buildNumber}</Stateful-Revision>
+                                <Stateful-Date>${maven.build.timestamp}</Stateful-Date>
                             </manifestEntries>
                         </archive>
                     </configuration>

@@ -29,7 +29,7 @@
  */
 
 /**
- * Demo web interface, tests.
+ * Web front, tests.
  *
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
