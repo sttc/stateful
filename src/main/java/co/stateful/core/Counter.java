@@ -27,59 +27,30 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package co.stateful.rest;
+package co.stateful.core;
 
-import com.jcabi.manifests.Manifests;
-import com.rexsl.page.BasePage;
-import com.rexsl.page.BaseResource;
-import com.rexsl.page.Inset;
-import com.rexsl.page.Resource;
-import com.rexsl.page.inset.VersionInset;
-import javax.validation.constraints.NotNull;
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import com.jcabi.aspects.Immutable;
 
 /**
- * Abstract RESTful resource.
- *
- * <p>The class is mutable and NOT thread-safe.
+ * Counter.
  *
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
  */
-@Resource.Forwarded
-public class BaseRs extends BaseResource {
+@Immutable
+public interface Counter {
 
     /**
-     * Inset with a version of the product.
-     * @return The inset
+     * Set specific value.
+     * @param value Value to set
      */
-    @NotNull
-    @Inset.Runtime
-    public final Inset insetVersion() {
-        return new VersionInset(
-            Manifests.read("Stateful-Version"),
-            Manifests.read("Stateful-Revision"),
-            Manifests.read("Stateful-Date")
-        );
-    }
+    void set(long value);
 
     /**
-     * Supplementary inset.
-     * @return The inset
+     * Add value to it.
+     * @param delta Delta to add
+     * @return New value
      */
-    @NotNull
-    @Inset.Runtime
-    public final Inset insetSupplementary() {
-        return new Inset() {
-            @Override
-            public void render(final BasePage<?, ?> page,
-                final Response.ResponseBuilder builder) {
-                builder.type(MediaType.TEXT_XML);
-                builder.header(HttpHeaders.VARY, "Cookie");
-            }
-        };
-    }
+    long increment(long delta);
 
 }

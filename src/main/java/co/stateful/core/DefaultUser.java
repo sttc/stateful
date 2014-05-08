@@ -27,59 +27,41 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package co.stateful.rest;
+package co.stateful.core;
 
-import com.jcabi.manifests.Manifests;
-import com.rexsl.page.BasePage;
-import com.rexsl.page.BaseResource;
-import com.rexsl.page.Inset;
-import com.rexsl.page.Resource;
-import com.rexsl.page.inset.VersionInset;
-import javax.validation.constraints.NotNull;
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import com.jcabi.aspects.Immutable;
+import com.jcabi.aspects.Loggable;
+import com.jcabi.urn.URN;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
- * Abstract RESTful resource.
- *
- * <p>The class is mutable and NOT thread-safe.
+ * Default user.
  *
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
  */
-@Resource.Forwarded
-public class BaseRs extends BaseResource {
+@Immutable
+@ToString
+@EqualsAndHashCode
+@Loggable(Loggable.DEBUG)
+final class DefaultUser implements User {
 
     /**
-     * Inset with a version of the product.
-     * @return The inset
+     * Name of the user.
      */
-    @NotNull
-    @Inset.Runtime
-    public final Inset insetVersion() {
-        return new VersionInset(
-            Manifests.read("Stateful-Version"),
-            Manifests.read("Stateful-Revision"),
-            Manifests.read("Stateful-Date")
-        );
-    }
+    private final transient URN name;
 
     /**
-     * Supplementary inset.
-     * @return The inset
+     * Ctor.
+     * @param urn Name of it
      */
-    @NotNull
-    @Inset.Runtime
-    public final Inset insetSupplementary() {
-        return new Inset() {
-            @Override
-            public void render(final BasePage<?, ?> page,
-                final Response.ResponseBuilder builder) {
-                builder.type(MediaType.TEXT_XML);
-                builder.header(HttpHeaders.VARY, "Cookie");
-            }
-        };
+    DefaultUser(final URN urn) {
+        this.name = urn;
     }
 
+    @Override
+    public Counters counters() {
+        return new DyCounters(this.name);
+    }
 }

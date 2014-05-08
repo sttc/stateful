@@ -48,6 +48,10 @@
     </pluginRepositories>
     <dependencies>
         <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.jcabi</groupId>
             <artifactId>jcabi-aspects</artifactId>
         </dependency>
@@ -226,6 +230,7 @@
                             <excludes>
                                 <exclude>checkstyle:/src/main/webapp/.*</exclude>
                                 <exclude>findbugs:.*</exclude>
+                                <exclude>xml:/src/main/webapp/WEB-INF/web.xml</exclude>
                             </excludes>
                         </configuration>
                     </plugin>
@@ -239,6 +244,37 @@
             </activation>
             <build>
                 <plugins>
+                    <plugin>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>prepare-webapp-for-tests</id>
+                                <goals>
+                                    <goal>exploded</goal>
+                                </goals>
+                                <configuration>
+                                    <warSourceExcludes>nothing/**</warSourceExcludes>
+                                    <webappDirectory>${project.build.directory}/tomcat-test</webappDirectory>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>prepare-manifest-for-tests</id>
+                                <goals>
+                                    <goal>manifest</goal>
+                                </goals>
+                                <configuration>
+                                    <webappDirectory>${project.build.directory}/tomcat-test</webappDirectory>
+                                    <archive>
+                                        <manifestEntries>
+                                            <Stateful-Version>1.0</Stateful-Version>
+                                            <Stateful-Revision>123456</Stateful-Revision>
+                                            <Stateful-Date>${maven.build.timestamp}</Stateful-Date>
+                                        </manifestEntries>
+                                    </archive>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>build-helper-maven-plugin</artifactId>
@@ -280,6 +316,7 @@
                             <port>${tomcat.port}</port>
                             <path>/</path>
                             <fork>true</fork>
+                            <warDirectory>${project.build.directory}/tomcat-test</warDirectory>
                             <systemProperties>
                                 <log4j.configuration>file:${basedir}/src/test/resources/log4j.properties</log4j.configuration>
                             </systemProperties>
