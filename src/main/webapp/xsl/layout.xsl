@@ -50,39 +50,42 @@
                         <xsl:text>http://img.stateful.co/logo-128x128.png</xsl:text>
                     </xsl:attribute>
                 </link>
+                <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"/>
                 <xsl:call-template name="head"/>
             </head>
             <body>
-                <header class="header">
-                    <div>
-                        <img alt="logo" class="logo">
-                            <xsl:attribute name="src">
-                                <xsl:text>http://img.stateful.co/logo-256x256.png</xsl:text>
-                            </xsl:attribute>
-                        </img>
-                    </div>
-                    <div>
-                        <xsl:choose>
-                            <xsl:when test="identity">
-                                <xsl:apply-templates select="identity"/>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:call-template name="buttons"/>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </div>
-                </header>
-                <section>
-                    <xsl:call-template name="content"/>
-                </section>
-                <footer class="footer">
-                    <div>
-                        <xsl:text>(c) stateful.co, all rights reserved</xsl:text>
-                    </div>
-                    <div>
-                        <xsl:apply-templates select="version"/>
-                    </div>
-                </footer>
+                <div class="container">
+                    <header class="header">
+                        <div>
+                            <img alt="logo" class="logo">
+                                <xsl:attribute name="src">
+                                    <xsl:text>http://img.stateful.co/logo-256x256.png</xsl:text>
+                                </xsl:attribute>
+                            </img>
+                        </div>
+                        <div>
+                            <xsl:choose>
+                                <xsl:when test="identity">
+                                    <xsl:apply-templates select="identity"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:call-template name="buttons"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </div>
+                    </header>
+                    <section>
+                        <xsl:call-template name="content"/>
+                    </section>
+                    <footer class="footer">
+                        <div>
+                            <xsl:text>(c) stateful.co, all rights reserved</xsl:text>
+                        </div>
+                        <div>
+                            <xsl:apply-templates select="version"/>
+                        </div>
+                    </footer>
+                </div>
             </body>
         </html>
     </xsl:template>

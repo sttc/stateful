@@ -32,6 +32,7 @@ package co.stateful.rest;
 import com.jcabi.http.request.JdkRequest;
 import com.jcabi.http.response.RestResponse;
 import com.jcabi.http.response.XmlResponse;
+import com.jcabi.matchers.W3CMatchers;
 import java.net.HttpURLConnection;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
@@ -63,6 +64,21 @@ public final class CountersRsITCase {
             .assertStatus(HttpURLConnection.HTTP_OK)
             .as(XmlResponse.class)
             .assertXPath("/page/counters/counter/name");
+    }
+
+    /**
+     * CountersRs can render valid HTML.
+     * @throws Exception If some problem inside
+     */
+    @Test
+    public void rendersValidHtml() throws Exception {
+        new JdkRequest(CountersRsITCase.HOME)
+            .uri().path("/c").back()
+            .header(HttpHeaders.ACCEPT, MediaType.TEXT_HTML)
+            .fetch()
+            .as(RestResponse.class)
+            .assertStatus(HttpURLConnection.HTTP_OK)
+            .assertBody(W3CMatchers.validHtml());
     }
 
 }
