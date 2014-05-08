@@ -42,6 +42,7 @@ import org.junit.Test;
  * Integration case for {@link CountersRs}.
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
+ * @checkstyle MultipleStringLiteralsCheck (500 lines)
  */
 public final class CountersRsITCase {
 

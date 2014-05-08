@@ -63,6 +63,16 @@ final class DyCounters implements Counters {
     }
 
     @Override
+    public void create(final String name) {
+        // nothing now
+    }
+
+    @Override
+    public void delete(final String name) {
+        // nothing now
+    }
+
+    @Override
     public Counter get(final String name) {
         return new DyCounter(this.owner, name);
     }

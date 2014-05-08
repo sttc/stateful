@@ -47,6 +47,10 @@ body {
     text-align: center;
 }
 
+.buttons a {
+    font-size: 36px;
+}
+
 .footer {
     text-align: center;
     font-size: 14px;

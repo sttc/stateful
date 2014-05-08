@@ -43,6 +43,7 @@
                 <link rel="stylesheet" type="text/css" media="all">
                     <xsl:attribute name="href">
                         <xsl:text>/css/screen.css?</xsl:text>
+                        <xsl:value-of select="version/name"/>
                     </xsl:attribute>
                 </link>
                 <link rel="icon" type="image/gif">
@@ -50,10 +51,6 @@
                         <xsl:text>http://img.stateful.co/logo-128x128.png</xsl:text>
                     </xsl:attribute>
                 </link>
-                <script type="text/javascript" src="//code.jquery.com/jquery-2.0.0.js">
-                    <xsl:text> </xsl:text>
-                    <!-- this is for W3C compliance -->
-                </script>
                 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"/>
                 <xsl:call-template name="head"/>
             </head>
@@ -67,16 +64,18 @@
                                 </xsl:attribute>
                             </img>
                         </div>
-                        <div>
-                            <xsl:choose>
-                                <xsl:when test="identity">
+                        <xsl:choose>
+                            <xsl:when test="identity">
+                                <div class="identity">
                                     <xsl:apply-templates select="identity"/>
-                                </xsl:when>
-                                <xsl:otherwise>
+                                </div>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <div class="buttons">
                                     <xsl:call-template name="buttons"/>
-                                </xsl:otherwise>
-                            </xsl:choose>
-                        </div>
+                                </div>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </header>
                     <section>
                         <xsl:call-template name="content"/>
@@ -91,8 +90,35 @@
                         <div>
                             <xsl:apply-templates select="version"/>
                         </div>
+                        <iframe src="http://ghbtns.com/github-btn.html?user=yegor256&amp;repo=stateful&amp;type=watch&amp;size=large"
+                            width="62" height="20">
+                            <xsl:text> </xsl:text>
+                            <!-- this is for W3C compliance -->
+                        </iframe>
                     </footer>
                 </div>
+                <script type="text/javascript" src="//code.jquery.com/jquery-2.0.0.js">
+                    <xsl:text> </xsl:text>
+                    <!-- this is for W3C compliance -->
+                </script>
+                <script type="text/javascript">
+                    <xsl:attribute name="src">
+                        <xsl:text>/js/all.js?</xsl:text>
+                        <xsl:value-of select="version/name"/>
+                    </xsl:attribute>
+                    <xsl:text> </xsl:text>
+                    <!-- this is for W3C compliance -->
+                </script>
+                <script type="text/javascript">
+                    //<![CDATA[
+                    (function(i,s,o,g,r,a,m){i.GoogleAnalyticsObject=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments);},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m);
+                    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+                    ga('create', 'UA-1963507-35', 'stateful.co');
+                    ga('send', 'pageview');
+                    //]]>
+                </script>
             </body>
         </html>
     </xsl:template>

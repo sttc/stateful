@@ -32,7 +32,10 @@ package co.stateful.rest;
 import com.rexsl.page.JaxbBundle;
 import com.rexsl.page.Link;
 import com.rexsl.page.PageBuilder;
+import java.util.logging.Level;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
@@ -59,8 +62,46 @@ public final class CountersRs extends BaseRs {
             .build(StPage.class)
             .init(this)
             .append(this.list())
+            .link(new Link("add", "./add"))
+            .link(new Link("remove", "./remove"))
             .render()
             .build();
+    }
+
+    /**
+     * Add a new counter.
+     * @param name Name of the counter
+     */
+    @POST
+    @Path("/add")
+    public void add(@FormParam("name") final String name) {
+        this.user().counters().create(name);
+        throw this.flash().redirect(
+            this.uriInfo().getBaseUriBuilder()
+                .clone()
+                .path(CountersRs.class)
+                .build(),
+            String.format("counter %s created successfully", name),
+            Level.INFO
+        );
+    }
+
+    /**
+     * Delete a counter.
+     * @param name Name of the counter
+     */
+    @POST
+    @Path("/delete")
+    public void delete(@FormParam("name") final String name) {
+        this.user().counters().delete(name);
+        throw this.flash().redirect(
+            this.uriInfo().getBaseUriBuilder()
+                .clone()
+                .path(CountersRs.class)
+                .build(),
+            String.format("counter %s deleted successfully", name),
+            Level.INFO
+        );
     }
 
     /**

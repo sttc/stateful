@@ -41,6 +41,18 @@ import com.jcabi.aspects.Immutable;
 public interface Counters extends Iterable<String> {
 
     /**
+     * Create a counter.
+     * @param name Name of it
+     */
+    void create(String name);
+
+    /**
+     * Delete a counter.
+     * @param name Name of it
+     */
+    void delete(String name);
+
+    /**
      * Get one counter by name.
      * @param name Name of it
      * @return Counter

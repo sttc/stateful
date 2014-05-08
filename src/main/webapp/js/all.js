@@ -34,36 +34,6 @@
 $(document).ready(
     function () {
         'use strict';
-        $('#example').keyup(
-            function () {
-                if ((this.rendered !== undefined) && this.rendered === this.value) {
-                    return;
-                }
-                this.rendered = this.value;
-                if (this.rendered === null) {
-                    this.rendered = '';
-                }
-                $.ajax(
-                    {
-                        url: '/instant',
-                        data: { 'text': this.rendered },
-                        type: 'POST',
-                        dataType: 'text',
-                        beforeSend: function (data) {
-                            $('#arrow').show();
-                        },
-                        success: function (data) {
-                            $('#output').text(data);
-                        },
-                        error: function (XMLHttpRequest, textStatus, errorThrown) {
-                            $('#output').html(textStatus);
-                        },
-                        complete: function () {
-                            $('#arrow').hide();
-                        }
-                    }
-                );
-            }
-        ).keyup();
+        // nothing for now
     }
 );

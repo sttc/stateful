@@ -44,6 +44,7 @@ import com.rexsl.page.auth.Google;
 import com.rexsl.page.auth.Identity;
 import com.rexsl.page.auth.Provider;
 import com.rexsl.page.inset.FlashInset;
+import com.rexsl.page.inset.LinksInset;
 import com.rexsl.page.inset.VersionInset;
 import java.net.URI;
 import java.util.logging.Level;
@@ -62,6 +63,7 @@ import org.apache.commons.lang3.Validate;
  * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
  */
 @Resource.Forwarded
+@Inset.Default(LinksInset.class)
 public class BaseRs extends BaseResource {
 
     /**
@@ -94,6 +96,15 @@ public class BaseRs extends BaseResource {
             return identity;
         }
     };
+
+    /**
+     * Flash.
+     * @return The inset with flash
+     */
+    @Inset.Runtime
+    public final FlashInset flash() {
+        return new FlashInset(this);
+    }
 
     /**
      * Supplementary inset.
