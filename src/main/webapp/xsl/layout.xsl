@@ -40,19 +40,20 @@
                 <meta name="description" content="Stateful Web Primitives"/>
                 <meta name="keywords" content="stateful.co"/>
                 <meta name="author" content="www.stateful.co"/>
-                <link rel="stylesheet" type="text/css" media="all">
-                    <xsl:attribute name="href">
-                        <xsl:text>/css/screen.css?</xsl:text>
-                        <xsl:value-of select="version/name"/>
-                    </xsl:attribute>
-                </link>
                 <link rel="icon" type="image/gif">
                     <xsl:attribute name="href">
                         <xsl:text>http://img.stateful.co/logo-128x128.png</xsl:text>
                     </xsl:attribute>
                 </link>
                 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"/>
-                <xsl:call-template name="head"/>
+                <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"/>
+                <link rel="stylesheet" type="text/css" media="all">
+                    <xsl:attribute name="href">
+                        <xsl:text>/css/style.css?</xsl:text>
+                        <xsl:value-of select="version/name"/>
+                    </xsl:attribute>
+                </link>
+                <xsl:apply-templates select="." mode="head"/>
             </head>
             <body>
                 <div class="container">
@@ -69,6 +70,18 @@
                                 <div class="identity">
                                     <xsl:apply-templates select="identity"/>
                                 </div>
+                                <nav class="menu">
+                                    <ul class="list-inline">
+                                        <li>
+                                            <a>
+                                                <xsl:attribute name="href">
+                                                    <xsl:value-of select="/page/links/link[@rel='menu:counters']/@href"/>
+                                                </xsl:attribute>
+                                                <xsl:text>counters</xsl:text>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
                             </xsl:when>
                             <xsl:otherwise>
                                 <div class="buttons">
@@ -77,24 +90,24 @@
                             </xsl:otherwise>
                         </xsl:choose>
                     </header>
-                    <section>
-                        <xsl:call-template name="content"/>
+                    <section class="content well well-lg">
+                        <xsl:apply-templates select="." mode="body"/>
                     </section>
                     <footer class="footer">
                         <div>
-                            <xsl:text>(c) stateful.co</xsl:text>
+                            <xsl:text>stateful.co</xsl:text>
                         </div>
                         <div>
-                            <xsl:text>all rights reserved</xsl:text>
+                            <xsl:text>All Rights Reserved</xsl:text>
                         </div>
                         <div>
                             <xsl:apply-templates select="version"/>
                         </div>
-                        <iframe src="http://ghbtns.com/github-btn.html?user=yegor256&amp;repo=stateful&amp;type=watch&amp;size=large"
-                            width="62" height="20">
-                            <xsl:text> </xsl:text>
-                            <!-- this is for W3C compliance -->
-                        </iframe>
+                        <div>
+                            <a href="https://github.com/yegor256/stateful">
+                                <i class="fa fa-github-alt"><xsl:comment>github</xsl:comment></i>
+                            </a>
+                        </div>
                     </footer>
                 </div>
                 <script type="text/javascript" src="//code.jquery.com/jquery-2.0.0.js">
@@ -177,13 +190,21 @@
             <xsl:attribute name="href">
                 <xsl:value-of select="/page/links/link[@rel='rexsl:logout']/@href"/>
             </xsl:attribute>
-            <i class="fa fa-exit"><xsl:comment>logout</xsl:comment></i>
+            <i class="fa fa-sign-out"><xsl:comment>logout</xsl:comment></i>
         </a>
     </xsl:template>
     <xsl:template match="flash">
-        <div class="flash">
+        <div>
             <xsl:attribute name="class">
-                <xsl:value-of select="level"/>
+                <xsl:text>alert </xsl:text>
+                <xsl:choose>
+                    <xsl:when test="level = 'INFO'">
+                        <xsl:text>alert-success</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="level = 'WARNING'">
+                        <xsl:text>alert-warning</xsl:text>
+                    </xsl:when>
+                </xsl:choose>
             </xsl:attribute>
             <xsl:value-of select="message"/>
         </div>

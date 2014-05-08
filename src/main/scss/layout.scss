@@ -30,28 +30,26 @@
 
 /* all elements */
 body {
-    font-family: 'Ubuntu', Verdana, sans-serif;
     font-size: 24px;
     padding: 2em;
-    background-color: #333;
     color: #eee;
+    background-image: url("http://img.stateful.co/background.png");
 }
 
 .container {
     width: 800px;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .header {
     text-align: center;
 }
 
-.buttons a {
-    font-size: 36px;
+.content {
+    color: #333;
 }
 
 .footer {
+    color: #ccc;
     text-align: center;
     font-size: 14px;
 }

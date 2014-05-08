@@ -185,26 +185,58 @@
         </pluginManagement>
         <plugins>
             <plugin>
+                <groupId>org.jasig.maven</groupId>
+                <artifactId>sass-maven-plugin</artifactId>
+                <version>1.1.1</version>
+                <executions>
+                    <execution>
+                        <id>generate-css</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>update-stylesheets</goal>
+                        </goals>
+                        <configuration>
+                            <sassSourceDirectory>${basedir}/src/main/scss</sassSourceDirectory>
+                            <destination>${project.build.directory}/css</destination>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>com.samaxes.maven</groupId>
                 <artifactId>minify-maven-plugin</artifactId>
                 <version>1.7.2</version>
+                <configuration>
+                    <charset>UTF-8</charset>
+                    <nosuffix>true</nosuffix>
+                </configuration>
                 <executions>
                     <execution>
+                        <id>minify-js</id>
+                        <goals>
+                            <goal>minify</goal>
+                        </goals>
                         <configuration>
-                            <charset>UTF-8</charset>
-                            <cssSourceIncludes>
-                                <include>*.css</include>
-                            </cssSourceIncludes>
                             <jsSourceIncludes>
                                 <include>*.js</include>
                             </jsSourceIncludes>
                             <jsEngine>CLOSURE</jsEngine>
-                            <nosuffix>true</nosuffix>
                             <skipMerge>true</skipMerge>
                         </configuration>
+                    </execution>
+                    <execution>
+                        <id>minify-css</id>
                         <goals>
                             <goal>minify</goal>
                         </goals>
+                        <configuration>
+                            <webappSourceDir>${project.build.directory}</webappSourceDir>
+                            <cssSourceDir>css</cssSourceDir>
+                            <cssSourceIncludes>
+                                <include>*.css</include>
+                            </cssSourceIncludes>
+                            <skipMerge>false</skipMerge>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -254,6 +286,9 @@
             <activation>
                 <file><exists>pom.xml</exists></file>
             </activation>
+            <properties>
+                <tomcat.home>${project.build.directory}/webapp-test</tomcat.home>
+            </properties>
             <build>
                 <plugins>
                     <plugin>
@@ -266,7 +301,7 @@
                                 </goals>
                                 <configuration>
                                     <warSourceExcludes>nothing/**</warSourceExcludes>
-                                    <webappDirectory>${project.build.directory}/tomcat-test</webappDirectory>
+                                    <webappDirectory>${tomcat.home}</webappDirectory>
                                 </configuration>
                             </execution>
                             <execution>
@@ -275,7 +310,7 @@
                                     <goal>manifest</goal>
                                 </goals>
                                 <configuration>
-                                    <warSourceDirectory>${project.build.directory}/tomcat-test</warSourceDirectory>
+                                    <warSourceDirectory>${tomcat.home}</warSourceDirectory>
                                     <archive>
                                         <manifestEntries>
                                             <Stateful-Version>1.0</Stateful-Version>
@@ -305,6 +340,27 @@
                         </executions>
                     </plugin>
                     <plugin>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>copy-compiled-css</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>${tomcat.home}/css</outputDirectory>
+                                    <resources>
+                                        <resource>
+                                            <directory>${project.build.directory}/${project.build.finalName}/css</directory>
+                                            <filtering>false</filtering>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
                             <systemPropertyVariables>
@@ -325,10 +381,9 @@
                         <artifactId>tomcat7-maven-plugin</artifactId>
                         <version>2.2</version>
                         <configuration>
-                            <port>${tomcat.port}</port>
+                            <port>9099</port>
                             <path>/</path>
-                            <fork>true</fork>
-                            <warDirectory>${project.build.directory}/tomcat-test</warDirectory>
+                            <warDirectory>${tomcat.home}</warDirectory>
                             <systemProperties>
                                 <log4j.configuration>file:${basedir}/src/test/resources/log4j.properties</log4j.configuration>
                             </systemProperties>
@@ -340,6 +395,10 @@
                                 <goals>
                                     <goal>run-war-only</goal>
                                 </goals>
+                                <configuration>
+                                    <port>${tomcat.port}</port>
+                                    <fork>true</fork>
+                                </configuration>
                             </execution>
                             <execution>
                                 <id>stop-tomcat</id>

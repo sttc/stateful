@@ -36,6 +36,7 @@ import com.jcabi.urn.URN;
 import com.rexsl.page.BasePage;
 import com.rexsl.page.BaseResource;
 import com.rexsl.page.Inset;
+import com.rexsl.page.Link;
 import com.rexsl.page.Resource;
 import com.rexsl.page.auth.AuthInset;
 import com.rexsl.page.auth.Facebook;
@@ -119,6 +120,23 @@ public class BaseRs extends BaseResource {
                 builder.header("X-Stateful-Version", BaseRs.VERSION_LABEL);
                 builder.type(MediaType.TEXT_XML);
                 builder.header(HttpHeaders.VARY, "Cookie");
+            }
+        };
+    }
+
+    /**
+     * Menu inset.
+     * @return The inset
+     */
+    @Inset.Runtime
+    public final Inset menu() {
+        return new Inset() {
+            @Override
+            public void render(final BasePage<?, ?> page,
+                final Response.ResponseBuilder builder) {
+                if (!BaseRs.this.auth().identity().equals(Identity.ANONYMOUS)) {
+                    page.link(new Link("menu:counters", "/counters"));
+                }
             }
         };
     }

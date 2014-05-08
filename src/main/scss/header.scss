@@ -1,5 +1,4 @@
-<?xml version="1.0"?>
-<!--
+/**
  * Copyright (c) 2014, stateful.co
  * All rights reserved.
  *
@@ -27,21 +26,13 @@
  * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
  * OF THE POSSIBILITY OF SUCH DAMAGE.
- -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.w3.org/1999/xhtml" version="2.0" exclude-result-prefixes="xs">
-    <xsl:output method="xml" omit-xml-declaration="yes" indent="yes"/>
-    <xsl:include href="/xsl/layout.xsl"/>
-    <xsl:template match="page" mode="head">
-        <title>
-            <xsl:text>stateful</xsl:text>
-        </title>
-    </xsl:template>
-    <xsl:template match="page" mode="body">
-        <p>
-            <xsl:text>
-                It is a collection of stateful primitives...
-                More documentation will appear here soon.
-            </xsl:text>
-        </p>
-    </xsl:template>
-</xsl:stylesheet>
+ */
+
+.buttons {
+    a {
+        font-size: 36px;
+        &:hover {
+        }
+    }
+}
+

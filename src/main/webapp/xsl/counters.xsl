@@ -31,14 +31,79 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.w3.org/1999/xhtml" version="2.0" exclude-result-prefixes="xs">
     <xsl:output method="xml" omit-xml-declaration="yes" indent="yes"/>
     <xsl:include href="/xsl/layout.xsl"/>
-    <xsl:template name="head">
+    <xsl:template match="page" mode="head">
         <title>
             <xsl:text>stateful</xsl:text>
         </title>
     </xsl:template>
-    <xsl:template name="content">
-        <p>
-            counters...
-        </p>
+    <xsl:template match="page" mode="body">
+        <h1>
+            <xsl:text>Atomic Counters</xsl:text>
+        </h1>
+        <div class="col-12 col-sm-8 col-lg-6">
+            <form method="post" class="form-inline">
+                <xsl:attribute name="action">
+                    <xsl:value-of select="/page/links/link[@rel='add']/@href"/>
+                </xsl:attribute>
+                <fieldset>
+                    <div class="input-group">
+                        <input name="name" type="text" class="form-control" placeholder="name of a new counter"/>
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-primary">
+                                <xsl:text>Add</xsl:text>
+                            </button>
+                        </span>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <xsl:choose>
+            <xsl:when test="counters/counter">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th style="width:40%;"><xsl:text>name</xsl:text></th>
+                            <th style="width:50%;"><xsl:text>value</xsl:text></th>
+                            <th><xsl:text>opts</xsl:text></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <xsl:apply-templates select="counters/counter"/>
+                    </tbody>
+                </table>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>You don't have any counters yet...</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <xsl:template match="counter">
+        <tr>
+            <td><xsl:value-of select="name"/></td>
+            <td>
+                <div class="input-group">
+                    <input type="text" class="form-control" value="?"/>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">
+                            <i class="fa fa-refresh"><xsl:comment>refresh</xsl:comment></i>
+                        </button>
+                        <button class="btn btn-default" type="button">
+                            <i class="fa fa-plus"><xsl:comment>plus</xsl:comment></i>
+                        </button>
+                        <button class="btn btn-default" type="button">
+                            <i class="fa fa-save"><xsl:comment>save</xsl:comment></i>
+                        </button>
+                    </span>
+                </div>
+            </td>
+            <td>
+                <a>
+                    <xsl:attribute name="href">
+                        <xsl:value-of select="links/link[@rel='delete']/@href"/>
+                    </xsl:attribute>
+                    <i class="fa fa-trash-o"><xsl:comment>empty</xsl:comment></i>
+                </a>
+            </td>
+        </tr>
     </xsl:template>
 </xsl:stylesheet>

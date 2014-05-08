@@ -2,17 +2,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title>Internal application error</title>
-        <link href="/css/screen.css?${buildNumber}"
+        <link href="/css/style.css?${buildNumber}"
             rel="stylesheet" type="text/css"></link>
         <link rel="icon" type="image/gif"
-            href="http://img.stateful.co/favicon.gif?${buildNumber}"/>
+            href="http://img.stateful.co/logo-128x128.png?${buildNumber}"/>
     </head>
     <body>
         <div id="content">
             <p>
                 <a href="http://www.stateful.co/">
-                    <img src="http://img.stateful.co/logo-384x128.png?${buildNumber}"
-                        style="width:192px;height:64px;"/>
+                    <img src="http://img.stateful.co/logo-256x256.png?${buildNumber}"
+                        style="width:64px;height:64px;"/>
                 </a>
             </p>
             <p>

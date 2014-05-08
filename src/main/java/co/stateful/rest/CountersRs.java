@@ -37,6 +37,7 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 /**
@@ -46,7 +47,7 @@ import javax.ws.rs.core.Response;
  * @version $Id$
  * @checkstyle MultipleStringLiteralsCheck (500 lines)
  */
-@Path("/c")
+@Path("/counters")
 public final class CountersRs extends BaseRs {
 
     /**
@@ -58,12 +59,11 @@ public final class CountersRs extends BaseRs {
     @Path("/")
     public Response index() throws Exception {
         return new PageBuilder()
-            .stylesheet("/xsl/index.xsl")
+            .stylesheet("/xsl/counters.xsl")
             .build(StPage.class)
             .init(this)
             .append(this.list())
             .link(new Link("add", "./add"))
-            .link(new Link("remove", "./remove"))
             .render()
             .build();
     }
@@ -90,9 +90,9 @@ public final class CountersRs extends BaseRs {
      * Delete a counter.
      * @param name Name of the counter
      */
-    @POST
+    @GET
     @Path("/delete")
-    public void delete(@FormParam("name") final String name) {
+    public void delete(@QueryParam("name") final String name) {
         this.user().counters().delete(name);
         throw this.flash().redirect(
             this.uriInfo().getBaseUriBuilder()
@@ -123,9 +123,8 @@ public final class CountersRs extends BaseRs {
                                 CountersRs.this.uriInfo().getBaseUriBuilder()
                                     .clone()
                                     .path(CounterRs.class)
-                                    .path(name)
                                     .path(CounterRs.class, "set")
-                                    .build()
+                                    .build(name)
                             )
                         )
                         .link(
@@ -134,9 +133,19 @@ public final class CountersRs extends BaseRs {
                                 CountersRs.this.uriInfo().getBaseUriBuilder()
                                     .clone()
                                     .path(CounterRs.class)
-                                    .path(name)
                                     .path(CounterRs.class, "increment")
-                                    .build()
+                                    .build(name)
+                            )
+                        )
+                        .link(
+                            new Link(
+                                "delete",
+                                CountersRs.this.uriInfo().getBaseUriBuilder()
+                                    .clone()
+                                    .path(CountersRs.class)
+                                    .path(CountersRs.class, "delete")
+                                    .queryParam("name", "{x}")
+                                    .build(name)
                             )
                         );
                 }
