@@ -29,33 +29,54 @@
  */
 package co.stateful.rest;
 
-import com.rexsl.page.PageBuilder;
-import javax.ws.rs.GET;
+import co.stateful.core.Counter;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 /**
- * Index resource, front page of the website.
+ * Counter of a user.
  *
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
  */
-@Path("/")
-public final class IndexRs extends BaseRs {
+@Path("/c/{name}")
+public final class CounterRs extends BaseRs {
 
     /**
-     * Get entrance page JAX-RS response.
+     * The counter we're working with.
+     */
+    private transient Counter counter;
+
+    /**
+     * Set counter.
+     */
+    @QueryParam("name")
+    private void setCounter(final String name) {
+        this.counter = this.user().counters().get(name);
+    }
+
+    /**
+     * Set counter.
      * @return The JAX-RS response
      */
-    @GET
-    @Path("/")
-    public Response index() {
-        return new PageBuilder()
-            .stylesheet("/xsl/index.xsl")
-            .build(StPage.class)
-            .init(this)
-            .render()
-            .build();
+    @PUT
+    @Path("/set")
+    public Response set(@QueryParam("value") final long value) {
+        this.counter.set(value);
+        return Response.ok().build();
+    }
+
+    /**
+     * Add counter.
+     * @return The JAX-RS response
+     */
+    @PUT
+    @Path("/add")
+    public Response increment(@QueryParam("value") final long value) {
+        final long fresh = this.counter.increment(value);
+        return Response.ok().entity(fresh).build();
     }
 
 }

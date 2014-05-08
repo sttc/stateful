@@ -165,6 +165,16 @@
                                 <Stateful-Version>${project.version}</Stateful-Version>
                                 <Stateful-Revision>${buildNumber}</Stateful-Revision>
                                 <Stateful-Date>${maven.build.timestamp}</Stateful-Date>
+                                <Stateful-FbId>${fb.id}</Stateful-FbId>
+                                <Stateful-FbSecret>${fb.secret}</Stateful-FbSecret>
+                                <Stateful-GoogleId>${google.id}</Stateful-GoogleId>
+                                <Stateful-GoogleSecret>${google.secret}</Stateful-GoogleSecret>
+                                <Stateful-GithubId>${github.id}</Stateful-GithubId>
+                                <Stateful-GithubSecret>${github.secret}</Stateful-GithubSecret>
+                                <Stateful-SecurityKey>${security.key}</Stateful-SecurityKey>
+                                <Stateful-DynamoKey>${dynamo.key}</Stateful-DynamoKey>
+                                <Stateful-DynamoSecret>${dynamo.secret}</Stateful-DynamoSecret>
+                                <Stateful-DynamoTable>${dynamo.table}</Stateful-DynamoTable>
                             </manifestEntries>
                         </archive>
                     </configuration>
@@ -263,7 +273,7 @@
                                     <goal>manifest</goal>
                                 </goals>
                                 <configuration>
-                                    <webappDirectory>${project.build.directory}/tomcat-test</webappDirectory>
+                                    <warSourceDirectory>${project.build.directory}/tomcat-test</warSourceDirectory>
                                     <archive>
                                         <manifestEntries>
                                             <Stateful-Version>1.0</Stateful-Version>

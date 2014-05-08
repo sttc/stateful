@@ -40,7 +40,7 @@ import javax.ws.rs.core.MediaType;
 import org.junit.Test;
 
 /**
- * Integration case for {@link IndexRs}.
+ * Integration case for {@link CountersRs}.
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
  * @since 1.6

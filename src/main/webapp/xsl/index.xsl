@@ -46,11 +46,7 @@
     </xsl:template>
     <xsl:template name="content">
         <p>
-            <img alt="logo" class="logo">
-                <xsl:attribute name="src">
-                    <xsl:text>http://img.stateful.co/logo-256x256.png</xsl:text>
-                </xsl:attribute>
-            </img>
+            <xsl:text>Hi, please login</xsl:text>
         </p>
     </xsl:template>
 </xsl:stylesheet>

@@ -29,16 +29,28 @@
  */
 package co.stateful.rest;
 
+import co.stateful.core.Base;
+import co.stateful.core.User;
 import com.jcabi.manifests.Manifests;
+import com.jcabi.urn.URN;
 import com.rexsl.page.BasePage;
 import com.rexsl.page.BaseResource;
 import com.rexsl.page.Inset;
 import com.rexsl.page.Resource;
+import com.rexsl.page.auth.AuthInset;
+import com.rexsl.page.auth.Facebook;
+import com.rexsl.page.auth.Github;
+import com.rexsl.page.auth.Google;
+import com.rexsl.page.auth.Identity;
+import com.rexsl.page.auth.Provider;
+import com.rexsl.page.inset.FlashInset;
 import com.rexsl.page.inset.VersionInset;
-import javax.validation.constraints.NotNull;
+import java.net.URI;
+import java.util.logging.Level;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import org.apache.commons.lang3.Validate;
 
 /**
  * Abstract RESTful resource.
@@ -52,12 +64,59 @@ import javax.ws.rs.core.Response;
 public class BaseRs extends BaseResource {
 
     /**
-     * Inset with a version of the product.
+     * Version of the system, to show in header.
+     */
+    private static final String VERSION_LABEL = String.format(
+        "%s/%s built on %s",
+        // @checkstyle MultipleStringLiterals (3 lines)
+        Manifests.read("Stateful-Version"),
+        Manifests.read("Stateful-Revision"),
+        Manifests.read("Stateful-Date")
+    );
+
+    /**
+     * Test authentication provider.
+     */
+    private static final Provider TESTER = new Provider() {
+        @Override
+        public Identity identity() {
+            final Identity identity;
+            if ("1234567".equals(Manifests.read("Stateful-Revision"))) {
+                identity = new Identity.Simple(
+                    URN.create("urn:test:123456"),
+                    "Locallost",
+                    URI.create("http://img.stateful.com/unknown.png")
+                );
+            } else {
+                identity = Identity.ANONYMOUS;
+            }
+            return identity;
+        }
+    };
+
+    /**
+     * Supplementary inset.
      * @return The inset
      */
-    @NotNull
     @Inset.Runtime
-    public final Inset insetVersion() {
+    public final Inset supplementary() {
+        return new Inset() {
+            @Override
+            public void render(final BasePage<?, ?> page,
+                final Response.ResponseBuilder builder) {
+                builder.header("X-Stateful-Version", BaseRs.VERSION_LABEL);
+                builder.type(MediaType.TEXT_XML);
+                builder.header(HttpHeaders.VARY, "Cookie");
+            }
+        };
+    }
+
+    /**
+     * Version inset.
+     * @return The inset
+     */
+    @Inset.Runtime
+    public final Inset version() {
         return new VersionInset(
             Manifests.read("Stateful-Version"),
             Manifests.read("Stateful-Revision"),
@@ -66,20 +125,46 @@ public class BaseRs extends BaseResource {
     }
 
     /**
-     * Supplementary inset.
+     * Authentication inset.
      * @return The inset
      */
-    @NotNull
     @Inset.Runtime
-    public final Inset insetSupplementary() {
-        return new Inset() {
-            @Override
-            public void render(final BasePage<?, ?> page,
-                final Response.ResponseBuilder builder) {
-                builder.type(MediaType.TEXT_XML);
-                builder.header(HttpHeaders.VARY, "Cookie");
-            }
-        };
+    public final AuthInset auth() {
+        // @checkstyle LineLength (4 lines)
+        return new AuthInset(this, Manifests.read("Stateful-SecurityKey"))
+            .with(new Facebook(this, Manifests.read("Stateful-FbId"), Manifests.read("Stateful-FbSecret")))
+            .with(new Google(this, Manifests.read("Stateful-GoogleId"), Manifests.read("Stateful-GoogleSecret")))
+            .with(new Github(this, Manifests.read("Stateful-GithubId"), Manifests.read("Stateful-GithubSecret")))
+            .with(BaseRs.TESTER);
     }
 
+    /**
+     * Get current user.
+     * @return User
+     */
+    protected final User user() {
+        final Identity identity = this.auth().identity();
+        if (identity.equals(Identity.ANONYMOUS)) {
+            throw FlashInset.forward(
+                this.uriInfo().getBaseUriBuilder().clone()
+                    .path(IndexRs.class)
+                    .build(),
+                "please login first",
+                Level.SEVERE
+            );
+        }
+        return this.base().user(identity.urn());
+    }
+
+    /**
+     * Get spi.
+     * @return The spi
+     */
+    protected final Base base() {
+        final Base base = Base.class.cast(
+            this.servletContext().getAttribute(Base.class.getName())
+        );
+        Validate.notNull(base, "spi is not initialized");
+        return base;
+    }
 }

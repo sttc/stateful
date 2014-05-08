@@ -29,33 +29,38 @@
  */
 package co.stateful.rest;
 
-import com.rexsl.page.PageBuilder;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.core.Response;
+import co.stateful.core.Base;
+import co.stateful.core.DefaultBase;
+import com.jcabi.aspects.Loggable;
+import com.jcabi.manifests.Manifests;
+import java.io.IOException;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
 
 /**
- * Index resource, front page of the website.
+ * Lifespan.
  *
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
  */
-@Path("/")
-public final class IndexRs extends BaseRs {
+@Loggable(Loggable.INFO)
+public final class Lifespan implements ServletContextListener {
 
-    /**
-     * Get entrance page JAX-RS response.
-     * @return The JAX-RS response
-     */
-    @GET
-    @Path("/")
-    public Response index() {
-        return new PageBuilder()
-            .stylesheet("/xsl/index.xsl")
-            .build(StPage.class)
-            .init(this)
-            .render()
-            .build();
+    @Override
+    public void contextInitialized(final ServletContextEvent event) {
+        try {
+            Manifests.append(event.getServletContext());
+        } catch (final IOException ex) {
+            throw new IllegalStateException(ex);
+        }
+        event.getServletContext().setAttribute(
+            Base.class.getName(), new DefaultBase()
+        );
+    }
+
+    @Override
+    public void contextDestroyed(final ServletContextEvent event) {
+        // nothing
     }
 
 }

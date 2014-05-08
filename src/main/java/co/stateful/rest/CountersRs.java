@@ -29,33 +29,75 @@
  */
 package co.stateful.rest;
 
+import com.rexsl.page.JaxbBundle;
+import com.rexsl.page.Link;
 import com.rexsl.page.PageBuilder;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
 /**
- * Index resource, front page of the website.
+ * Counters of a user.
  *
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
  */
-@Path("/")
-public final class IndexRs extends BaseRs {
+@Path("/c")
+public final class CountersRs extends BaseRs {
 
     /**
      * Get entrance page JAX-RS response.
      * @return The JAX-RS response
+     * @throws Exception If some problem inside
      */
     @GET
     @Path("/")
-    public Response index() {
+    public Response index() throws Exception {
         return new PageBuilder()
             .stylesheet("/xsl/index.xsl")
             .build(StPage.class)
             .init(this)
+            .append(this.list())
             .render()
             .build();
+    }
+
+    /**
+     * Get all counters of a user.
+     * @return Counters
+     */
+    private JaxbBundle list() {
+        return new JaxbBundle("counters").add(
+            new JaxbBundle.Group<String>(this.user().counters()) {
+                @Override
+                public JaxbBundle bundle(final String name) {
+                    return new JaxbBundle("counter")
+                        .add("name", name).up()
+                        .link(
+                            new Link(
+                                "set",
+                                CountersRs.this.uriInfo().getBaseUriBuilder()
+                                    .clone()
+                                    .path(CounterRs.class)
+                                    .path("{x1}")
+                                    .path(CounterRs.class, "set")
+                                    .build(name)
+                            )
+                        )
+                        .link(
+                            new Link(
+                                "increment",
+                                CountersRs.this.uriInfo().getBaseUriBuilder()
+                                    .clone()
+                                    .path(CounterRs.class)
+                                    .path("{x2}")
+                                    .path(CounterRs.class, "increment")
+                                    .build(name)
+                            )
+                        );
+                }
+            }
+        );
     }
 
 }
