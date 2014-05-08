@@ -30,8 +30,11 @@
 
 /* all elements */
 body {
-    font-size: 18px;
+    font-family: 'Ubuntu', Verdana, sans-serif;
+    font-size: 24px;
     padding: 2em;
+    background-color: #333;
+    color: #eee;
 }
 
 .container {
@@ -46,6 +49,6 @@ body {
 
 .footer {
     text-align: center;
-    font-size: 12px;
+    font-size: 14px;
 }
 

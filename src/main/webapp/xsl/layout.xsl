@@ -50,7 +50,11 @@
                         <xsl:text>http://img.stateful.co/logo-128x128.png</xsl:text>
                     </xsl:attribute>
                 </link>
-                <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"/>
+                <script type="text/javascript" src="//code.jquery.com/jquery-2.0.0.js">
+                    <xsl:text> </xsl:text>
+                    <!-- this is for W3C compliance -->
+                </script>
+                <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"/>
                 <xsl:call-template name="head"/>
             </head>
             <body>
@@ -79,7 +83,10 @@
                     </section>
                     <footer class="footer">
                         <div>
-                            <xsl:text>(c) stateful.co, all rights reserved</xsl:text>
+                            <xsl:text>(c) stateful.co</xsl:text>
+                        </div>
+                        <div>
+                            <xsl:text>all rights reserved</xsl:text>
                         </div>
                         <div>
                             <xsl:apply-templates select="version"/>

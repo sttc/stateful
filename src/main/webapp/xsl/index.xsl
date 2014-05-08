@@ -32,14 +32,6 @@
     <xsl:output method="xml" omit-xml-declaration="yes" indent="yes"/>
     <xsl:include href="/xsl/layout.xsl"/>
     <xsl:template name="head">
-        <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.0.js">
-            <xsl:text> </xsl:text>
-            <!-- this is for W3C compliance -->
-        </script>
-        <script type="text/javascript" src="/js/demo.js">
-            <xsl:text> </xsl:text>
-            <!-- this is for W3C compliance -->
-        </script>
         <title>
             <xsl:text>stateful</xsl:text>
         </title>
