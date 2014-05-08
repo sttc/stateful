@@ -89,16 +89,23 @@
         <tr>
             <td><xsl:value-of select="name"/></td>
             <td>
-                <div class="input-group">
-                    <input type="text" class="form-control" value="?"/>
+                <div class="input-group counter">
+                    <input type="text" class="form-control" value="?">
+                        <xsl:attribute name="data-href-set">
+                            <xsl:value-of select="links/link[@rel='set']/@href"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="data-href-increment">
+                            <xsl:value-of select="links/link[@rel='increment']/@href"/>
+                        </xsl:attribute>
+                    </input>
                     <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">
+                        <button class="refresh btn btn-default" type="button">
                             <i class="fa fa-refresh"><xsl:comment>refresh</xsl:comment></i>
                         </button>
-                        <button class="btn btn-default" type="button">
+                        <button class="increment btn btn-default" type="button">
                             <i class="fa fa-plus"><xsl:comment>plus</xsl:comment></i>
                         </button>
-                        <button class="btn btn-default" type="button">
+                        <button class="save btn btn-default" type="button">
                             <i class="fa fa-save"><xsl:comment>save</xsl:comment></i>
                         </button>
                     </span>

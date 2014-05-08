@@ -30,9 +30,13 @@
 package co.stateful.rest;
 
 import co.stateful.core.Counter;
+import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 /**
@@ -53,7 +57,7 @@ public final class CounterRs extends BaseRs {
      * Set counter.
      * @param name Counter name
      */
-    @QueryParam("cnt")
+    @PathParam("cnt")
     public void setCounter(final String name) {
         this.counter = this.user().counters().get(name);
     }
@@ -75,11 +79,13 @@ public final class CounterRs extends BaseRs {
      * @param value Value to add
      * @return The JAX-RS response
      */
-    @PUT
+    @GET
     @Path("/add")
+    @Produces(MediaType.TEXT_PLAIN)
     public Response increment(@QueryParam("value") final long value) {
-        final long fresh = this.counter.increment(value);
-        return Response.ok().entity(fresh).build();
+        return Response.ok()
+            .entity(Long.toString(this.counter.increment(value)))
+            .build();
     }
 
 }

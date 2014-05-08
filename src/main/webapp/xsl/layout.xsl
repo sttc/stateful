@@ -65,7 +65,7 @@
                         <div>
                             <img alt="logo" class="logo">
                                 <xsl:attribute name="src">
-                                    <xsl:text>http://img.stateful.co/logo-256x256.png</xsl:text>
+                                    <xsl:text>http://img.stateful.co/apple.svg</xsl:text>
                                 </xsl:attribute>
                             </img>
                         </div>

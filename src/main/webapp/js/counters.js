@@ -28,12 +28,44 @@
 
 /*globals $: false, document: false */
 
-/**
- * Run this method when the document is loaded
- */
 $(document).ready(
     function () {
-        'use strict';
-        // nothing for now
+        function input($this) {
+            return $this.closest('.counter').find('input');
+        }
+        function increment($input, value) {
+            $.ajax(
+                {
+                    url: $input.attr('data-href-increment') + '?value=' + value,
+                    success: function (data) {
+                        $input.val(data);
+                    }
+                }
+            );
+        }
+        $('.refresh').click(
+            function () {
+                increment(input($(this)), 0);
+            }
+        );
+        $('.increment').click(
+            function () {
+                increment(input($(this)), 1);
+            }
+        );
+        $('.save').click(
+            function () {
+                var $input = input($(this));
+                $.ajax(
+                    {
+                        type: 'PUT',
+                        url: $input.attr('data-href-set') + '?value=' + $input.val(),
+                        success: function (data) {
+                            increment($input, 0);
+                        }
+                    }
+                );
+            }
+        );
     }
 );
