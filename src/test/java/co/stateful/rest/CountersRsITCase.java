@@ -58,7 +58,10 @@ public final class CountersRsITCase {
     @Test
     public void listsCounters() throws Exception {
         new JdkRequest(CountersRsITCase.HOME)
-            .uri().path("/c").back()
+            .header(HttpHeaders.ACCEPT, MediaType.TEXT_XML)
+            .fetch()
+            .as(XmlResponse.class)
+            .rel("/page/links/link[@rel='menu:counters']/@href")
             .header(HttpHeaders.ACCEPT, MediaType.TEXT_XML)
             .fetch()
             .as(RestResponse.class)
@@ -74,7 +77,10 @@ public final class CountersRsITCase {
     @Test
     public void rendersValidHtml() throws Exception {
         new JdkRequest(CountersRsITCase.HOME)
-            .uri().path("/c").back()
+            .header(HttpHeaders.ACCEPT, MediaType.TEXT_XML)
+            .fetch()
+            .as(XmlResponse.class)
+            .rel("/page/links/link[@rel='menu:counters']/@href")
             .header(HttpHeaders.ACCEPT, MediaType.TEXT_HTML)
             .fetch()
             .as(RestResponse.class)

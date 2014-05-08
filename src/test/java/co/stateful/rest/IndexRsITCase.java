@@ -63,7 +63,7 @@ public final class IndexRsITCase {
             "/robots.txt",
             "/xsl/layout.xsl",
             "/xsl/index.xsl",
-            "/css/screen.css",
+            "/css/style.css",
         };
         for (final String page : pages) {
             new JdkRequest(IndexRsITCase.HOME)

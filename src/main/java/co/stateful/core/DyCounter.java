@@ -32,6 +32,7 @@ package co.stateful.core;
 import com.jcabi.aspects.Immutable;
 import com.jcabi.aspects.Loggable;
 import com.jcabi.urn.URN;
+import java.security.SecureRandom;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
@@ -75,6 +76,6 @@ final class DyCounter implements Counter {
 
     @Override
     public long increment(final long delta) {
-        return 0L;
+        return new SecureRandom().nextLong();
     }
 }

@@ -41,7 +41,7 @@ import javax.ws.rs.core.Response;
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
  */
-@Path("/c/{name}")
+@Path("/c/{cnt}")
 public final class CounterRs extends BaseRs {
 
     /**
@@ -53,7 +53,7 @@ public final class CounterRs extends BaseRs {
      * Set counter.
      * @param name Counter name
      */
-    @QueryParam("name")
+    @QueryParam("cnt")
     public void setCounter(final String name) {
         this.counter = this.user().counters().get(name);
     }

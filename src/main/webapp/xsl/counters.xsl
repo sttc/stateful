@@ -35,6 +35,14 @@
         <title>
             <xsl:text>stateful</xsl:text>
         </title>
+        <script type="text/javascript">
+            <xsl:attribute name="src">
+                <xsl:text>/js/counters.js?</xsl:text>
+                <xsl:value-of select="version/name"/>
+            </xsl:attribute>
+            <xsl:text> </xsl:text>
+            <!-- this is for W3C compliance -->
+        </script>
     </xsl:template>
     <xsl:template match="page" mode="body">
         <h1>

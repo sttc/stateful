@@ -51,6 +51,11 @@ import javax.ws.rs.core.Response;
 public final class CountersRs extends BaseRs {
 
     /**
+     * Query param.
+     */
+    private static final String PARAM = "name";
+
+    /**
      * Get entrance page JAX-RS response.
      * @return The JAX-RS response
      * @throws Exception If some problem inside
@@ -74,7 +79,7 @@ public final class CountersRs extends BaseRs {
      */
     @POST
     @Path("/add")
-    public void add(@FormParam("name") final String name) {
+    public void add(@FormParam(CountersRs.PARAM) final String name) {
         this.user().counters().create(name);
         throw this.flash().redirect(
             this.uriInfo().getBaseUriBuilder()
@@ -92,7 +97,7 @@ public final class CountersRs extends BaseRs {
      */
     @GET
     @Path("/delete")
-    public void delete(@QueryParam("name") final String name) {
+    public void delete(@QueryParam(CountersRs.PARAM) final String name) {
         this.user().counters().delete(name);
         throw this.flash().redirect(
             this.uriInfo().getBaseUriBuilder()
@@ -144,7 +149,7 @@ public final class CountersRs extends BaseRs {
                                     .clone()
                                     .path(CountersRs.class)
                                     .path(CountersRs.class, "delete")
-                                    .queryParam("name", "{x}")
+                                    .queryParam(CountersRs.PARAM, "{x}")
                                     .build(name)
                             )
                         );

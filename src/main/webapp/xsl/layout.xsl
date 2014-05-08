@@ -53,6 +53,10 @@
                         <xsl:value-of select="version/name"/>
                     </xsl:attribute>
                 </link>
+                <script type="text/javascript" src="//code.jquery.com/jquery-2.0.0.js">
+                    <xsl:text> </xsl:text>
+                    <!-- this is for W3C compliance -->
+                </script>
                 <xsl:apply-templates select="." mode="head"/>
             </head>
             <body>
@@ -110,18 +114,6 @@
                         </div>
                     </footer>
                 </div>
-                <script type="text/javascript" src="//code.jquery.com/jquery-2.0.0.js">
-                    <xsl:text> </xsl:text>
-                    <!-- this is for W3C compliance -->
-                </script>
-                <script type="text/javascript">
-                    <xsl:attribute name="src">
-                        <xsl:text>/js/all.js?</xsl:text>
-                        <xsl:value-of select="version/name"/>
-                    </xsl:attribute>
-                    <xsl:text> </xsl:text>
-                    <!-- this is for W3C compliance -->
-                </script>
                 <script type="text/javascript">
                     //<![CDATA[
                     (function(i,s,o,g,r,a,m){i.GoogleAnalyticsObject=r;i[r]=i[r]||function(){
