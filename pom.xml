@@ -71,20 +71,8 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.jcabi</groupId>
-            <artifactId>jcabi-log</artifactId>
         </dependency>
         <dependency>
             <groupId>com.jcabi</groupId>
@@ -113,7 +101,7 @@
         </dependency>
         <dependency>
             <groupId>com.jcabi</groupId>
-            <artifactId>jcabi-xml</artifactId>
+            <artifactId>jcabi-urn</artifactId>
         </dependency>
         <dependency>
             <groupId>com.sun.jersey</groupId>
@@ -277,7 +265,7 @@
                                     <archive>
                                         <manifestEntries>
                                             <Stateful-Version>1.0</Stateful-Version>
-                                            <Stateful-Revision>123456</Stateful-Revision>
+                                            <Stateful-Revision>1234567</Stateful-Revision>
                                             <Stateful-Date>${maven.build.timestamp}</Stateful-Date>
                                         </manifestEntries>
                                     </archive>

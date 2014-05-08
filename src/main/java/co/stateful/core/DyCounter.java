@@ -71,7 +71,6 @@ final class DyCounter implements Counter {
     public void set(final long value) {
         assert this.owner != null;
         assert this.name != null;
-        // nothing
     }
 
     @Override

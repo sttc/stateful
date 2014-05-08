@@ -59,6 +59,7 @@ import org.apache.commons.lang3.Validate;
  *
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
+ * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
  */
 @Resource.Forwarded
 public class BaseRs extends BaseResource {
@@ -84,7 +85,7 @@ public class BaseRs extends BaseResource {
             if ("1234567".equals(Manifests.read("Stateful-Revision"))) {
                 identity = new Identity.Simple(
                     URN.create("urn:test:123456"),
-                    "Locallost",
+                    "Localhost",
                     URI.create("http://img.stateful.com/unknown.png")
                 );
             } else {

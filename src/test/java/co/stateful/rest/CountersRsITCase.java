@@ -29,57 +29,40 @@
  */
 package co.stateful.rest;
 
-import co.stateful.core.Counter;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Response;
+import com.jcabi.http.request.JdkRequest;
+import com.jcabi.http.response.RestResponse;
+import com.jcabi.http.response.XmlResponse;
+import java.net.HttpURLConnection;
+import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.MediaType;
+import org.junit.Test;
 
 /**
- * Counter of a user.
- *
+ * Integration case for {@link CountersRs}.
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
  */
-@Path("/c/{name}")
-public final class CounterRs extends BaseRs {
+public final class CountersRsITCase {
 
     /**
-     * The counter we're working with.
+     * Tomcat home.
      */
-    private transient Counter counter;
+    private static final String HOME = System.getProperty("tomcat.home");
 
     /**
-     * Set counter.
-     * @param name Counter name
+     * CountersRs can list counters.
+     * @throws Exception If some problem inside
      */
-    @QueryParam("name")
-    public void setCounter(final String name) {
-        this.counter = this.user().counters().get(name);
-    }
-
-    /**
-     * Set counter.
-     * @param value Value to set
-     * @return The JAX-RS response
-     */
-    @PUT
-    @Path("/set")
-    public Response set(@QueryParam("value") final long value) {
-        this.counter.set(value);
-        return Response.ok().build();
-    }
-
-    /**
-     * Add counter.
-     * @param value Value to add
-     * @return The JAX-RS response
-     */
-    @PUT
-    @Path("/add")
-    public Response increment(@QueryParam("value") final long value) {
-        final long fresh = this.counter.increment(value);
-        return Response.ok().entity(fresh).build();
+    @Test
+    public void listsCounters() throws Exception {
+        new JdkRequest(CountersRsITCase.HOME)
+            .uri().path("/c").back()
+            .header(HttpHeaders.ACCEPT, MediaType.TEXT_XML)
+            .fetch()
+            .as(RestResponse.class)
+            .assertStatus(HttpURLConnection.HTTP_OK)
+            .as(XmlResponse.class)
+            .assertXPath("/page/counters/counter/name");
     }
 
 }

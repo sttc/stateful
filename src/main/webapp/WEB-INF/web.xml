@@ -50,6 +50,9 @@
         <servlet-name>default</servlet-name>
         <url-pattern>/js/*</url-pattern>
     </servlet-mapping>
+    <listener>
+        <listener-class>co.stateful.rest.Lifespan</listener-class>
+    </listener>
     <servlet>
         <servlet-name>ExceptionTrap</servlet-name>
         <servlet-class>com.rexsl.core.ExceptionTrap</servlet-class>

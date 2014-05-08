@@ -36,6 +36,7 @@ import com.jcabi.manifests.Manifests;
 import java.io.IOException;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import javax.validation.constraints.NotNull;
 
 /**
  * Lifespan.
@@ -47,7 +48,7 @@ import javax.servlet.ServletContextListener;
 public final class Lifespan implements ServletContextListener {
 
     @Override
-    public void contextInitialized(final ServletContextEvent event) {
+    public void contextInitialized(@NotNull final ServletContextEvent event) {
         try {
             Manifests.append(event.getServletContext());
         } catch (final IOException ex) {

@@ -41,6 +41,7 @@ import javax.ws.rs.core.Response;
  *
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
+ * @checkstyle MultipleStringLiteralsCheck (500 lines)
  */
 @Path("/c")
 public final class CountersRs extends BaseRs {
@@ -68,20 +69,22 @@ public final class CountersRs extends BaseRs {
      */
     private JaxbBundle list() {
         return new JaxbBundle("counters").add(
+            // @checkstyle AnonInnerLengthCheck (50 lines)
             new JaxbBundle.Group<String>(this.user().counters()) {
                 @Override
                 public JaxbBundle bundle(final String name) {
                     return new JaxbBundle("counter")
-                        .add("name", name).up()
+                        .add("name", name)
+                        .up()
                         .link(
                             new Link(
                                 "set",
                                 CountersRs.this.uriInfo().getBaseUriBuilder()
                                     .clone()
                                     .path(CounterRs.class)
-                                    .path("{x1}")
+                                    .path(name)
                                     .path(CounterRs.class, "set")
-                                    .build(name)
+                                    .build()
                             )
                         )
                         .link(
@@ -90,9 +93,9 @@ public final class CountersRs extends BaseRs {
                                 CountersRs.this.uriInfo().getBaseUriBuilder()
                                     .clone()
                                     .path(CounterRs.class)
-                                    .path("{x2}")
+                                    .path(name)
                                     .path(CounterRs.class, "increment")
-                                    .build(name)
+                                    .build()
                             )
                         );
                 }

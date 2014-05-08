@@ -40,10 +40,9 @@ import javax.ws.rs.core.MediaType;
 import org.junit.Test;
 
 /**
- * Integration case for {@link CountersRs}.
+ * Integration case for {@link IndexRs}.
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
- * @since 1.6
  */
 @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
 public final class IndexRsITCase {
