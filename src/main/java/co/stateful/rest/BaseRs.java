@@ -65,7 +65,7 @@ import org.apache.commons.lang3.Validate;
  * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
  */
 @Resource.Forwarded
-@Inset.Default({ LinksInset.class, FlashInset.class })
+@Inset.Default(LinksInset.class)
 @SuppressWarnings("PMD.TooManyMethods")
 public class BaseRs extends BaseResource {
 
