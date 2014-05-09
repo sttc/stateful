@@ -195,7 +195,7 @@
                                 <Stateful-SecurityKey>${security.key}</Stateful-SecurityKey>
                                 <Stateful-DynamoKey>${dynamo.key}</Stateful-DynamoKey>
                                 <Stateful-DynamoSecret>${dynamo.secret}</Stateful-DynamoSecret>
-                                <Stateful-DynamoPrefix>${dynamo.table}</Stateful-DynamoPrefix>
+                                <Stateful-DynamoPrefix>${dynamo.prefix}</Stateful-DynamoPrefix>
                             </manifestEntries>
                         </archive>
                     </configuration>
