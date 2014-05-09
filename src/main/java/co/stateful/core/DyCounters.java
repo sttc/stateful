@@ -33,6 +33,7 @@ import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.google.common.base.Function;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterators;
+import com.jcabi.aspects.Cacheable;
 import com.jcabi.aspects.Immutable;
 import com.jcabi.aspects.Loggable;
 import com.jcabi.dynamo.Attributes;
@@ -42,6 +43,7 @@ import com.jcabi.dynamo.QueryValve;
 import com.jcabi.dynamo.Table;
 import com.jcabi.urn.URN;
 import java.util.Iterator;
+import java.util.concurrent.TimeUnit;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
@@ -98,6 +100,7 @@ final class DyCounters implements Counters {
     }
 
     @Override
+    @Cacheable.FlushAfter
     public void create(final String name) {
         this.table.put(
             new Attributes()
@@ -108,6 +111,7 @@ final class DyCounters implements Counters {
     }
 
     @Override
+    @Cacheable.FlushAfter
     public void delete(final String name) {
         Iterators.removeIf(
             this.table.frame()
@@ -123,6 +127,7 @@ final class DyCounters implements Counters {
     }
 
     @Override
+    @Cacheable(lifetime = 1, unit = TimeUnit.HOURS)
     public Counter get(final String name) {
         return new DyCounter(
             this.table.frame()
@@ -138,6 +143,7 @@ final class DyCounters implements Counters {
     }
 
     @Override
+    @Cacheable(lifetime = 1, unit = TimeUnit.HOURS)
     public Iterator<String> iterator() {
         return Iterators.transform(
             this.table.frame()
