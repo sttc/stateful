@@ -2,19 +2,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title>Internal application error</title>
-        <link href="/css/style.css?${buildNumber}"
-            rel="stylesheet" type="text/css"></link>
-        <link rel="icon" type="image/gif"
-            href="http://img.stateful.co/logo.svg?${buildNumber}"/>
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"/>
+        <link href="/css/style.css?${buildNumber}" rel="stylesheet" type="text/css"/>
+        <link rel="icon" type="image/gif" href="http://img.stateful.co/logo.svg?${buildNumber}"/>
     </head>
     <body>
         <p>
-            <a href="http://www.stateful.co/">
+            <a href="/">
                 <img src="http://img.stateful.co/logo.svg?${buildNumber}" class="logo"/>
             </a>
         </p>
         <p class="alert alert-danger">
-            Internal application error (${buildNumber}).
+            Internal application error (<code>${buildNumber}</code>).
         </p>
         <pre>${text}</pre>
     </body>

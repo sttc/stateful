@@ -162,6 +162,16 @@
         <pluginManagement>
             <plugins>
                 <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>build-helper-maven-plugin</artifactId>
+                    <version>1.8</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.tomcat.maven</groupId>
+                    <artifactId>tomcat7-maven-plugin</artifactId>
+                    <version>2.2</version>
+                </plugin>
+                <plugin>
                     <artifactId>maven-deploy-plugin</artifactId>
                     <configuration>
                         <skip>true</skip>
@@ -344,7 +354,6 @@
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>build-helper-maven-plugin</artifactId>
-                        <version>1.8</version>
                         <executions>
                             <execution>
                                 <goals>
@@ -382,7 +391,7 @@
                     <plugin>
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
-                            <systemPropertyVariables>
+                            <systemPropertyVariables combine.children="append">
                                 <tomcat.home>http://localhost:${tomcat.port}</tomcat.home>
                             </systemPropertyVariables>
                         </configuration>
@@ -398,7 +407,6 @@
                     <plugin>
                         <groupId>org.apache.tomcat.maven</groupId>
                         <artifactId>tomcat7-maven-plugin</artifactId>
-                        <version>2.2</version>
                         <configuration>
                             <port>9099</port>
                             <path>/</path>
@@ -462,7 +470,6 @@
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>build-helper-maven-plugin</artifactId>
-                        <version>1.8</version>
                         <executions>
                             <execution>
                                 <id>reserver-dynamodb-port</id>
@@ -504,9 +511,19 @@
                     <plugin>
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
-                            <systemPropertyVariables>
+                            <systemPropertyVariables combine.children="append">
                                 <dynamo.port>${dynamodblocal.port}</dynamo.port>
                             </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.tomcat.maven</groupId>
+                        <artifactId>tomcat7-maven-plugin</artifactId>
+                        <configuration>
+                            <systemProperties combine.children="append">
+                                <dynamo.port>${dynamodblocal.port}</dynamo.port>
+                                <log4j.configuration>file:${basedir}/src/test/resources/log4j.properties</log4j.configuration>
+                            </systemProperties>
                         </configuration>
                     </plugin>
                 </plugins>

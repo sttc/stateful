@@ -105,6 +105,7 @@
                             </xsl:otherwise>
                         </xsl:choose>
                     </header>
+                    <xsl:apply-templates select="flash"/>
                     <section class="content well well-lg">
                         <xsl:apply-templates select="." mode="body"/>
                     </section>

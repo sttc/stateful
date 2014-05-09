@@ -48,7 +48,7 @@
         <h1>
             <xsl:text>Atomic Counters</xsl:text>
         </h1>
-        <div class="col-12 col-sm-8 col-lg-6" style="padding-left:0;">
+        <div class="col-12 col-sm-8 col-lg-6 clearfix" style="padding-left:0;">
             <form method="post" class="form-inline">
                 <xsl:attribute name="action">
                     <xsl:value-of select="/page/links/link[@rel='add']/@href"/>
@@ -79,43 +79,52 @@
                         <xsl:apply-templates select="counters/counter"/>
                     </tbody>
                 </table>
-                <xsl:text>
-                    Counters are accessible through RESTful API. There
-                    are two operations availables on every counter:
-                </xsl:text>
-                <code>set</code><xsl:text> and </xsl:text><code>increment</code><xsl:text>.</xsl:text>
-                <code>Set</code><xsl:text> returns nothing, while </xsl:text><code>increment</code>
-                <xsl:text>
-                    returns current value of the counter. In order to read without changing
-                    you just increment by zero.
-                </xsl:text>
-                <xsl:text>
-                    For example, in order to set the first counter in your list to 123, you
-                    make an HTTP request:
-                </xsl:text>
-                <code>
-                    <xsl:value-of select="counters/counter[1]/links/link[@rel='set']/@href"/>
-                    <xsl:text>?value=123</xsl:text>
-                </code>
-                <xsl:text>
-                    In order to increment the same counter by 54, you
-                    make an HTTP request:
-                </xsl:text>
-                <code>
-                    <xsl:value-of select="counters/counter[1]/links/link[@rel='increment']/@href"/>
-                    <xsl:text>?value=54</xsl:text>
-                </code>
-                <xsl:text>
-                    In every request you should provide an HTTP header
-                    with an authentication token:
-                </xsl:text>
-                <pre>
-                    <xsl:text>X-Stateful-Token: </xsl:text>
-                    <xsl:value-of select="token"/>
-                </pre>
+                <p>
+                    <xsl:text>
+                        Counters are accessible through RESTful API. There
+                        are two operations availables on every counter:
+                    </xsl:text>
+                    <code>set</code><xsl:text> and </xsl:text><code>inc</code><xsl:text>.</xsl:text>
+                    <code>Set</code><xsl:text> returns nothing, while </xsl:text><code>inc</code>
+                    <xsl:text>
+                        returns current value of the counter. In order to read without changing
+                        you just increment by zero.
+                    </xsl:text>
+                </p>
+                <p>
+                    <xsl:text>
+                        For example, in order to set the first counter in your list to 123, you
+                        make a PUT request:
+                    </xsl:text>
+                    <code>
+                        <xsl:value-of select="counters/counter[1]/links/link[@rel='set']/@href"/>
+                        <xsl:text>?value=123</xsl:text>
+                    </code>
+                </p>
+                <p>
+                    <xsl:text>
+                        In order to increment the same counter by 54, you
+                        make a GET request:
+                    </xsl:text>
+                    <code>
+                        <xsl:value-of select="counters/counter[1]/links/link[@rel='increment']/@href"/>
+                        <xsl:text>?value=54</xsl:text>
+                    </code>
+                </p>
+                <p>
+                    <xsl:text>
+                        In every HTTP request you should set an authentication header
+                    </xsl:text>
+                    <code>X-Stateful-Token</code>
+                    <xsl:text> to </xsl:text>
+                    <code><xsl:value-of select="token"/></code>
+                    <xsl:text>.</xsl:text>
+                </p>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:text>You don't have any counters yet...</xsl:text>
+                <p class="clearfix">
+                    <xsl:text>You don't have any counters yet...</xsl:text>
+                </p>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>

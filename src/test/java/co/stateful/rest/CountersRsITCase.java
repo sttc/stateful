@@ -81,6 +81,7 @@ public final class CountersRsITCase {
             .fetch()
             .as(XmlResponse.class)
             .assertXPath("/page/token")
+            .assertXPath("/page/flash")
             .assertXPath("/page/counters/counter[name='foo-15']");
     }
 

@@ -31,12 +31,14 @@ package co.stateful.rest;
 
 import co.stateful.core.Counter;
 import java.math.BigDecimal;
+import java.net.HttpURLConnection;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -71,7 +73,7 @@ public final class CounterRs extends BaseRs {
     @PUT
     @Path("/set")
     public Response set(@QueryParam("value") final String value) {
-        this.counter.set(new BigDecimal(value));
+        this.counter.set(this.decimal(value));
         return Response.ok().build();
     }
 
@@ -81,12 +83,28 @@ public final class CounterRs extends BaseRs {
      * @return The JAX-RS response
      */
     @GET
-    @Path("/add")
+    @Path("/inc")
     @Produces(MediaType.TEXT_PLAIN)
     public Response increment(@QueryParam("value") final String value) {
         return Response.ok()
-            .entity(this.counter.increment(new BigDecimal(value)))
+            .entity(this.counter.increment(this.decimal(value)).toString())
             .build();
+    }
+
+    /**
+     * Convert string to decimal.
+     * @param text Text to convert
+     * @return Decimal
+     */
+    private BigDecimal decimal(final String text) {
+        if (!text.matches("-?[0-9]+")) {
+            throw new WebApplicationException(
+                Response.status(HttpURLConnection.HTTP_BAD_REQUEST)
+                    .entity("only integer allowed as a value")
+                    .build()
+            );
+        }
+        return new BigDecimal(text);
     }
 
 }
