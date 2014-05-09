@@ -47,6 +47,11 @@ public interface User {
     String token();
 
     /**
+     * Refresh the token.
+     */
+    void refresh();
+
+    /**
      * Get his counters.
      * @return Counters
      */

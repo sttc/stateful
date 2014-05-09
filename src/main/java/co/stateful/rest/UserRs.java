@@ -27,74 +27,35 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package co.stateful.core;
+package co.stateful.rest;
 
-import com.jcabi.aspects.Immutable;
-import com.jcabi.aspects.Loggable;
-import com.jcabi.dynamo.Credentials;
-import com.jcabi.dynamo.Region;
-import com.jcabi.dynamo.Table;
-import com.jcabi.manifests.Manifests;
-import com.jcabi.urn.URN;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import java.util.logging.Level;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
 
 /**
- * Default user.
+ * User manipulations.
  *
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
  */
-@Immutable
-@ToString
-@EqualsAndHashCode
-@Loggable(Loggable.DEBUG)
-final class DefaultUser implements User {
+@Path("/u")
+public final class UserRs extends BaseRs {
 
     /**
-     * Name of the user.
+     * Refresh the token.
      */
-    private final transient URN name;
-
-    /**
-     * Counters table.
-     */
-    private final transient Table cntrs;
-
-    /**
-     * Ctor.
-     * @param urn Name of it
-     */
-    DefaultUser(final URN urn) {
-        this.name = urn;
-        final String key = Manifests.read("Stateful-DynamoKey");
-        Credentials creds = new Credentials.Simple(
-            key,
-            Manifests.read("Stateful-DynamoSecret")
+    @GET
+    @Path("/refresh")
+    public void index() {
+        throw this.flash().redirect(
+            this.uriInfo().getBaseUriBuilder()
+                .clone()
+                .path(IndexRs.class)
+                .build(),
+            "security token successfully refreshed",
+            Level.INFO
         );
-        if ("AAAAABBBBBAAAAABBBBB".equals(key)) {
-            creds = new Credentials.Direct(
-                creds, Integer.parseInt(System.getProperty("dynamo.port"))
-            );
-        }
-        this.cntrs = new Region.Prefixed(
-            new Region.Simple(creds),
-            Manifests.read("Stateful-DynamoPrefix")
-        ).table(DyCounters.TBL);
     }
 
-    @Override
-    public String token() {
-        return "ABCD-EFGH-IGHY";
-    }
-
-    @Override
-    public void refresh() {
-        // nothing
-    }
-
-    @Override
-    public Counters counters() {
-        return new DyCounters(this.cntrs, this.name);
-    }
 }

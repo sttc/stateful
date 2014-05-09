@@ -157,6 +157,7 @@ public class BaseRs extends BaseResource {
                     page.append(
                         new JaxbBundle("token", BaseRs.this.user().token())
                     );
+                    page.link(new Link("user:refresh", "/u/refresh"));
                 }
             }
         };

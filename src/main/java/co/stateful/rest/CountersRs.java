@@ -80,6 +80,16 @@ public final class CountersRs extends BaseRs {
     @POST
     @Path("/add")
     public void add(@FormParam(CountersRs.PARAM) final String name) {
+        if (!name.matches("[0-9a-zA-Z\\-:]+")) {
+            throw this.flash().redirect(
+                this.uriInfo().getBaseUriBuilder()
+                    .clone()
+                    .path(CountersRs.class)
+                    .build(),
+                "letters, numbers, colons and dashes only",
+                Level.WARNING
+            );
+        }
         this.user().counters().create(name);
         throw this.flash().redirect(
             this.uriInfo().getBaseUriBuilder()

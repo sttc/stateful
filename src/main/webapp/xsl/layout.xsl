@@ -80,10 +80,18 @@
                                     <xsl:apply-templates select="identity"/>
                                 </div>
                                 <div class="token">
-                                    <xsl:text>token: </xsl:text>
+                                    <span><xsl:text>token: </xsl:text></span>
                                     <code>
                                         <xsl:value-of select="token"/>
                                     </code>
+                                    <span>
+                                        <a>
+                                            <xsl:attribute name="href">
+                                                <xsl:value-of select="links/link[@rel='user:refresh']/@href"/>
+                                            </xsl:attribute>
+                                            <i class="fa fa-refresh"><xsl:comment>refresh</xsl:comment></i>
+                                        </a>
+                                    </span>
                                 </div>
                                 <nav class="menu">
                                     <ul class="list-inline">
@@ -152,49 +160,59 @@
         </xsl:choose>
     </xsl:template>
     <xsl:template match="version">
-        <xsl:value-of select="name"/>
-        <xsl:text> </xsl:text>
-        <xsl:value-of select="revision"/>
-        <xsl:text> </xsl:text>
-        <xsl:call-template name="millis">
-            <xsl:with-param name="millis" select="/page/millis"/>
-        </xsl:call-template>
+        <span>
+            <xsl:value-of select="name"/>
+        </span>
+        <span>
+            <xsl:value-of select="revision"/>
+        </span>
+        <span>
+            <xsl:call-template name="millis">
+                <xsl:with-param name="millis" select="/page/millis"/>
+            </xsl:call-template>
+        </span>
     </xsl:template>
     <xsl:template match="identity">
-        <img class="photo">
-            <xsl:attribute name="src">
-                <xsl:value-of select="photo"/>
-            </xsl:attribute>
-            <xsl:attribute name="alt">
-                <xsl:value-of select="name"/>
-            </xsl:attribute>
-        </img>
+        <span>
+            <img class="photo">
+                <xsl:attribute name="src">
+                    <xsl:value-of select="photo"/>
+                </xsl:attribute>
+                <xsl:attribute name="alt">
+                    <xsl:value-of select="name"/>
+                </xsl:attribute>
+            </img>
+        </span>
         <span class="name">
             <xsl:value-of select="name"/>
         </span>
-        <i>
-            <xsl:attribute name="class">
-                <xsl:text>auth fa </xsl:text>
-                <xsl:choose>
-                    <xsl:when test="starts-with(urn, 'urn:facebook:')">
-                        <xsl:text>fa-facebook-square</xsl:text>
-                    </xsl:when>
-                    <xsl:when test="starts-with(urn, 'urn:google:')">
-                        <xsl:text>fa-google-plus-square</xsl:text>
-                    </xsl:when>
-                    <xsl:when test="starts-with(urn, 'urn:github:')">
-                        <xsl:text>fa-github-square</xsl:text>
-                    </xsl:when>
-                </xsl:choose>
-            </xsl:attribute>
-            <xsl:comment>icon</xsl:comment>
-        </i>
-        <a>
-            <xsl:attribute name="href">
-                <xsl:value-of select="/page/links/link[@rel='rexsl:logout']/@href"/>
-            </xsl:attribute>
-            <i class="fa fa-sign-out"><xsl:comment>logout</xsl:comment></i>
-        </a>
+        <span>
+            <i>
+                <xsl:attribute name="class">
+                    <xsl:text>auth fa </xsl:text>
+                    <xsl:choose>
+                        <xsl:when test="starts-with(urn, 'urn:facebook:')">
+                            <xsl:text>fa-facebook-square</xsl:text>
+                        </xsl:when>
+                        <xsl:when test="starts-with(urn, 'urn:google:')">
+                            <xsl:text>fa-google-plus-square</xsl:text>
+                        </xsl:when>
+                        <xsl:when test="starts-with(urn, 'urn:github:')">
+                            <xsl:text>fa-github-square</xsl:text>
+                        </xsl:when>
+                    </xsl:choose>
+                </xsl:attribute>
+                <xsl:comment>icon</xsl:comment>
+            </i>
+        </span>
+        <span>
+            <a>
+                <xsl:attribute name="href">
+                    <xsl:value-of select="/page/links/link[@rel='rexsl:logout']/@href"/>
+                </xsl:attribute>
+                <i class="fa fa-sign-out"><xsl:comment>logout</xsl:comment></i>
+            </a>
+        </span>
     </xsl:template>
     <xsl:template match="flash">
         <div>
