@@ -33,6 +33,7 @@ import com.jcabi.http.request.JdkRequest;
 import com.jcabi.http.response.RestResponse;
 import com.jcabi.http.response.XmlResponse;
 import com.jcabi.matchers.NoBrokenLinks;
+import com.jcabi.matchers.W3CMatchers;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import javax.ws.rs.core.HttpHeaders;
@@ -128,6 +129,24 @@ public final class IndexRsITCase {
             .assertStatus(HttpURLConnection.HTTP_OK)
             .as(XmlResponse.class)
             .assertXPath("//xhtml:title[.='Internal application error']");
+    }
+
+    /**
+     * IndexRs can render valid HTML.
+     * @throws Exception If some problem inside
+     */
+    @Test
+    public void rendersValidHtml() throws Exception {
+        new JdkRequest(IndexRsITCase.HOME)
+            .header(HttpHeaders.ACCEPT, MediaType.TEXT_XML)
+            .fetch()
+            .as(XmlResponse.class)
+            .rel("/page/links/link[@rel='menu:counters']/@href")
+            .header(HttpHeaders.ACCEPT, MediaType.TEXT_HTML)
+            .fetch()
+            .as(RestResponse.class)
+            .assertStatus(HttpURLConnection.HTTP_OK)
+            .assertBody(W3CMatchers.validHtml());
     }
 
 }
