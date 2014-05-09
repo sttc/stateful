@@ -126,7 +126,7 @@ public final class CountersRs extends BaseRs {
     private JaxbBundle list() {
         return new JaxbBundle("counters").add(
             // @checkstyle AnonInnerLengthCheck (50 lines)
-            new JaxbBundle.Group<String>(this.user().counters()) {
+            new JaxbBundle.Group<String>(this.user().counters().names()) {
                 @Override
                 public JaxbBundle bundle(final String name) {
                     return new JaxbBundle("counter")

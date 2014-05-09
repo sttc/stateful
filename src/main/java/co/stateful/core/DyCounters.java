@@ -32,6 +32,7 @@ package co.stateful.core;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.google.common.base.Function;
 import com.google.common.base.Predicates;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Iterators;
 import com.jcabi.aspects.Cacheable;
 import com.jcabi.aspects.Immutable;
@@ -42,7 +43,6 @@ import com.jcabi.dynamo.Item;
 import com.jcabi.dynamo.QueryValve;
 import com.jcabi.dynamo.Table;
 import com.jcabi.urn.URN;
-import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -144,15 +144,14 @@ final class DyCounters implements Counters {
 
     @Override
     @Cacheable(lifetime = 1, unit = TimeUnit.HOURS)
-    public Iterator<String> iterator() {
-        return Iterators.transform(
+    public Iterable<String> names() {
+        return Iterables.transform(
             this.table.frame()
                 .through(new QueryValve())
                 .where(
                     new Conditions()
                         .with(DyCounters.HASH, Conditions.equalTo(this.owner))
-                )
-                .iterator(),
+                ),
             new Function<Item, String>() {
                 @Override
                 public String apply(final Item item) {

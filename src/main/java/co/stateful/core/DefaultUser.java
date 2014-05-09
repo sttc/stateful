@@ -160,6 +160,7 @@ final class DefaultUser implements User {
     }
 
     @Override
+    @Cacheable(lifetime = 1, unit = TimeUnit.HOURS)
     public Counters counters() {
         return new DyCounters(this.region.table(DyCounters.TBL), this.name);
     }

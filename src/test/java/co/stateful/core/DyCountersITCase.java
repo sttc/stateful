@@ -53,12 +53,12 @@ public final class DyCountersITCase {
         final String name = "test-one";
         counters.create(name);
         MatcherAssert.assertThat(
-            counters,
+            counters.names(),
             Matchers.hasItem(name)
         );
         counters.delete(name);
         MatcherAssert.assertThat(
-            counters,
+            counters.names(),
             Matchers.emptyIterable()
         );
     }

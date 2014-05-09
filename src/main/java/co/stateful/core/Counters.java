@@ -38,7 +38,13 @@ import com.jcabi.aspects.Immutable;
  * @version $Id$
  */
 @Immutable
-public interface Counters extends Iterable<String> {
+public interface Counters {
+
+    /**
+     * Get list of them all.
+     * @return List of counter names
+     */
+    Iterable<String> names();
 
     /**
      * Create a counter.
