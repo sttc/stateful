@@ -42,21 +42,14 @@ import org.junit.Test;
 public final class DyCountersITCase {
 
     /**
-     * Region rule.
-     * @checkstyle VisibilityModifierCheck (3 lines)
-     */
-    public final transient RegionRule reg = new RegionRule();
-
-    /**
      * DyCounters can manage counters.
      * @throws Exception If some problem inside
      */
     @Test
     public void managesCounters() throws Exception {
-        final Counters counters = new DyCounters(
-            this.reg.get().table(DyCounters.TBL),
+        final Counters counters = new DefaultUser(
             new URN("urn:test:8900967")
-        );
+        ).counters();
         final String name = "test-one";
         counters.create(name);
         MatcherAssert.assertThat(

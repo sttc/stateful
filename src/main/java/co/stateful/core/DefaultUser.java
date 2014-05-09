@@ -31,13 +31,21 @@ package co.stateful.core;
 
 import com.jcabi.aspects.Immutable;
 import com.jcabi.aspects.Loggable;
+import com.jcabi.aspects.Tv;
+import com.jcabi.dynamo.Attributes;
+import com.jcabi.dynamo.Conditions;
 import com.jcabi.dynamo.Credentials;
+import com.jcabi.dynamo.Item;
+import com.jcabi.dynamo.QueryValve;
 import com.jcabi.dynamo.Region;
-import com.jcabi.dynamo.Table;
 import com.jcabi.manifests.Manifests;
 import com.jcabi.urn.URN;
+import java.util.Iterator;
+import java.util.Locale;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 
 /**
  * Default user.
@@ -52,14 +60,29 @@ import lombok.ToString;
 final class DefaultUser implements User {
 
     /**
+     * Table name.
+     */
+    public static final String TOKENS = "tokens";
+
+    /**
+     * Hash.
+     */
+    public static final String HASH = "urn";
+
+    /**
+     * Token attribute.
+     */
+    public static final String ATTR_TOKEN = "token";
+
+    /**
      * Name of the user.
      */
     private final transient URN name;
 
     /**
-     * Counters table.
+     * Region.
      */
-    private final transient Table cntrs;
+    private final transient Region region;
 
     /**
      * Ctor.
@@ -77,24 +100,44 @@ final class DefaultUser implements User {
                 creds, Integer.parseInt(System.getProperty("dynamo.port"))
             );
         }
-        this.cntrs = new Region.Prefixed(
+        this.region = new Region.Prefixed(
             new Region.Simple(creds),
             Manifests.read("Stateful-DynamoPrefix")
-        ).table(DyCounters.TBL);
+        );
     }
 
     @Override
     public String token() {
-        return "ABCD-EFGH-IGHY";
+        final Iterator<Item> items = this.region.table(DefaultUser.TOKENS)
+            .frame().through(new QueryValve())
+            .where(DefaultUser.HASH, Conditions.equalTo(this.name))
+            .iterator();
+        final String token;
+        if (items.hasNext()) {
+            token = items.next().get(DefaultUser.ATTR_TOKEN).getS();
+        } else {
+            this.refresh();
+            token = this.token();
+        }
+        return token;
     }
 
     @Override
     public void refresh() {
-        // nothing
+        this.region.table(DefaultUser.TOKENS).put(
+            new Attributes()
+                .with(DefaultUser.HASH, this.name)
+                .with(
+                    DefaultUser.ATTR_TOKEN,
+                    DigestUtils.md5Hex(
+                        RandomStringUtils.random(Tv.TEN)
+                    ).toUpperCase(Locale.ENGLISH)
+                )
+        );
     }
 
     @Override
     public Counters counters() {
-        return new DyCounters(this.cntrs, this.name);
+        return new DyCounters(this.region.table(DyCounters.TBL), this.name);
     }
 }

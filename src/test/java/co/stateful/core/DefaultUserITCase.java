@@ -29,45 +29,32 @@
  */
 package co.stateful.core;
 
-import com.jcabi.dynamo.Credentials;
-import com.jcabi.dynamo.Region;
-import org.junit.rules.TestRule;
-import org.junit.runner.Description;
-import org.junit.runners.model.Statement;
+import com.jcabi.urn.URN;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.Test;
 
 /**
- * Rule for region.
+ * Integration case for {@link DefaultUser}.
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
  */
-public final class RegionRule implements TestRule {
+public final class DefaultUserITCase {
 
     /**
-     * TCP port of DynamoDB Local.
+     * DefaultUser can manage tokens.
+     * @throws Exception If some problem inside
      */
-    private static final int PORT = Integer.parseInt(
-        System.getProperty("dynamo.port")
-    );
-
-    @Override
-    public Statement apply(final Statement base,
-        final Description description) {
-        return base;
-    }
-
-    /**
-     * Get a region.
-     * @return Region
-     */
-    public Region get() {
-        return new Region.Simple(
-            new Credentials.Direct(
-                new Credentials.Simple(
-                    "AAAAABBBBBAAAAABBBBB",
-                    "AFAFAFAFAFAFAFAFAFAFAFAFAFAFAFAFAFAFAFAF"
-                ),
-                RegionRule.PORT
-            )
+    @Test
+    public void managesTokens() throws Exception {
+        final User user = new DefaultUser(
+            new URN("urn:test:8900967")
+        );
+        final String first = user.token();
+        user.refresh();
+        MatcherAssert.assertThat(
+            user.token(),
+            Matchers.not(Matchers.equalTo(first))
         );
     }
 

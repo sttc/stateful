@@ -44,21 +44,14 @@ import org.junit.Test;
 public final class DyCounterITCase {
 
     /**
-     * Region rule.
-     * @checkstyle VisibilityModifierCheck (3 lines)
-     */
-    public final transient RegionRule reg = new RegionRule();
-
-    /**
      * DyCounter can increment and set.
      * @throws Exception If some problem inside
      */
     @Test
     public void incrementAndSet() throws Exception {
-        final Counters counters = new DyCounters(
-            this.reg.get().table(DyCounters.TBL),
+        final Counters counters = new DefaultUser(
             new URN("urn:test:7889978")
-        );
+        ).counters();
         final String name = "test-78";
         counters.create(name);
         final Counter counter = counters.get(name);
