@@ -110,6 +110,14 @@ final class DefaultUser implements User {
     }
 
     @Override
+    public boolean exists() {
+        return this.region.table(DefaultUser.TOKENS)
+            .frame().through(new QueryValve())
+            .where(DefaultUser.HASH, Conditions.equalTo(this.name))
+            .iterator().hasNext();
+    }
+
+    @Override
     public String token() {
         final Iterator<Item> items = this.region.table(DefaultUser.TOKENS)
             .frame().through(new QueryValve())

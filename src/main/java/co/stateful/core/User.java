@@ -41,6 +41,12 @@ import com.jcabi.aspects.Immutable;
 public interface User {
 
     /**
+     * This user exists.
+     * @return TRUE if this user logged in at least once through UI
+     */
+    boolean exists();
+
+    /**
      * Get his security token.
      * @return Token
      */
