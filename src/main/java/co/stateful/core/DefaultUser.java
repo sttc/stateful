@@ -84,6 +84,11 @@ final class DefaultUser implements User {
     }
 
     @Override
+    public String token() {
+        return "ABCD-EFGH-IGHY";
+    }
+
+    @Override
     public Counters counters() {
         return new DyCounters(this.cntrs, this.name);
     }

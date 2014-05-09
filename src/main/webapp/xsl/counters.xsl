@@ -79,6 +79,40 @@
                         <xsl:apply-templates select="counters/counter"/>
                     </tbody>
                 </table>
+                <xsl:text>
+                    Counters are accessible through RESTful API. There
+                    are two operations availables on every counter:
+                </xsl:text>
+                <code>set</code><xsl:text> and </xsl:text><code>increment</code><xsl:text>.</xsl:text>
+                <code>Set</code><xsl:text> returns nothing, while </xsl:text><code>increment</code>
+                <xsl:text>
+                    returns current value of the counter. In order to read without changing
+                    you just increment by zero.
+                </xsl:text>
+                <xsl:text>
+                    For example, in order to set the first counter in your list to 123, you
+                    make an HTTP request:
+                </xsl:text>
+                <code>
+                    <xsl:value-of select="counters/counter[1]/links/link[@rel='set']/@href"/>
+                    <xsl:text>?value=123</xsl:text>
+                </code>
+                <xsl:text>
+                    In order to increment the same counter by 54, you
+                    make an HTTP request:
+                </xsl:text>
+                <code>
+                    <xsl:value-of select="counters/counter[1]/links/link[@rel='increment']/@href"/>
+                    <xsl:text>?value=54</xsl:text>
+                </code>
+                <xsl:text>
+                    In every request you should provide an HTTP header
+                    with an authentication token:
+                </xsl:text>
+                <pre>
+                    <xsl:text>X-Stateful-Token: </xsl:text>
+                    <xsl:value-of select="token"/>
+                </pre>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:text>You don't have any counters yet...</xsl:text>

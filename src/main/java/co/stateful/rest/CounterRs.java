@@ -30,6 +30,7 @@
 package co.stateful.rest;
 
 import co.stateful.core.Counter;
+import java.math.BigDecimal;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -69,8 +70,8 @@ public final class CounterRs extends BaseRs {
      */
     @PUT
     @Path("/set")
-    public Response set(@QueryParam("value") final long value) {
-        this.counter.set(value);
+    public Response set(@QueryParam("value") final String value) {
+        this.counter.set(new BigDecimal(value));
         return Response.ok().build();
     }
 
@@ -82,9 +83,9 @@ public final class CounterRs extends BaseRs {
     @GET
     @Path("/add")
     @Produces(MediaType.TEXT_PLAIN)
-    public Response increment(@QueryParam("value") final long value) {
+    public Response increment(@QueryParam("value") final String value) {
         return Response.ok()
-            .entity(Long.toString(this.counter.increment(value)))
+            .entity(this.counter.increment(new BigDecimal(value)))
             .build();
     }
 

@@ -65,7 +65,7 @@
                         <div>
                             <a>
                                 <xsl:attribute name="href">
-                                    <xsl:value-of select="/page/links/link[@rel='home']/@href"/>
+                                    <xsl:value-of select="links/link[@rel='home']/@href"/>
                                 </xsl:attribute>
                                 <img alt="logo" class="logo">
                                     <xsl:attribute name="src">
@@ -79,12 +79,18 @@
                                 <div class="identity">
                                     <xsl:apply-templates select="identity"/>
                                 </div>
+                                <div class="token">
+                                    <xsl:text>token: </xsl:text>
+                                    <code>
+                                        <xsl:value-of select="token"/>
+                                    </code>
+                                </div>
                                 <nav class="menu">
                                     <ul class="list-inline">
                                         <li>
                                             <a>
                                                 <xsl:attribute name="href">
-                                                    <xsl:value-of select="/page/links/link[@rel='menu:counters']/@href"/>
+                                                    <xsl:value-of select="links/link[@rel='menu:counters']/@href"/>
                                                 </xsl:attribute>
                                                 <xsl:text>counters</xsl:text>
                                             </a>

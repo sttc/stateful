@@ -36,6 +36,7 @@ import com.jcabi.urn.URN;
 import com.rexsl.page.BasePage;
 import com.rexsl.page.BaseResource;
 import com.rexsl.page.Inset;
+import com.rexsl.page.JaxbBundle;
 import com.rexsl.page.Link;
 import com.rexsl.page.Resource;
 import com.rexsl.page.auth.AuthInset;
@@ -65,6 +66,7 @@ import org.apache.commons.lang3.Validate;
  */
 @Resource.Forwarded
 @Inset.Default(LinksInset.class)
+@SuppressWarnings("PMD.TooManyMethods")
 public class BaseRs extends BaseResource {
 
     /**
@@ -136,6 +138,25 @@ public class BaseRs extends BaseResource {
                 final Response.ResponseBuilder builder) {
                 if (!BaseRs.this.auth().identity().equals(Identity.ANONYMOUS)) {
                     page.link(new Link("menu:counters", "/counters"));
+                }
+            }
+        };
+    }
+
+    /**
+     * Token inset.
+     * @return The inset
+     */
+    @Inset.Runtime
+    public final Inset token() {
+        return new Inset() {
+            @Override
+            public void render(final BasePage<?, ?> page,
+                final Response.ResponseBuilder builder) {
+                if (!BaseRs.this.auth().identity().equals(Identity.ANONYMOUS)) {
+                    page.append(
+                        new JaxbBundle("token", BaseRs.this.user().token())
+                    );
                 }
             }
         };

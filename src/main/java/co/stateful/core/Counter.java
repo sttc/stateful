@@ -30,6 +30,7 @@
 package co.stateful.core;
 
 import com.jcabi.aspects.Immutable;
+import java.math.BigDecimal;
 
 /**
  * Counter.
@@ -44,13 +45,13 @@ public interface Counter {
      * Set specific value.
      * @param value Value to set
      */
-    void set(long value);
+    void set(BigDecimal value);
 
     /**
      * Add value to it.
      * @param delta Delta to add
      * @return New value
      */
-    long increment(long delta);
+    BigDecimal increment(BigDecimal delta);
 
 }

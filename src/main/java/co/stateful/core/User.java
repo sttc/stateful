@@ -41,6 +41,12 @@ import com.jcabi.aspects.Immutable;
 public interface User {
 
     /**
+     * Get his security token.
+     * @return Token
+     */
+    String token();
+
+    /**
      * Get his counters.
      * @return Counters
      */

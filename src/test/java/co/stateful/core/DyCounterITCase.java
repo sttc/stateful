@@ -30,6 +30,7 @@
 package co.stateful.core;
 
 import com.jcabi.urn.URN;
+import java.math.BigDecimal;
 import java.security.SecureRandom;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -61,16 +62,16 @@ public final class DyCounterITCase {
         final String name = "test-78";
         counters.create(name);
         final Counter counter = counters.get(name);
-        final long start = new SecureRandom().nextLong();
+        final BigDecimal start = new BigDecimal(new SecureRandom().nextLong());
         counter.set(start);
         MatcherAssert.assertThat(
-            counter.increment(0L),
+            counter.increment(new BigDecimal(0L)),
             Matchers.equalTo(start)
         );
-        final long delta = new SecureRandom().nextLong();
+        final BigDecimal delta = new BigDecimal(new SecureRandom().nextLong());
         MatcherAssert.assertThat(
             counter.increment(delta),
-            Matchers.equalTo(start + delta)
+            Matchers.equalTo(start.add(delta))
         );
     }
 
