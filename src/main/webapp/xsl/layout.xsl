@@ -104,9 +104,8 @@
                     </section>
                     <footer class="footer">
                         <div>
-                            <xsl:text>made in </xsl:text>
                             <a href="http://www.teamed.io">
-                                <xsl:text>teamed.io</xsl:text>
+                                <xsl:text>made in teamed.io</xsl:text>
                             </a>
                         </div>
                         <div>

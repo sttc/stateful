@@ -48,6 +48,16 @@
     </pluginRepositories>
     <dependencies>
         <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk</artifactId>
+            <version>1.7.7</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jcabi</groupId>
+            <artifactId>jcabi-dynamo</artifactId>
+            <version>0.12</version>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
@@ -92,6 +102,10 @@
         <dependency>
             <groupId>com.jcabi</groupId>
             <artifactId>jcabi-http</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
         </dependency>
         <dependency>
             <groupId>com.jcabi</groupId>
@@ -171,7 +185,7 @@
                                 <Stateful-SecurityKey>${security.key}</Stateful-SecurityKey>
                                 <Stateful-DynamoKey>${dynamo.key}</Stateful-DynamoKey>
                                 <Stateful-DynamoSecret>${dynamo.secret}</Stateful-DynamoSecret>
-                                <Stateful-DynamoTable>${dynamo.table}</Stateful-DynamoTable>
+                                <Stateful-DynamoPrefix>${dynamo.table}</Stateful-DynamoPrefix>
                             </manifestEntries>
                         </archive>
                     </configuration>
@@ -311,6 +325,16 @@
                                             <Stateful-Version>1.0</Stateful-Version>
                                             <Stateful-Revision>1234567</Stateful-Revision>
                                             <Stateful-Date>${maven.build.timestamp}</Stateful-Date>
+                                            <Stateful-FbId>test</Stateful-FbId>
+                                            <Stateful-FbSecret>test</Stateful-FbSecret>
+                                            <Stateful-GoogleId>test</Stateful-GoogleId>
+                                            <Stateful-GoogleSecret>test</Stateful-GoogleSecret>
+                                            <Stateful-GithubId>test</Stateful-GithubId>
+                                            <Stateful-GithubSecret>test</Stateful-GithubSecret>
+                                            <Stateful-SecurityKey>test</Stateful-SecurityKey>
+                                            <Stateful-DynamoKey>AAAAABBBBBAAAAABBBBB</Stateful-DynamoKey>
+                                            <Stateful-DynamoSecret>AFAFAFAFAFAFAFAFAFAFAFAFAFAFAFAFAFAFAFAF</Stateful-DynamoSecret>
+                                            <Stateful-DynamoPrefix></Stateful-DynamoPrefix>
                                         </manifestEntries>
                                     </archive>
                                 </configuration>
@@ -403,6 +427,87 @@
                                 </goals>
                             </execution>
                         </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>dynamodb</id>
+            <activation><file><exists>pom.xml</exists></file></activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>unpack-dynamodb-local</id>
+                                <goals>
+                                    <goal>unpack</goal>
+                                </goals>
+                                <configuration>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>com.jcabi</groupId>
+                                            <artifactId>DynamoDBLocal</artifactId>
+                                            <version>2014-01-08</version>
+                                            <type>zip</type>
+                                            <outputDirectory>${project.build.directory}/dynamodb-dist</outputDirectory>
+                                            <overWrite>false</overWrite>
+                                        </artifactItem>
+                                    </artifactItems>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <version>1.8</version>
+                        <executions>
+                            <execution>
+                                <id>reserver-dynamodb-port</id>
+                                <goals>
+                                    <goal>reserve-network-port</goal>
+                                </goals>
+                                <configuration>
+                                    <portNames>
+                                        <portName>dynamodblocal.port</portName>
+                                    </portNames>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>com.jcabi</groupId>
+                        <artifactId>jcabi-dynamodb-maven-plugin</artifactId>
+                        <version>0.7</version>
+                        <executions>
+                            <execution>
+                                <id>dynamodb-integration-test</id>
+                                <goals>
+                                    <goal>start</goal>
+                                    <goal>create-tables</goal>
+                                    <goal>stop</goal>
+                                </goals>
+                                <configuration>
+                                    <port>${dynamodblocal.port}</port>
+                                    <dist>${project.build.directory}/dynamodb-dist</dist>
+                                    <key>AAAAABBBBBAAAAABBBBB</key>
+                                    <secret>AFAFAFAFAFAFAFAFAFAFAFAFAFAFAFAFAFAFAFAF</secret>
+                                    <tables>
+                                        <table>${basedir}/src/test/dynamodb/counters.json</table>
+                                    </tables>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <dynamo.port>${dynamodblocal.port}</dynamo.port>
+                            </systemPropertyVariables>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>

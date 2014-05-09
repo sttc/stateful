@@ -29,62 +29,49 @@
  */
 package co.stateful.core;
 
-import com.jcabi.aspects.Immutable;
-import com.jcabi.aspects.Loggable;
-import com.jcabi.dynamo.Credentials;
-import com.jcabi.dynamo.Region;
-import com.jcabi.dynamo.Table;
-import com.jcabi.manifests.Manifests;
 import com.jcabi.urn.URN;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import java.security.SecureRandom;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.Test;
 
 /**
- * Default user.
- *
+ * Integration case for {@link DyCounter}.
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
  */
-@Immutable
-@ToString
-@EqualsAndHashCode
-@Loggable(Loggable.DEBUG)
-final class DefaultUser implements User {
+public final class DyCounterITCase {
 
     /**
-     * Name of the user.
+     * Region rule.
+     * @checkstyle VisibilityModifierCheck (3 lines)
      */
-    private final transient URN name;
+    public final transient RegionRule reg = new RegionRule();
 
     /**
-     * Counters table.
+     * DyCounter can increment and set.
+     * @throws Exception If some problem inside
      */
-    private final transient Table cntrs;
-
-    /**
-     * Ctor.
-     * @param urn Name of it
-     */
-    DefaultUser(final URN urn) {
-        this.name = urn;
-        final String key = Manifests.read("Stateful-DynamoKey");
-        Credentials creds = new Credentials.Simple(
-            key,
-            Manifests.read("Stateful-DynamoSecret")
+    @Test
+    public void incrementAndSet() throws Exception {
+        final Counters counters = new DyCounters(
+            this.reg.get().table(DyCounters.TBL),
+            new URN("urn:test:7889978")
         );
-        if ("AAAAABBBBBAAAAABBBBB".equals(key)) {
-            creds = new Credentials.Direct(
-                creds, Integer.parseInt(System.getProperty("dynamo.port"))
-            );
-        }
-        this.cntrs = new Region.Prefixed(
-            new Region.Simple(creds),
-            Manifests.read("Stateful-DynamoPrefix")
-        ).table(DyCounters.TBL);
+        final String name = "test-78";
+        counters.create(name);
+        final Counter counter = counters.get(name);
+        final long start = new SecureRandom().nextLong();
+        counter.set(start);
+        MatcherAssert.assertThat(
+            counter.increment(0L),
+            Matchers.equalTo(start)
+        );
+        final long delta = new SecureRandom().nextLong();
+        MatcherAssert.assertThat(
+            counter.increment(delta),
+            Matchers.equalTo(start + delta)
+        );
     }
 
-    @Override
-    public Counters counters() {
-        return new DyCounters(this.cntrs, this.name);
-    }
 }

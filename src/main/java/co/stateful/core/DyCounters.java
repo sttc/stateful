@@ -29,10 +29,18 @@
  */
 package co.stateful.core;
 
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.google.common.base.Function;
+import com.google.common.base.Predicates;
+import com.google.common.collect.Iterators;
 import com.jcabi.aspects.Immutable;
 import com.jcabi.aspects.Loggable;
+import com.jcabi.dynamo.Attributes;
+import com.jcabi.dynamo.Conditions;
+import com.jcabi.dynamo.Item;
+import com.jcabi.dynamo.QueryValve;
+import com.jcabi.dynamo.Table;
 import com.jcabi.urn.URN;
-import java.util.Arrays;
 import java.util.Iterator;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -50,35 +58,101 @@ import lombok.ToString;
 final class DyCounters implements Counters {
 
     /**
+     * Table name.
+     */
+    public static final String TBL = "counters";
+
+    /**
+     * Hash.
+     */
+    public static final String HASH = "urn";
+
+    /**
+     * Range.
+     */
+    public static final String RANGE = "name";
+
+    /**
+     * Value attribute.
+     */
+    public static final String ATTR_VALUE = "value";
+
+    /**
+     * Dynamo table.
+     */
+    private final transient Table table;
+
+    /**
      * Name of the user.
      */
     private final transient URN owner;
 
     /**
      * Ctor.
+     * @param tbl Dynamo table
      * @param urn Owner of them
      */
-    DyCounters(final URN urn) {
+    DyCounters(final Table tbl, final URN urn) {
+        this.table = tbl;
         this.owner = urn;
     }
 
     @Override
     public void create(final String name) {
-        // nothing now
+        this.table.put(
+            new Attributes()
+                .with(DyCounters.HASH, this.owner)
+                .with(DyCounters.RANGE, name)
+                .with(DyCounters.ATTR_VALUE, new AttributeValue().withN("0"))
+        );
     }
 
     @Override
     public void delete(final String name) {
-        // nothing now
+        Iterators.removeIf(
+            this.table.frame()
+                .through(new QueryValve().withLimit(1))
+                .where(
+                    new Conditions()
+                        .with(DyCounters.HASH, Conditions.equalTo(this.owner))
+                        .with(DyCounters.RANGE, Conditions.equalTo(name))
+                )
+                .iterator(),
+            Predicates.alwaysTrue()
+        );
     }
 
     @Override
     public Counter get(final String name) {
-        return new DyCounter(this.owner, name);
+        return new DyCounter(
+            this.table.frame()
+                .through(new QueryValve().withLimit(1))
+                .where(
+                    new Conditions()
+                        .with(DyCounters.HASH, Conditions.equalTo(this.owner))
+                        .with(DyCounters.RANGE, Conditions.equalTo(name))
+                )
+                .iterator()
+                .next()
+        );
     }
 
     @Override
     public Iterator<String> iterator() {
-        return Arrays.asList("first", "second").iterator();
+        return Iterators.transform(
+            this.table.frame()
+                .through(new QueryValve())
+                .where(
+                    new Conditions()
+                        .with(DyCounters.HASH, Conditions.equalTo(this.owner))
+                )
+                .iterator(),
+            new Function<Item, String>() {
+                @Override
+                public String apply(final Item item) {
+                    return item.get(DyCounters.RANGE).getS();
+                }
+            }
+        );
     }
 }

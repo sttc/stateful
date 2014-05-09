@@ -8,5 +8,6 @@ Stateful-GoogleId: 1234567
 Stateful-GoogleSecret: 1234567
 Stateful-GithubId: 1234567
 Stateful-GithubSecret: 1234567
-Stateful-DynamoKey: test
-Stateful-DynamoSecret: test
+Stateful-DynamoKey: AAAAABBBBBAAAAABBBBB
+Stateful-DynamoSecret: AFAFAFAFAFAFAFAFAFAFAFAFAFAFAFAFAFAFAFAF
+Stateful-DynamoPrefix: st-

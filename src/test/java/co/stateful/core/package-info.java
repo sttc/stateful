@@ -27,64 +27,11 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package co.stateful.core;
-
-import com.jcabi.aspects.Immutable;
-import com.jcabi.aspects.Loggable;
-import com.jcabi.dynamo.Credentials;
-import com.jcabi.dynamo.Region;
-import com.jcabi.dynamo.Table;
-import com.jcabi.manifests.Manifests;
-import com.jcabi.urn.URN;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 /**
- * Default user.
+ * Core, tests.
  *
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
  */
-@Immutable
-@ToString
-@EqualsAndHashCode
-@Loggable(Loggable.DEBUG)
-final class DefaultUser implements User {
-
-    /**
-     * Name of the user.
-     */
-    private final transient URN name;
-
-    /**
-     * Counters table.
-     */
-    private final transient Table cntrs;
-
-    /**
-     * Ctor.
-     * @param urn Name of it
-     */
-    DefaultUser(final URN urn) {
-        this.name = urn;
-        final String key = Manifests.read("Stateful-DynamoKey");
-        Credentials creds = new Credentials.Simple(
-            key,
-            Manifests.read("Stateful-DynamoSecret")
-        );
-        if ("AAAAABBBBBAAAAABBBBB".equals(key)) {
-            creds = new Credentials.Direct(
-                creds, Integer.parseInt(System.getProperty("dynamo.port"))
-            );
-        }
-        this.cntrs = new Region.Prefixed(
-            new Region.Simple(creds),
-            Manifests.read("Stateful-DynamoPrefix")
-        ).table(DyCounters.TBL);
-    }
-
-    @Override
-    public Counters counters() {
-        return new DyCounters(this.cntrs, this.name);
-    }
-}
+package co.stateful.core;

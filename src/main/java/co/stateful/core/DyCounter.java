@@ -29,10 +29,12 @@
  */
 package co.stateful.core;
 
+import com.amazonaws.services.dynamodbv2.model.AttributeAction;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.amazonaws.services.dynamodbv2.model.AttributeValueUpdate;
 import com.jcabi.aspects.Immutable;
 import com.jcabi.aspects.Loggable;
-import com.jcabi.urn.URN;
-import java.security.SecureRandom;
+import com.jcabi.dynamo.Item;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
@@ -49,33 +51,38 @@ import lombok.ToString;
 final class DyCounter implements Counter {
 
     /**
-     * Name of the user.
+     * Item we're working with.
      */
-    private final transient URN owner;
-
-    /**
-     * Name of the counter.
-     */
-    private final transient String name;
+    private final transient Item item;
 
     /**
      * Ctor.
-     * @param urn Owner of them
-     * @param label Name of it
+     * @param itm Item
      */
-    DyCounter(final URN urn, final String label) {
-        this.owner = urn;
-        this.name = label;
+    DyCounter(final Item itm) {
+        this.item = itm;
     }
 
     @Override
     public void set(final long value) {
-        assert this.owner != null;
-        assert this.name != null;
+        this.item.put(
+            DyCounters.ATTR_VALUE,
+            new AttributeValueUpdate(
+                new AttributeValue().withN(Long.toString(value)),
+                AttributeAction.PUT
+            )
+        );
     }
 
     @Override
     public long increment(final long delta) {
-        return new SecureRandom().nextLong();
+        this.item.put(
+            DyCounters.ATTR_VALUE,
+            new AttributeValueUpdate(
+                new AttributeValue().withN(Long.toString(delta)),
+                AttributeAction.ADD
+            )
+        );
+        return Long.parseLong(this.item.get(DyCounters.ATTR_VALUE).getN());
     }
 }

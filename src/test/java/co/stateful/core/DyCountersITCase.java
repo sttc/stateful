@@ -29,62 +29,45 @@
  */
 package co.stateful.core;
 
-import com.jcabi.aspects.Immutable;
-import com.jcabi.aspects.Loggable;
-import com.jcabi.dynamo.Credentials;
-import com.jcabi.dynamo.Region;
-import com.jcabi.dynamo.Table;
-import com.jcabi.manifests.Manifests;
 import com.jcabi.urn.URN;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.Test;
 
 /**
- * Default user.
- *
+ * Integration case for {@link DyCounters}.
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
  */
-@Immutable
-@ToString
-@EqualsAndHashCode
-@Loggable(Loggable.DEBUG)
-final class DefaultUser implements User {
+public final class DyCountersITCase {
 
     /**
-     * Name of the user.
+     * Region rule.
+     * @checkstyle VisibilityModifierCheck (3 lines)
      */
-    private final transient URN name;
+    public final transient RegionRule reg = new RegionRule();
 
     /**
-     * Counters table.
+     * DyCounters can manage counters.
+     * @throws Exception If some problem inside
      */
-    private final transient Table cntrs;
-
-    /**
-     * Ctor.
-     * @param urn Name of it
-     */
-    DefaultUser(final URN urn) {
-        this.name = urn;
-        final String key = Manifests.read("Stateful-DynamoKey");
-        Credentials creds = new Credentials.Simple(
-            key,
-            Manifests.read("Stateful-DynamoSecret")
+    @Test
+    public void managesCounters() throws Exception {
+        final Counters counters = new DyCounters(
+            this.reg.get().table(DyCounters.TBL),
+            new URN("urn:test:8900967")
         );
-        if ("AAAAABBBBBAAAAABBBBB".equals(key)) {
-            creds = new Credentials.Direct(
-                creds, Integer.parseInt(System.getProperty("dynamo.port"))
-            );
-        }
-        this.cntrs = new Region.Prefixed(
-            new Region.Simple(creds),
-            Manifests.read("Stateful-DynamoPrefix")
-        ).table(DyCounters.TBL);
+        final String name = "test-one";
+        counters.create(name);
+        MatcherAssert.assertThat(
+            counters,
+            Matchers.hasItem(name)
+        );
+        counters.delete(name);
+        MatcherAssert.assertThat(
+            counters,
+            Matchers.emptyIterable()
+        );
     }
 
-    @Override
-    public Counters counters() {
-        return new DyCounters(this.cntrs, this.name);
-    }
 }

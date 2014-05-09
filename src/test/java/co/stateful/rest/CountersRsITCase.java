@@ -29,6 +29,7 @@
  */
 package co.stateful.rest;
 
+import com.jcabi.http.Request;
 import com.jcabi.http.request.JdkRequest;
 import com.jcabi.http.response.RestResponse;
 import com.jcabi.http.response.XmlResponse;
@@ -67,7 +68,19 @@ public final class CountersRsITCase {
             .as(RestResponse.class)
             .assertStatus(HttpURLConnection.HTTP_OK)
             .as(XmlResponse.class)
-            .assertXPath("/page/counters/counter/name");
+            .rel("/page/links/link[@rel='add']/@href")
+            .body().formParam("name", "foo-15").back()
+            .header(HttpHeaders.ACCEPT, MediaType.TEXT_XML)
+            .method(Request.POST)
+            .fetch()
+            .as(RestResponse.class)
+            .assertStatus(HttpURLConnection.HTTP_SEE_OTHER)
+            .follow()
+            .header(HttpHeaders.ACCEPT, MediaType.TEXT_XML)
+            .method(Request.GET)
+            .fetch()
+            .as(XmlResponse.class)
+            .assertXPath("/page/counters/counter[name='foo-15']");
     }
 
     /**
