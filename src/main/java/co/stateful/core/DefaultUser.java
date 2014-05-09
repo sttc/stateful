@@ -60,7 +60,7 @@ import org.apache.commons.lang3.RandomStringUtils;
  */
 @Immutable
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(of = "name")
 @Loggable(Loggable.DEBUG)
 final class DefaultUser implements User {
 

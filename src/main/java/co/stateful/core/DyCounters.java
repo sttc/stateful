@@ -55,7 +55,7 @@ import lombok.ToString;
  */
 @Immutable
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(of = "owner")
 @Loggable(Loggable.DEBUG)
 final class DyCounters implements Counters {
 
