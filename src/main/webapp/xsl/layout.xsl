@@ -40,9 +40,9 @@
                 <meta name="description" content="Stateful Web Primitives"/>
                 <meta name="keywords" content="stateful.co"/>
                 <meta name="author" content="www.stateful.co"/>
-                <link rel="icon" type="image/gif">
+                <link rel="icon" type="image/svg+xml">
                     <xsl:attribute name="href">
-                        <xsl:text>http://img.stateful.co/logo-128x128.png</xsl:text>
+                        <xsl:text>http://img.stateful.co/logo.svg</xsl:text>
                     </xsl:attribute>
                 </link>
                 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"/>
@@ -63,11 +63,16 @@
                 <div class="container">
                     <header class="header">
                         <div>
-                            <img alt="logo" class="logo">
-                                <xsl:attribute name="src">
-                                    <xsl:text>http://img.stateful.co/apple.svg</xsl:text>
+                            <a>
+                                <xsl:attribute name="href">
+                                    <xsl:value-of select="/page/links/link[@rel='home']/@href"/>
                                 </xsl:attribute>
-                            </img>
+                                <img alt="logo" class="logo">
+                                    <xsl:attribute name="src">
+                                        <xsl:text>http://img.stateful.co/logo.svg</xsl:text>
+                                    </xsl:attribute>
+                                </img>
+                            </a>
                         </div>
                         <xsl:choose>
                             <xsl:when test="identity">
@@ -99,10 +104,10 @@
                     </section>
                     <footer class="footer">
                         <div>
-                            <xsl:text>stateful.co</xsl:text>
-                        </div>
-                        <div>
-                            <xsl:text>All Rights Reserved</xsl:text>
+                            <xsl:text>made in </xsl:text>
+                            <a href="http://www.teamed.io">
+                                <xsl:text>teamed.io</xsl:text>
+                            </a>
                         </div>
                         <div>
                             <xsl:apply-templates select="version"/>
