@@ -119,7 +119,7 @@ public class BaseRs extends BaseResource {
             @Override
             public void render(final BasePage<?, ?> page,
                 final Response.ResponseBuilder builder) {
-                builder.header("X-Stateful-Version", BaseRs.VERSION_LABEL);
+                builder.header("X-Sttc-Version", BaseRs.VERSION_LABEL);
                 builder.type(MediaType.TEXT_XML);
                 builder.header(HttpHeaders.VARY, "Cookie");
             }

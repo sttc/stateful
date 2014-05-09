@@ -55,12 +55,12 @@ final class Auth implements Provider {
     /**
      * URN header.
      */
-    private static final String HEADER_URN = "X-Stateful-URN";
+    private static final String HEADER_URN = "X-Sttc-URN";
 
     /**
      * Token header.
      */
-    private static final String HEADER_TOKEN = "X-Stateful-Token";
+    private static final String HEADER_TOKEN = "X-Sttc-Token";
 
     /**
      * Resource.
