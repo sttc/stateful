@@ -48,7 +48,7 @@
         <h1>
             <xsl:text>Atomic Counters</xsl:text>
         </h1>
-        <div class="col-12 col-sm-8 col-lg-6">
+        <div class="col-12 col-sm-8 col-lg-6" style="padding-left:0;">
             <form method="post" class="form-inline">
                 <xsl:attribute name="action">
                     <xsl:value-of select="/page/links/link[@rel='add']/@href"/>
