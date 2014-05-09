@@ -49,7 +49,7 @@
         </breadcrumbs>
         <menu name="Overview">
             <item name="Introduction" href="./index.html"/>
-            <item name="Release History" href="https://github.com/yegor256/stateful/releases"/>
+            <item name="Release History" href="https://github.com/sttc/stateful/releases"/>
         </menu>
         <menu ref="reports"/>
     </body>

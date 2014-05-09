@@ -134,7 +134,7 @@
                             <xsl:apply-templates select="version"/>
                         </div>
                         <div>
-                            <a href="https://github.com/yegor256/stateful">
+                            <a href="https://github.com/sttc/stateful">
                                 <i class="fa fa-github-alt"><xsl:comment>github</xsl:comment></i>
                             </a>
                         </div>

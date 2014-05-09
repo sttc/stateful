@@ -22,7 +22,7 @@
                 a bug in our system. Don't hesitate to report it
                 to
             </xsl:text>
-            <a href="https://github.com/yegor256/stateful/issues">
+            <a href="https://github.com/sttc/stateful/issues">
                 <xsl:text>our issues list in Github</xsl:text>
             </a>
             <xsl:text>.</xsl:text>

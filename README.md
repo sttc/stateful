@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/yegor256/stateful.svg?branch=master)](https://travis-ci.org/yegor256/stateful)
+[![Build Status](https://travis-ci.org/sttc/stateful.svg?branch=master)](https://travis-ci.org/sttc/stateful)
 
 Stateful Web Primitives
 
