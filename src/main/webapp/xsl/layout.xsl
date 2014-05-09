@@ -232,6 +232,9 @@
                     <xsl:when test="level = 'WARNING'">
                         <xsl:text>alert-warning</xsl:text>
                     </xsl:when>
+                    <xsl:when test="level = 'SEVERE'">
+                        <xsl:text>alert-danger</xsl:text>
+                    </xsl:when>
                 </xsl:choose>
             </xsl:attribute>
             <xsl:value-of select="message"/>
