@@ -80,10 +80,17 @@
                                     <xsl:apply-templates select="identity"/>
                                 </div>
                                 <div class="token">
-                                    <span><xsl:text>token: </xsl:text></span>
-                                    <code>
-                                        <xsl:value-of select="token"/>
-                                    </code>
+                                    <span>
+                                        <code>
+                                            <xsl:value-of select="identity/urn"/>
+                                        </code>
+                                    </span>
+                                    <span><xsl:text>/</xsl:text></span>
+                                    <span>
+                                        <code>
+                                            <xsl:value-of select="token"/>
+                                        </code>
+                                    </span>
                                     <span>
                                         <a>
                                             <xsl:attribute name="href">
