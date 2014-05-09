@@ -98,11 +98,11 @@ public final class IndexRsITCase {
     }
 
     /**
-     * IndexRs can render version.
+     * IndexRs can mandatory page elements.
      * @throws Exception If some problem inside
      */
     @Test
-    public void rendersVersion() throws Exception {
+    public void rendersPageElements() throws Exception {
         new JdkRequest(IndexRsITCase.HOME)
             .header(HttpHeaders.ACCEPT, MediaType.APPLICATION_XML)
             .fetch()
@@ -110,7 +110,9 @@ public final class IndexRsITCase {
             .assertStatus(HttpURLConnection.HTTP_OK)
             .assertThat(new NoBrokenLinks(URI.create(IndexRsITCase.HOME)))
             .as(XmlResponse.class)
-            .assertXPath("/page/version");
+            .assertXPath("/page/version")
+            .assertXPath("/page/documentation")
+            .assertXPath("/page/millis");
     }
 
     /**

@@ -52,9 +52,18 @@ public final class DefaultUserITCase {
         );
         final String first = user.token();
         user.refresh();
+        final String second = user.token();
+        MatcherAssert.assertThat(
+            second,
+            Matchers.not(Matchers.equalTo(first))
+        );
+        user.refresh();
         MatcherAssert.assertThat(
             user.token(),
-            Matchers.not(Matchers.equalTo(first))
+            Matchers.allOf(
+                Matchers.not(Matchers.equalTo(first)),
+                Matchers.not(Matchers.equalTo(second))
+            )
         );
     }
 

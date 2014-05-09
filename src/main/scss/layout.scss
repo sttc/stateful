@@ -28,10 +28,12 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+@import 'colors';
+
 body {
     font-size: 24px;
     padding: 2em;
-    color: #eee;
+    color: $color-background;
     background-image: url("http://img.stateful.co/background.png");
 }
 
@@ -44,11 +46,11 @@ body {
 }
 
 .content {
-    color: #333;
+    color: $color-text;
 }
 
 .footer {
-    color: #ccc;
+    color: $color-background;
     text-align: center;
     font-size: 14px;
 }

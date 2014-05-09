@@ -29,6 +29,9 @@
  */
 package co.stateful.core;
 
+import com.google.common.base.Joiner;
+import com.google.common.base.Splitter;
+import com.google.common.collect.Iterables;
 import com.jcabi.aspects.Immutable;
 import com.jcabi.aspects.Loggable;
 import com.jcabi.aspects.Tv;
@@ -129,9 +132,16 @@ final class DefaultUser implements User {
                 .with(DefaultUser.HASH, this.name)
                 .with(
                     DefaultUser.ATTR_TOKEN,
-                    DigestUtils.md5Hex(
-                        RandomStringUtils.random(Tv.TEN)
-                    ).toUpperCase(Locale.ENGLISH)
+                    Joiner.on('-').join(
+                        Iterables.limit(
+                            Splitter.fixedLength(Tv.FOUR).split(
+                                DigestUtils.md5Hex(
+                                    RandomStringUtils.random(Tv.TEN)
+                                ).toUpperCase(Locale.ENGLISH)
+                            ),
+                            Tv.FOUR
+                        )
+                    )
                 )
         );
     }

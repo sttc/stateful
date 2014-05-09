@@ -80,13 +80,13 @@ public final class CountersRs extends BaseRs {
     @POST
     @Path("/add")
     public void add(@FormParam(CountersRs.PARAM) final String name) {
-        if (!name.matches("[0-9a-zA-Z\\-:]+")) {
+        if (!name.matches("[0-9a-zA-Z\\-]{1,32}")) {
             throw this.flash().redirect(
                 this.uriInfo().getBaseUriBuilder()
                     .clone()
                     .path(CountersRs.class)
                     .build(),
-                "letters, numbers, colons and dashes only",
+                "1-32 letters, numbers or dashes",
                 Level.WARNING
             );
         }

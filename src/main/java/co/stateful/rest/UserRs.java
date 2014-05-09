@@ -48,6 +48,7 @@ public final class UserRs extends BaseRs {
     @GET
     @Path("/refresh")
     public void index() {
+        this.user().refresh();
         throw this.flash().redirect(
             this.uriInfo().getBaseUriBuilder()
                 .clone()

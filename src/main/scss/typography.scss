@@ -27,49 +27,10 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package co.stateful.rest;
 
-import com.rexsl.page.JaxbBundle;
-import com.rexsl.page.PageBuilder;
-import java.io.IOException;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.core.Response;
-import org.apache.commons.io.IOUtils;
+@import 'colors';
 
-/**
- * Index resource, front page of the website.
- *
- * @author Yegor Bugayenko (yegor@tpc2.com)
- * @version $Id$
- */
-@Path("/")
-public final class IndexRs extends BaseRs {
-
-    /**
-     * Get entrance page JAX-RS response.
-     * @return The JAX-RS response
-     * @throws IOException If fails
-     */
-    @GET
-    @Path("/")
-    public Response index() throws IOException {
-        return new PageBuilder()
-            .stylesheet("/xsl/index.xsl")
-            .build(StPage.class)
-            .init(this)
-            .append(
-                new JaxbBundle(
-                    "documentation",
-                    IOUtils.toString(
-                        this.getClass().getResourceAsStream(
-                            "documentation.html"
-                        )
-                    )
-                )
-            )
-            .render()
-            .build();
-    }
-
+code {
+    background-color: $color-background-dark;
+    color: $color-text;
 }

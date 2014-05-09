@@ -37,11 +37,6 @@
         </title>
     </xsl:template>
     <xsl:template match="page" mode="body">
-        <p>
-            <xsl:text>
-                It is a collection of stateful primitives...
-                More documentation will appear here soon.
-            </xsl:text>
-        </p>
+        <xsl:value-of select="documentation" disable-output-escaping="yes"/>
     </xsl:template>
 </xsl:stylesheet>

@@ -31,6 +31,7 @@ package co.stateful.rest;
 
 import co.stateful.core.Base;
 import co.stateful.core.User;
+import com.jcabi.aspects.Cacheable;
 import com.jcabi.manifests.Manifests;
 import com.jcabi.urn.URN;
 import com.rexsl.page.BasePage;
@@ -114,6 +115,7 @@ public class BaseRs extends BaseResource {
      * @return The inset
      */
     @Inset.Runtime
+    @Cacheable(forever = true)
     public final Inset supplementary() {
         return new Inset() {
             @Override
@@ -131,6 +133,7 @@ public class BaseRs extends BaseResource {
      * @return The inset
      */
     @Inset.Runtime
+    @Cacheable(forever = true)
     public final Inset menu() {
         return new Inset() {
             @Override
@@ -148,6 +151,7 @@ public class BaseRs extends BaseResource {
      * @return The inset
      */
     @Inset.Runtime
+    @Cacheable(forever = true)
     public final Inset token() {
         return new Inset() {
             @Override
@@ -168,6 +172,7 @@ public class BaseRs extends BaseResource {
      * @return The inset
      */
     @Inset.Runtime
+    @Cacheable(forever = true)
     public final Inset version() {
         return new VersionInset(
             Manifests.read("Stateful-Version"),
@@ -181,6 +186,7 @@ public class BaseRs extends BaseResource {
      * @return The inset
      */
     @Inset.Runtime
+    @Cacheable(forever = true)
     public final AuthInset auth() {
         // @checkstyle LineLength (4 lines)
         return new AuthInset(this, Manifests.read("Stateful-SecurityKey"))

@@ -111,15 +111,6 @@
                         <xsl:text>?value=54</xsl:text>
                     </code>
                 </p>
-                <p>
-                    <xsl:text>
-                        In every HTTP request you should set an authentication header
-                    </xsl:text>
-                    <code>X-Stateful-Token</code>
-                    <xsl:text> to </xsl:text>
-                    <code><xsl:value-of select="token"/></code>
-                    <xsl:text>.</xsl:text>
-                </p>
             </xsl:when>
             <xsl:otherwise>
                 <p class="clearfix">
