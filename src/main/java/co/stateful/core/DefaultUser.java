@@ -32,6 +32,7 @@ package co.stateful.core;
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Iterables;
+import com.jcabi.aspects.Cacheable;
 import com.jcabi.aspects.Immutable;
 import com.jcabi.aspects.Loggable;
 import com.jcabi.aspects.Tv;
@@ -45,6 +46,7 @@ import com.jcabi.manifests.Manifests;
 import com.jcabi.urn.URN;
 import java.util.Iterator;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -110,6 +112,7 @@ final class DefaultUser implements User {
     }
 
     @Override
+    @Cacheable(forever = true)
     public boolean exists() {
         return this.region.table(DefaultUser.TOKENS)
             .frame().through(new QueryValve())
@@ -118,6 +121,7 @@ final class DefaultUser implements User {
     }
 
     @Override
+    @Cacheable(lifetime = 1, unit = TimeUnit.HOURS)
     public String token() {
         final Iterator<Item> items = this.region.table(DefaultUser.TOKENS)
             .frame().through(new QueryValve())
@@ -134,6 +138,7 @@ final class DefaultUser implements User {
     }
 
     @Override
+    @Cacheable.FlushAfter
     public void refresh() {
         this.region.table(DefaultUser.TOKENS).put(
             new Attributes()
