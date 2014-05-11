@@ -95,7 +95,7 @@ public final class DyCounterITCase {
                 values.add(counter.increment(new BigDecimal(1L)));
                 return null;
             }
-        }.call();
+        } .call();
         MatcherAssert.assertThat(
             values,
             Matchers.hasSize(Tv.TWENTY)
