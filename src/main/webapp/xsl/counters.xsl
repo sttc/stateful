@@ -87,8 +87,10 @@
                     <code>set</code><xsl:text> and </xsl:text><code>inc</code><xsl:text>.</xsl:text>
                     <code>Set</code><xsl:text> returns nothing, while </xsl:text><code>inc</code>
                     <xsl:text>
-                        returns current value of the counter. In order to read without changing
-                        you just increment by zero.
+                        returns current value of the counter.
+                        In order to read without changing
+                        you just increment by zero. An increment with
+                        a negative value will decrement the counter.
                     </xsl:text>
                 </p>
                 <p>

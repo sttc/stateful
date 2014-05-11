@@ -1,7 +1,18 @@
 <h1>Stateful Web Primitives</h1>
 
 <p>It is a collection of simple web primitives, accessible
-through web UI and RESTful API.</p>
+through web interface and RESTful API.</p>
+
+<h2>Atomic Counters</h2>
+
+<p>You create an atomic counter with a unique name and set
+its initial value. Then, you can change its value, increment
+or decrement it. Our server guarantees atomicity of increment/decrement
+operation. This means that no matter how many parallel requests you send,
+their results will not be duplicated.</p>
+
+<p>This is mechanism may useful when you need to simulate
+an auto-increment value in a NoSQL database, for example DynamoDB.</p>
 
 <h2>Authentication</h2>
 
