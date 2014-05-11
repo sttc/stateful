@@ -55,7 +55,7 @@
         <dependency>
             <groupId>com.jcabi</groupId>
             <artifactId>jcabi-dynamo</artifactId>
-            <version>0.12</version>
+            <version>0.13</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -531,7 +531,6 @@
                         <configuration>
                             <systemProperties combine.children="append">
                                 <dynamo.port>${dynamodblocal.port}</dynamo.port>
-                                <log4j.configuration>file:${basedir}/src/test/resources/log4j.properties</log4j.configuration>
                             </systemProperties>
                         </configuration>
                     </plugin>

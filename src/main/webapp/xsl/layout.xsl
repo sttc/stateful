@@ -127,7 +127,7 @@
                     <footer class="footer">
                         <div>
                             <a href="http://www.teamed.io">
-                                <xsl:text>made in teamed.io</xsl:text>
+                                <xsl:text>made by teamed.io</xsl:text>
                             </a>
                         </div>
                         <div>
@@ -171,7 +171,7 @@
             <xsl:value-of select="name"/>
         </span>
         <span>
-            <xsl:value-of select="revision"/>
+            <code><xsl:value-of select="revision"/></code>
         </span>
         <span>
             <xsl:call-template name="millis">

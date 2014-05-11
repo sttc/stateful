@@ -29,9 +29,14 @@
  */
 package co.stateful.core;
 
+import com.jcabi.aspects.Parallel;
+import com.jcabi.aspects.Tv;
 import com.jcabi.urn.URN;
 import java.math.BigDecimal;
 import java.security.SecureRandom;
+import java.util.Set;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ConcurrentSkipListSet;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -65,6 +70,35 @@ public final class DyCounterITCase {
         MatcherAssert.assertThat(
             counter.increment(delta),
             Matchers.equalTo(start.add(delta))
+        );
+    }
+
+    /**
+     * DyCounter can increment and set in parallel threads.
+     * @throws Exception If some problem inside
+     */
+    @Test
+    public void incrementAndSetInThreads() throws Exception {
+        final Counters counters = new DefaultUser(
+            new URN("urn:test:78833")
+        ).counters();
+        final String name = "test-9990";
+        counters.create(name);
+        final Counter counter = counters.get(name);
+        final BigDecimal start = new BigDecimal(new SecureRandom().nextLong());
+        counter.set(start);
+        final Set<BigDecimal> values = new ConcurrentSkipListSet<BigDecimal>();
+        new Callable<Void>() {
+            @Override
+            @Parallel(threads = Tv.TWENTY)
+            public Void call() throws Exception {
+                values.add(counter.increment(new BigDecimal(1L)));
+                return null;
+            }
+        }.call();
+        MatcherAssert.assertThat(
+            values,
+            Matchers.hasSize(Tv.TWENTY)
         );
     }
 
