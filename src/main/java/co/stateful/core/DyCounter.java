@@ -77,13 +77,14 @@ final class DyCounter implements Counter {
 
     @Override
     public BigDecimal increment(final BigDecimal delta) {
-        this.item.put(
-            DyCounters.ATTR_VALUE,
-            new AttributeValueUpdate(
-                new AttributeValue().withN(delta.toString()),
-                AttributeAction.ADD
-            )
+        return new BigDecimal(
+            this.item.put(
+                DyCounters.ATTR_VALUE,
+                new AttributeValueUpdate(
+                    new AttributeValue().withN(delta.toString()),
+                    AttributeAction.ADD
+                )
+            ).get(DyCounters.ATTR_VALUE).getN()
         );
-        return new BigDecimal(this.item.get(DyCounters.ATTR_VALUE).getN());
     }
 }
