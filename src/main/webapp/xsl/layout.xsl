@@ -40,9 +40,9 @@
                 <meta name="description" content="Stateful Web Primitives"/>
                 <meta name="keywords" content="stateful.co"/>
                 <meta name="author" content="www.stateful.co"/>
-                <link rel="icon" type="image/svg+xml">
+                <link rel="icon" type="image/gif">
                     <xsl:attribute name="href">
-                        <xsl:text>http://img.stateful.co/logo.svg</xsl:text>
+                        <xsl:text>http://img.stateful.co/favicon.ico</xsl:text>
                     </xsl:attribute>
                 </link>
                 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"/>
@@ -69,7 +69,7 @@
                                 </xsl:attribute>
                                 <img alt="logo" class="logo">
                                     <xsl:attribute name="src">
-                                        <xsl:text>http://img.stateful.co/logo.svg</xsl:text>
+                                        <xsl:text>http://img.stateful.co/cycle.svg</xsl:text>
                                     </xsl:attribute>
                                 </img>
                             </a>
