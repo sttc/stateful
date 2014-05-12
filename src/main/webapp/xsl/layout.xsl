@@ -121,7 +121,7 @@
                         </xsl:choose>
                     </header>
                     <xsl:apply-templates select="flash"/>
-                    <section class="content well well-lg">
+                    <section class="well well-lg content">
                         <xsl:apply-templates select="." mode="body"/>
                     </section>
                     <footer class="footer">

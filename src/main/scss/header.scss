@@ -28,6 +28,8 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+@import 'colors';
+
 .logo {
     width: 80px;
     height: 80px;
@@ -41,7 +43,9 @@
 .buttons {
     a {
         font-size: 36px;
+        color: $color-background;
         &:hover {
+            color: $color-background-dark;
         }
     }
 }

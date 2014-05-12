@@ -47,6 +47,7 @@ body {
 
 .content {
     color: $color-text;
+    background-color: $color-background;
 }
 
 .footer {
@@ -55,3 +56,12 @@ body {
     font-size: 14px;
 }
 
+.header,
+.footer {
+    a {
+        color: $color-background;
+        &:hover {
+            color: $color-background-dark;
+        }
+    }
+}
