@@ -168,6 +168,6 @@ final class DefaultUser implements User {
 
     @Override
     public Locks locks() {
-        throw new UnsupportedOperationException("#locks()");
+        return new DyLocks(this.region.table(DyLocks.TBL), this.name);
     }
 }

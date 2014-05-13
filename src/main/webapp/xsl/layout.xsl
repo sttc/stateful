@@ -42,7 +42,8 @@
                 <meta name="author" content="www.stateful.co"/>
                 <link rel="icon" type="image/gif">
                     <xsl:attribute name="href">
-                        <xsl:text>http://img.stateful.co/favicon.ico</xsl:text>
+                        <xsl:text>//img.stateful.co/favicon.ico?</xsl:text>
+                        <xsl:value-of select="version/name"/>
                     </xsl:attribute>
                 </link>
                 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"/>
@@ -69,7 +70,8 @@
                                 </xsl:attribute>
                                 <img alt="logo" class="logo">
                                     <xsl:attribute name="src">
-                                        <xsl:text>http://img.stateful.co/cycle.svg</xsl:text>
+                                        <xsl:text>//img.stateful.co/pomegranate.svg?</xsl:text>
+                                        <xsl:value-of select="version/name"/>
                                     </xsl:attribute>
                                 </img>
                             </a>
@@ -108,6 +110,14 @@
                                                     <xsl:value-of select="links/link[@rel='menu:counters']/@href"/>
                                                 </xsl:attribute>
                                                 <xsl:text>counters</xsl:text>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a>
+                                                <xsl:attribute name="href">
+                                                    <xsl:value-of select="links/link[@rel='menu:locks']/@href"/>
+                                                </xsl:attribute>
+                                                <xsl:text>locks</xsl:text>
                                             </a>
                                         </li>
                                     </ul>

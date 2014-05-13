@@ -33,7 +33,7 @@
     <xsl:include href="/xsl/layout.xsl"/>
     <xsl:template match="page" mode="head">
         <title>
-            <xsl:text>stateful</xsl:text>
+            <xsl:text>counters</xsl:text>
         </title>
         <script type="text/javascript">
             <xsl:attribute name="src">
@@ -51,7 +51,7 @@
         <div class="col-12 col-sm-8 col-lg-6 clearfix" style="padding-left:0;">
             <form method="post" class="form-inline">
                 <xsl:attribute name="action">
-                    <xsl:value-of select="/page/links/link[@rel='add']/@href"/>
+                    <xsl:value-of select="links/link[@rel='add']/@href"/>
                 </xsl:attribute>
                 <fieldset>
                     <div class="input-group">

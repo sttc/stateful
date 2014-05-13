@@ -4,12 +4,12 @@
         <title>Internal application error</title>
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"/>
         <link href="/css/style.css?${buildNumber}" rel="stylesheet" type="text/css"/>
-        <link rel="icon" type="image/gif" href="http://img.stateful.co/logo.svg?${buildNumber}"/>
+        <link rel="icon" type="image/gif" href="//img.stateful.co/favicon.ico?${buildNumber}"/>
     </head>
     <body>
         <p>
             <a href="/">
-                <img src="http://img.stateful.co/logo.svg?${buildNumber}" class="logo"/>
+                <img src="//img.stateful.co/pomegranate.svg?${buildNumber}" class="logo"/>
             </a>
         </p>
         <p class="alert alert-danger">

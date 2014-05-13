@@ -30,6 +30,7 @@
 package co.stateful.core;
 
 import com.jcabi.aspects.Immutable;
+import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -54,7 +55,7 @@ public interface Locks {
      * @param label Label to attach
      * @return TRUE if locked successfully
      */
-    boolean lock(String name, String label);
+    boolean lock(String name, String label) throws IOException;
 
     /**
      * Unlock it.

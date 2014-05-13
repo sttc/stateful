@@ -512,6 +512,7 @@
                                     <tables>
                                         <table>${basedir}/src/test/dynamodb/counters.json</table>
                                         <table>${basedir}/src/test/dynamodb/tokens.json</table>
+                                        <table>${basedir}/src/test/dynamodb/locks.json</table>
                                     </tables>
                                 </configuration>
                             </execution>

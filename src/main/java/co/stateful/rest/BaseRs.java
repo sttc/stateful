@@ -139,6 +139,7 @@ public class BaseRs extends BaseResource {
                 final Response.ResponseBuilder builder) {
                 if (!BaseRs.this.auth().identity().equals(Identity.ANONYMOUS)) {
                     page.link(new Link("menu:counters", "/counters"));
+                    page.link(new Link("menu:locks", "/locks"));
                 }
             }
         };
