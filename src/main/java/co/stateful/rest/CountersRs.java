@@ -32,6 +32,7 @@ package co.stateful.rest;
 import com.rexsl.page.JaxbBundle;
 import com.rexsl.page.Link;
 import com.rexsl.page.PageBuilder;
+import java.io.IOException;
 import java.util.logging.Level;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -76,10 +77,12 @@ public final class CountersRs extends BaseRs {
     /**
      * Add a new counter.
      * @param name Name of the counter
+     * @throws IOException If fails due to IO problem
      */
     @POST
     @Path("/add")
-    public void add(@FormParam(CountersRs.PARAM) final String name) {
+    public void add(@FormParam(CountersRs.PARAM) final String name)
+        throws IOException {
         if (!name.matches("[0-9a-zA-Z\\-]{1,32}")) {
             throw this.flash().redirect(
                 this.uriInfo().getBaseUriBuilder()

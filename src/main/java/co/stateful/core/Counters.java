@@ -30,6 +30,7 @@
 package co.stateful.core;
 
 import com.jcabi.aspects.Immutable;
+import java.io.IOException;
 
 /**
  * Counters.
@@ -49,8 +50,9 @@ public interface Counters {
     /**
      * Create a counter.
      * @param name Name of it
+     * @throws IOException If fails due to IO problem
      */
-    void create(String name);
+    void create(String name) throws IOException;
 
     /**
      * Delete a counter.

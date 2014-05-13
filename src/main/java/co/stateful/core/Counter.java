@@ -30,6 +30,7 @@
 package co.stateful.core;
 
 import com.jcabi.aspects.Immutable;
+import java.io.IOException;
 import java.math.BigDecimal;
 
 /**
@@ -44,14 +45,16 @@ public interface Counter {
     /**
      * Set specific value.
      * @param value Value to set
+     * @throws IOException If fails due to IO problem
      */
-    void set(BigDecimal value);
+    void set(BigDecimal value) throws IOException;
 
     /**
      * Add value to it.
      * @param delta Delta to add
      * @return New value
+     * @throws IOException If fails due to IO problem
      */
-    BigDecimal increment(BigDecimal delta);
+    BigDecimal increment(BigDecimal delta) throws IOException;
 
 }

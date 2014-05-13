@@ -30,6 +30,7 @@
 package co.stateful.core;
 
 import com.jcabi.aspects.Immutable;
+import java.io.IOException;
 
 /**
  * User.
@@ -49,18 +50,27 @@ public interface User {
     /**
      * Get his security token.
      * @return Token
+     * @throws IOException If fails due to IO problem
      */
-    String token();
+    String token() throws IOException;
 
     /**
      * Refresh the token.
+     * @throws IOException If fails due to IO problem
      */
-    void refresh();
+    void refresh() throws IOException;
 
     /**
      * Get his counters.
      * @return Counters
      */
     Counters counters();
+
+    /**
+     * Get his locks.
+     * @return Locks
+     * @since 1.1
+     */
+    Locks locks();
 
 }

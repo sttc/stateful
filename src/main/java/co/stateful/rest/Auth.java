@@ -35,6 +35,7 @@ import com.jcabi.urn.URN;
 import com.rexsl.page.BaseResource;
 import com.rexsl.page.auth.Identity;
 import com.rexsl.page.auth.Provider;
+import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import javax.ws.rs.WebApplicationException;
@@ -83,7 +84,7 @@ final class Auth implements Provider {
     }
 
     @Override
-    public Identity identity() {
+    public Identity identity() throws IOException {
         final MultivaluedMap<String, String> headers =
             this.resource.httpHeaders().getRequestHeaders();
         Identity identity = Identity.ANONYMOUS;

@@ -48,6 +48,7 @@ import com.rexsl.page.auth.Provider;
 import com.rexsl.page.inset.FlashInset;
 import com.rexsl.page.inset.LinksInset;
 import com.rexsl.page.inset.VersionInset;
+import java.io.IOException;
 import java.net.URI;
 import java.util.logging.Level;
 import javax.ws.rs.core.HttpHeaders;
@@ -154,9 +155,13 @@ public class BaseRs extends BaseResource {
             public void render(final BasePage<?, ?> page,
                 final Response.ResponseBuilder builder) {
                 if (!BaseRs.this.auth().identity().equals(Identity.ANONYMOUS)) {
-                    page.append(
-                        new JaxbBundle("token", BaseRs.this.user().token())
-                    );
+                    try {
+                        page.append(
+                            new JaxbBundle("token", BaseRs.this.user().token())
+                        );
+                    } catch (final IOException ex) {
+                        throw new IllegalStateException(ex);
+                    }
                     page.link(new Link("user:refresh", "/u/refresh"));
                 }
             }

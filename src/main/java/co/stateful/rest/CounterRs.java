@@ -30,6 +30,7 @@
 package co.stateful.rest;
 
 import co.stateful.core.Counter;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import javax.ws.rs.GET;
@@ -69,10 +70,12 @@ public final class CounterRs extends BaseRs {
      * Set counter.
      * @param value Value to set
      * @return The JAX-RS response
+     * @throws IOException If fails due to IO problem
      */
     @PUT
     @Path("/set")
-    public Response set(@QueryParam("value") final String value) {
+    public Response set(@QueryParam("value") final String value)
+        throws IOException {
         this.counter.set(this.decimal(value));
         return Response.ok().build();
     }
@@ -81,11 +84,13 @@ public final class CounterRs extends BaseRs {
      * Add counter.
      * @param value Value to add
      * @return The JAX-RS response
+     * @throws IOException If fails due to IO problem
      */
     @GET
     @Path("/inc")
     @Produces(MediaType.TEXT_PLAIN)
-    public Response increment(@QueryParam("value") final String value) {
+    public Response increment(@QueryParam("value") final String value)
+        throws IOException {
         return Response.ok()
             .entity(this.counter.increment(this.decimal(value)).toString())
             .build();

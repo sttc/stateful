@@ -44,6 +44,7 @@ import com.jcabi.dynamo.QueryValve;
 import com.jcabi.dynamo.Region;
 import com.jcabi.manifests.Manifests;
 import com.jcabi.urn.URN;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -122,7 +123,7 @@ final class DefaultUser implements User {
 
     @Override
     @Cacheable(lifetime = 1, unit = TimeUnit.HOURS)
-    public String token() {
+    public String token() throws IOException {
         final Iterator<Item> items = this.region.table(DefaultUser.TOKENS)
             .frame().through(new QueryValve())
             .where(DefaultUser.HASH, Conditions.equalTo(this.name))
@@ -139,7 +140,7 @@ final class DefaultUser implements User {
 
     @Override
     @Cacheable.FlushAfter
-    public void refresh() {
+    public void refresh() throws IOException {
         this.region.table(DefaultUser.TOKENS).put(
             new Attributes()
                 .with(DefaultUser.HASH, this.name)
@@ -163,5 +164,10 @@ final class DefaultUser implements User {
     @Cacheable(lifetime = 1, unit = TimeUnit.HOURS)
     public Counters counters() {
         return new DyCounters(this.region.table(DyCounters.TBL), this.name);
+    }
+
+    @Override
+    public Locks locks() {
+        throw new UnsupportedOperationException("#locks()");
     }
 }

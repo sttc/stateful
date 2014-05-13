@@ -29,63 +29,37 @@
  */
 package co.stateful.core;
 
-import com.amazonaws.services.dynamodbv2.model.AttributeAction;
-import com.amazonaws.services.dynamodbv2.model.AttributeValue;
-import com.amazonaws.services.dynamodbv2.model.AttributeValueUpdate;
 import com.jcabi.aspects.Immutable;
-import com.jcabi.aspects.Loggable;
-import com.jcabi.dynamo.Item;
-import java.io.IOException;
-import java.math.BigDecimal;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import java.util.Map;
 
 /**
- * Counter in DynamoDB.
+ * Locks.
  *
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
+ * @since 1.1
  */
 @Immutable
-@ToString
-@EqualsAndHashCode(of = "item")
-@Loggable(Loggable.DEBUG)
-final class DyCounter implements Counter {
+public interface Locks {
 
     /**
-     * Item we're working with.
+     * Get list of them all, and their labels.
+     * @return List of locks
      */
-    private final transient Item item;
+    Map<String, String> names();
 
     /**
-     * Ctor.
-     * @param itm Item
+     * Lock it.
+     * @param name Unique name of the lock
+     * @param label Label to attach
+     * @return TRUE if locked successfully
      */
-    DyCounter(final Item itm) {
-        this.item = itm;
-    }
+    boolean lock(String name, String label);
 
-    @Override
-    public void set(final BigDecimal value) throws IOException {
-        this.item.put(
-            DyCounters.ATTR_VALUE,
-            new AttributeValueUpdate(
-                new AttributeValue().withN(value.toString()),
-                AttributeAction.PUT
-            )
-        );
-    }
+    /**
+     * Unlock it.
+     * @param name Unique name of the lock
+     */
+    void unlock(String name);
 
-    @Override
-    public BigDecimal increment(final BigDecimal delta) throws IOException {
-        return new BigDecimal(
-            this.item.put(
-                DyCounters.ATTR_VALUE,
-                new AttributeValueUpdate(
-                    new AttributeValue().withN(delta.toString()),
-                    AttributeAction.ADD
-                )
-            ).get(DyCounters.ATTR_VALUE).getN()
-        );
-    }
 }

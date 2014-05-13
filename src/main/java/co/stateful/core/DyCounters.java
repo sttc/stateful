@@ -43,6 +43,7 @@ import com.jcabi.dynamo.Item;
 import com.jcabi.dynamo.QueryValve;
 import com.jcabi.dynamo.Table;
 import com.jcabi.urn.URN;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -101,7 +102,7 @@ final class DyCounters implements Counters {
 
     @Override
     @Cacheable.FlushAfter
-    public void create(final String name) {
+    public void create(final String name) throws IOException {
         this.table.put(
             new Attributes()
                 .with(DyCounters.HASH, this.owner)
@@ -116,11 +117,8 @@ final class DyCounters implements Counters {
         Iterators.removeIf(
             this.table.frame()
                 .through(new QueryValve().withLimit(1))
-                .where(
-                    new Conditions()
-                        .with(DyCounters.HASH, Conditions.equalTo(this.owner))
-                        .with(DyCounters.RANGE, Conditions.equalTo(name))
-                )
+                .where(DyCounters.HASH, Conditions.equalTo(this.owner))
+                .where(DyCounters.RANGE, Conditions.equalTo(name))
                 .iterator(),
             Predicates.alwaysTrue()
         );
@@ -132,11 +130,8 @@ final class DyCounters implements Counters {
         return new DyCounter(
             this.table.frame()
                 .through(new QueryValve().withLimit(1))
-                .where(
-                    new Conditions()
-                        .with(DyCounters.HASH, Conditions.equalTo(this.owner))
-                        .with(DyCounters.RANGE, Conditions.equalTo(name))
-                )
+                .where(DyCounters.HASH, Conditions.equalTo(this.owner))
+                .where(DyCounters.RANGE, Conditions.equalTo(name))
                 .iterator()
                 .next()
         );
@@ -148,14 +143,15 @@ final class DyCounters implements Counters {
         return Iterables.transform(
             this.table.frame()
                 .through(new QueryValve())
-                .where(
-                    new Conditions()
-                        .with(DyCounters.HASH, Conditions.equalTo(this.owner))
-                ),
+                .where(DyCounters.HASH, Conditions.equalTo(this.owner)),
             new Function<Item, String>() {
                 @Override
                 public String apply(final Item item) {
-                    return item.get(DyCounters.RANGE).getS();
+                    try {
+                        return item.get(DyCounters.RANGE).getS();
+                    } catch (final IOException ex) {
+                        throw new IllegalStateException(ex);
+                    }
                 }
             }
         );
