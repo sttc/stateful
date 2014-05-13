@@ -33,6 +33,7 @@
 .logo {
     width: 80px;
     height: 80px;
+    margin-bottom: 1em;
 }
 
 .photo {
@@ -43,9 +44,9 @@
 .buttons {
     a {
         font-size: 36px;
-        color: $color-background;
+        color: $color-gray;
         &:hover {
-            color: $color-background-dark;
+            color: $color-red-light;
         }
     }
 }

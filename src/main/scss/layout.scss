@@ -33,7 +33,7 @@
 body {
     font-size: 20px;
     padding: 2em;
-    color: $color-background;
+    color: $color-black;
     background-image: url("http://img.stateful.co/background.png");
 }
 
@@ -41,27 +41,25 @@ body {
     width: 800px;
 }
 
-.header {
+.header,
+.footer {
+    color: $color-gray;
     text-align: center;
-}
-
-.content {
-    color: $color-text;
-    background-color: $color-background;
+    a {
+        color: $color-gray;
+        &:hover {
+            color: $color-red-light;
+        }
+    }
 }
 
 .footer {
-    color: $color-background;
-    text-align: center;
     font-size: 14px;
 }
 
-.header,
-.footer {
-    a {
-        color: $color-background;
-        &:hover {
-            color: $color-background-dark;
-        }
+a {
+    color: $color-red;
+    &:hover {
+        color: $color-red-light;
     }
 }

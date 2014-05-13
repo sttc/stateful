@@ -83,6 +83,8 @@ public final class LocksRs extends BaseRs {
     /**
      * Lock.
      * @param name Name of the lock
+     * @param label Label
+     * @return Response
      * @throws IOException If fails due to IO problem
      */
     @POST
@@ -150,7 +152,8 @@ public final class LocksRs extends BaseRs {
     private JaxbBundle list() {
         return new JaxbBundle("locks").add(
             new JaxbBundle.Group<Map.Entry<String, String>>(
-                this.user().locks().names().entrySet()) {
+                this.user().locks().names().entrySet()
+            ) {
                 @Override
                 public JaxbBundle bundle(final Map.Entry<String, String> ent) {
                     return new JaxbBundle("lock")

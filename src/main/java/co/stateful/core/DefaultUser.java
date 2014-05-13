@@ -58,6 +58,7 @@ import org.apache.commons.lang3.RandomStringUtils;
  *
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
+ * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
  */
 @Immutable
 @ToString
