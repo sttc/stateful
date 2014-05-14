@@ -30,37 +30,14 @@
 
 @import 'colors';
 
-body {
-    font-size: 20px;
-    padding: 2em;
+.btn-primary {
+    background-color: $color-gray;
     color: $color-black;
-    background-image: url("http://img.stateful.co/background.png");
-}
-
-.container {
-    width: 800px;
-}
-
-.header,
-.footer {
-    color: $color-gray;
-    text-align: center;
-    a {
-        color: $color-gray;
-        &:hover {
-            color: $color-red-light;
-            text-decoration: none;
-        }
-    }
-}
-
-.footer {
-    font-size: 14px;
-}
-
-a {
-    color: $color-red;
+    border-color: $color-gray-dark;
     &:hover {
-        color: $color-red-light;
+        color: $color-gray;
+        background-color: $color-red;
+        border-color: $color-red;
     }
 }
+
