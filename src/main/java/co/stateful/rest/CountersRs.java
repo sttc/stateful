@@ -69,6 +69,7 @@ public final class CountersRs extends BaseRs {
             .build(StPage.class)
             .init(this)
             .append(this.list())
+            .append(new JaxbBundle("menu", "counters"))
             .link(new Link("add", "./add"))
             .render()
             .build();

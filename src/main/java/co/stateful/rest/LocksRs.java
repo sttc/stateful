@@ -74,6 +74,7 @@ public final class LocksRs extends BaseRs {
             .build(StPage.class)
             .init(this)
             .append(this.list())
+            .append(new JaxbBundle("menu", "locks"))
             .link(new Link("lock", "./lock"))
             .link(new Link("unlock", "./unlock"))
             .render()

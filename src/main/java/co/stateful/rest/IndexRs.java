@@ -58,6 +58,7 @@ public final class IndexRs extends BaseRs {
             .stylesheet("/xsl/index.xsl")
             .build(StPage.class)
             .init(this)
+            .append(new JaxbBundle("menu", "home"))
             .append(
                 new JaxbBundle(
                     "documentation",

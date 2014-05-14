@@ -51,3 +51,8 @@
     }
 }
 
+.menu {
+    .active {
+        border-bottom: 1px solid $color-red-light;
+    }
+}

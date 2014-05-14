@@ -104,22 +104,27 @@
                                 </div>
                                 <nav class="menu">
                                     <ul class="list-inline">
-                                        <li>
-                                            <a>
-                                                <xsl:attribute name="href">
-                                                    <xsl:value-of select="links/link[@rel='menu:counters']/@href"/>
-                                                </xsl:attribute>
-                                                <xsl:text>counters</xsl:text>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a>
-                                                <xsl:attribute name="href">
-                                                    <xsl:value-of select="links/link[@rel='menu:locks']/@href"/>
-                                                </xsl:attribute>
-                                                <xsl:text>locks</xsl:text>
-                                            </a>
-                                        </li>
+                                        <xsl:for-each select="links/link[contains(@rel,'menu:')]">
+                                            <li>
+                                                <xsl:variable name="label" select="substring(@rel,6)"/>
+                                                <xsl:choose>
+                                                    <xsl:when test="/page/menu = $label">
+                                                        <xsl:attribute name="class">
+                                                            <xsl:text>active</xsl:text>
+                                                        </xsl:attribute>
+                                                        <xsl:value-of select="$label"/>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        <a>
+                                                            <xsl:attribute name="href">
+                                                                <xsl:value-of select="@href"/>
+                                                            </xsl:attribute>
+                                                            <xsl:value-of select="$label"/>
+                                                        </a>
+                                                    </xsl:otherwise>
+                                                </xsl:choose>
+                                            </li>
+                                        </xsl:for-each>
                                     </ul>
                                 </nav>
                             </xsl:when>
