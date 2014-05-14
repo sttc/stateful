@@ -109,9 +109,11 @@ final class DyLocks implements Locks {
         final ImmutableMap.Builder<String, String> map =
             new ImmutableMap.Builder<String, String>();
         Iterables.all(
-            this.table.frame()
-                .through(new QueryValve())
-                .where(DyLocks.HASH, Conditions.equalTo(this.owner)),
+            this.table.frame().through(
+                new QueryValve().withAttributesToGet(
+                    DyLocks.ATTR_LABEL
+                )
+            ).where(DyLocks.HASH, Conditions.equalTo(this.owner)),
             new Predicate<Item>() {
                 @Override
                 public boolean apply(final Item item) {
