@@ -132,7 +132,7 @@
         <dependency>
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-core</artifactId>
-            <version>1.17.1</version>
+            <version>1.18.1</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -302,6 +302,7 @@
                                 <exclude>checkstyle:/src/main/webapp/.*</exclude>
                                 <exclude>findbugs:.*</exclude>
                                 <exclude>xml:/src/main/webapp/WEB-INF/web.xml</exclude>
+                                <exclude>duplicatefinder:.*</exclude>
                             </excludes>
                         </configuration>
                     </plugin>
