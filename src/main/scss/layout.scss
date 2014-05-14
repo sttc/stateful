@@ -33,12 +33,12 @@
 body {
     font-size: 20px;
     padding: 2em;
-    color: $color-black;
-    background-image: url("http://img.stateful.co/background.png");
+    background-color: $color-black;
 }
 
 .container {
     width: 800px;
+    color: $color-black;
 }
 
 .header,

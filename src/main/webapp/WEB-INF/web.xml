@@ -50,6 +50,14 @@
         <servlet-name>default</servlet-name>
         <url-pattern>/js/*</url-pattern>
     </servlet-mapping>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error</location>
+    </error-page>
+    <error-page>
+        <error-code>405</error-code>
+        <location>/error</location>
+    </error-page>
     <listener>
         <listener-class>co.stateful.rest.Lifespan</listener-class>
     </listener>
@@ -91,14 +99,6 @@
         <servlet-name>RestfulServlet</servlet-name>
         <url-pattern>/*</url-pattern>
     </servlet-mapping>
-    <error-page>
-        <error-code>404</error-code>
-        <location>/error</location>
-    </error-page>
-    <error-page>
-        <error-code>405</error-code>
-        <location>/error</location>
-    </error-page>
     <mime-mapping>
         <extension>xsl</extension>
         <mime-type>text/xsl</mime-type>
