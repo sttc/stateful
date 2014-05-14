@@ -36,7 +36,6 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -51,7 +50,6 @@ public final class DyLocksITCase {
      * @throws Exception If some problem inside
      */
     @Test
-    @Ignore
     public void locksAndUnlocksInThreads() throws Exception {
         final Locks locks = new DefaultUser(
             new URN("urn:test:787009")

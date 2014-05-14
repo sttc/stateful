@@ -29,6 +29,11 @@
  */
 package co.stateful.core;
 
+import com.amazonaws.AmazonClientException;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
+import com.amazonaws.services.dynamodbv2.model.ConditionalCheckFailedException;
+import com.amazonaws.services.dynamodbv2.model.ExpectedAttributeValue;
+import com.amazonaws.services.dynamodbv2.model.PutItemRequest;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.ImmutableMap;
@@ -128,13 +133,33 @@ final class DyLocks implements Locks {
     @Override
     public boolean lock(final String name, final String label)
         throws IOException {
-        this.table.put(
-            new Attributes()
-                .with(DyLocks.HASH, this.owner)
-                .with(DyLocks.RANGE, name)
-                .with(DyLocks.ATTR_LABEL, label)
-        );
-        return true;
+        final AmazonDynamoDB aws = this.table.region().aws();
+        boolean locked;
+        try {
+            final PutItemRequest request = new PutItemRequest();
+            request.setTableName(this.table.name());
+            request.setItem(
+                new Attributes()
+                    .with(DyLocks.HASH, this.owner)
+                    .with(DyLocks.RANGE, name)
+                    .with(DyLocks.ATTR_LABEL, label)
+            );
+            request.setExpected(
+                new ImmutableMap.Builder<String, ExpectedAttributeValue>().put(
+                    DyLocks.ATTR_LABEL,
+                    new ExpectedAttributeValue().withExists(false)
+                ).build()
+            );
+            aws.putItem(request);
+            locked = true;
+        } catch (final ConditionalCheckFailedException ex) {
+            locked = false;
+        } catch (final AmazonClientException ex) {
+            throw new IOException(ex);
+        } finally {
+            aws.shutdown();
+        }
+        return locked;
     }
 
     @Override
