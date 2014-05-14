@@ -77,28 +77,6 @@ public final class IndexRsITCase {
     }
 
     /**
-     * IndexRs can hit not-found pages.
-     * @throws Exception If some problem inside
-     */
-    @Test
-    public void hitsAbsentPages() throws Exception {
-        final String[] pages = {
-            "/page-doesnt-exist",
-            "/xsl/xsl-stylesheet-doesnt-exist.xsl",
-            "/css/stylesheet-is-absent.css",
-        };
-        for (final String page : pages) {
-            new JdkRequest(IndexRsITCase.HOME)
-                .uri().path(page).back()
-                .fetch()
-                .as(RestResponse.class)
-                .assertStatus(HttpURLConnection.HTTP_NOT_FOUND)
-                .as(XmlResponse.class)
-                .assertXPath("//xhtml:h1[contains(.,'Page not found')]");
-        }
-    }
-
-    /**
      * IndexRs can mandatory page elements.
      * @throws Exception If some problem inside
      */

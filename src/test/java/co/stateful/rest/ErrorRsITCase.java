@@ -27,51 +27,47 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package co.stateful.core;
+package co.stateful.rest;
 
-import com.jcabi.aspects.Parallel;
-import com.jcabi.aspects.Tv;
-import com.jcabi.urn.URN;
-import java.util.concurrent.Callable;
-import java.util.concurrent.atomic.AtomicInteger;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.Ignore;
+import com.jcabi.http.request.JdkRequest;
+import com.jcabi.http.response.RestResponse;
+import com.jcabi.http.response.XmlResponse;
+import java.net.HttpURLConnection;
 import org.junit.Test;
 
 /**
- * Integration case for {@link DyLocks}.
+ * Integration case for {@link ErrorRs}.
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
  */
-public final class DyLocksITCase {
+@SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
+public final class ErrorRsITCase {
 
     /**
-     * DyLocks can lock/unlock in parallel threads.
+     * Tomcat home.
+     */
+    private static final String HOME = System.getProperty("tomcat.home");
+
+    /**
+     * IndexRs can hit not-found pages.
      * @throws Exception If some problem inside
      */
     @Test
-    @Ignore
-    public void locksAndUnlocksInThreads() throws Exception {
-        final Locks locks = new DefaultUser(
-            new URN("urn:test:787009")
-        ).locks();
-        final String name = "lock-9033";
-        final AtomicInteger done = new AtomicInteger();
-        new Callable<Void>() {
-            @Override
-            @Parallel(threads = Tv.TWENTY)
-            public Void call() throws Exception {
-                if (locks.lock(name, "nothing special")) {
-                    done.incrementAndGet();
-                }
-                return null;
-            }
-        } .call();
-        MatcherAssert.assertThat(
-            done.get(),
-            Matchers.equalTo(1)
-        );
+    public void hitsAbsentPages() throws Exception {
+        final String[] pages = {
+            "/page-doesnt-exist",
+            "/xsl/xsl-stylesheet-doesnt-exist.xsl",
+            "/css/stylesheet-is-absent.css",
+        };
+        for (final String page : pages) {
+            new JdkRequest(ErrorRsITCase.HOME)
+                .uri().path(page).back()
+                .fetch()
+                .as(RestResponse.class)
+                .assertStatus(HttpURLConnection.HTTP_NOT_FOUND)
+                .as(XmlResponse.class)
+                .assertXPath("//xhtml:h1[contains(.,'Page not found')]");
+        }
     }
 
 }
