@@ -64,7 +64,7 @@ public final class IndexRs extends BaseRs {
                     "documentation",
                     IOUtils.toString(
                         this.getClass().getResourceAsStream(
-                            "documentation.html"
+                            "doc-index.html"
                         )
                     )
                 )

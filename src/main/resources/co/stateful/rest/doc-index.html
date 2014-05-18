@@ -15,6 +15,17 @@ their results won't be duplicated.</p>
 an auto-increment value in a NoSQL database, for example
 Amazon DynamoDB.</p>
 
+<h2>Concurrent Locks</h2>
+
+<p>Create a lock, run your sensitive operations, and remove the lock.
+We guarantee that lock creation procedure is atomic. This means that
+only one process will get a lock, others will be rejected.</p>
+
+<p>This mechanism may be useful to synchronize data modification
+processes running across multiple server nodes. Inside one node
+you can synchronize through platform-native locking tools, but
+in multi-node environment cloud locking is the only option.</p>
+
 <h2>Authentication</h2>
 
 <p>In every HTTP request you should set two authentication headers

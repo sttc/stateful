@@ -29,6 +29,8 @@
  */
 package co.stateful.rest;
 
+import co.stateful.core.Counters;
+import com.google.common.collect.Iterables;
 import com.rexsl.page.JaxbBundle;
 import com.rexsl.page.Link;
 import com.rexsl.page.PageBuilder;
@@ -40,6 +42,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
+import org.apache.commons.io.IOUtils;
 
 /**
  * Counters of a user.
@@ -68,6 +71,16 @@ public final class CountersRs extends BaseRs {
             .stylesheet("/xsl/counters.xsl")
             .build(StPage.class)
             .init(this)
+            .append(
+                new JaxbBundle(
+                    "documentation",
+                    IOUtils.toString(
+                        this.getClass().getResourceAsStream(
+                            "doc-counters.html"
+                        )
+                    )
+                )
+            )
             .append(this.list())
             .append(new JaxbBundle("menu", "counters"))
             .link(new Link("add", "./add"))
@@ -92,6 +105,16 @@ public final class CountersRs extends BaseRs {
                     .build(),
                 "1-32 letters, numbers or dashes",
                 Level.WARNING
+            );
+        }
+        if (Iterables.size(this.user().counters().names()) > Counters.MAX) {
+            throw this.flash().redirect(
+                this.uriInfo().getBaseUriBuilder()
+                    .clone()
+                    .path(CountersRs.class)
+                    .build(),
+                "too many counters in your account",
+                Level.SEVERE
             );
         }
         this.user().counters().create(name);

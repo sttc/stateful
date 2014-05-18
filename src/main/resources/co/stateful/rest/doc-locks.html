@@ -1,0 +1,44 @@
+<p>
+    Locks are accessible through RESTful API. There
+    are two operations available on every lock:
+    lock and unlock.
+</p>
+
+<p>
+    In order to occupy lock <code>test</code>,
+    make a <code>POST</code> request to <code>/k/lock</code>.
+    HTTP request body should contain two URL-encoded parameters:
+    <code>name</code> and <code>label</code>.
+    HTTP header <code>Content-Type</code> should be set to
+    <code>application/x-www-form-urlencoded</code>.
+</p>
+
+<p>
+    Response code
+    <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.3.4">303</a>
+    will indicate success.
+    If this lock is busy
+    you will get HTTP response code
+    <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409</a>.
+    For example:
+</p>
+
+<pre>POST /k/lock HTTP/1.1
+Host: www.stateful.co
+X-Sttc-URN: urn:github:526301
+X-Sttc-Token: B28F-38E4-B305-C3A3
+Content-Type: application/x-www-form-urlencoded
+
+name=test&amp;label=test+lock+without+any+meaning</pre>
+
+<p>
+    To unlock just make a <code>GET</code> request to
+    <code>/k/unlock?name=test</code>.
+    Response code
+    <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200</a>
+    will indicate success.
+</p>
+
+<p>
+    You can have up to 4096 locks in one account.
+</p>

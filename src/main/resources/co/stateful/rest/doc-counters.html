@@ -1,0 +1,35 @@
+<p>
+    Counters are accessible through RESTful API. There
+    are two operations availables on every counter:
+    set and increment.
+    Set returns nothing, while increment
+    returns current value of the counter.
+    In order to read without changing
+    you just increment by zero. An increment with
+    a negative value will decrement a counter.
+</p>
+
+<p>
+    For example, in order to set <code>test</code> counter to 123, you
+    make a <code>PUT</code> request: <code>/c/test/set?value=123</code>.
+    In case of success, HTTP response code will be
+    <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.3.4">303</a>.
+</p>
+
+<p>
+    In order to increment the same counter by 54, you
+    make a <code>GET</code> request: <code>/c/test/inc?value=123</code>.
+    Request header <code>Accept</code> should include <code>text/plain</code>.
+    In case of success HTTP response code will be
+    <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200</a>
+    and response body
+    will contain counter value, in plain text format (integer number).
+</p>
+
+<p>
+    Maximum number of digits in a counter value is 32.
+</p>
+
+<p>
+    You can have up to 64 counters in one account.
+</p>

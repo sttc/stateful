@@ -29,6 +29,7 @@
  */
 package co.stateful.rest;
 
+import co.stateful.core.Locks;
 import com.rexsl.page.JaxbBundle;
 import com.rexsl.page.Link;
 import com.rexsl.page.PageBuilder;
@@ -36,6 +37,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.Map;
 import java.util.logging.Level;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -43,7 +45,9 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import org.apache.commons.io.IOUtils;
 
 /**
  * Locks of a user.
@@ -53,7 +57,7 @@ import javax.ws.rs.core.Response;
  * @checkstyle MultipleStringLiteralsCheck (500 lines)
  * @since 1.1
  */
-@Path("/locks")
+@Path("/k")
 public final class LocksRs extends BaseRs {
 
     /**
@@ -73,6 +77,16 @@ public final class LocksRs extends BaseRs {
             .stylesheet("/xsl/locks.xsl")
             .build(StPage.class)
             .init(this)
+            .append(
+                new JaxbBundle(
+                    "documentation",
+                    IOUtils.toString(
+                        this.getClass().getResourceAsStream(
+                            "doc-locks.html"
+                        )
+                    )
+                )
+            )
             .append(this.list())
             .append(new JaxbBundle("menu", "locks"))
             .link(new Link("lock", "./lock"))
@@ -90,6 +104,7 @@ public final class LocksRs extends BaseRs {
      */
     @POST
     @Path("/lock")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public Response lock(@FormParam(LocksRs.PARAM) final String name,
         @FormParam("label") @DefaultValue("none") final String label)
         throws IOException {
@@ -111,6 +126,16 @@ public final class LocksRs extends BaseRs {
                     .build(),
                 "label can't be empty",
                 Level.WARNING
+            );
+        }
+        if (this.user().locks().names().size() > Locks.MAX) {
+            throw this.flash().redirect(
+                this.uriInfo().getBaseUriBuilder()
+                    .clone()
+                    .path(LocksRs.class)
+                    .build(),
+                "too many locks in your account",
+                Level.SEVERE
             );
         }
         if (this.user().locks().lock(name, label)) {

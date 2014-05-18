@@ -57,18 +57,28 @@
                 </fieldset>
             </form>
         </div>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th style="width:20%;"><xsl:text>name</xsl:text></th>
-                    <th style="width:70%;"><xsl:text>label</xsl:text></th>
-                    <th><xsl:text>opts</xsl:text></th>
-                </tr>
-            </thead>
-            <tbody>
-                <xsl:apply-templates select="locks/lock"/>
-            </tbody>
-        </table>
+        <xsl:choose>
+            <xsl:when test="locks/lock">
+                <table class="table clearfix">
+                    <thead>
+                        <tr>
+                            <th style="width:20%;"><xsl:text>name</xsl:text></th>
+                            <th style="width:70%;"><xsl:text>label</xsl:text></th>
+                            <th><xsl:text>opts</xsl:text></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <xsl:apply-templates select="locks/lock"/>
+                    </tbody>
+                </table>
+            </xsl:when>
+            <xsl:otherwise>
+                <p class="clearfix">
+                    <xsl:text>There are no locks in your account.</xsl:text>
+                </p>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:value-of select="documentation" disable-output-escaping="yes"/>
     </xsl:template>
     <xsl:template match="lock">
         <tr>

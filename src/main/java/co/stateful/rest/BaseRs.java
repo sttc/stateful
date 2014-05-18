@@ -140,7 +140,7 @@ public class BaseRs extends BaseResource {
                 if (!BaseRs.this.auth().identity().equals(Identity.ANONYMOUS)) {
                     page.link(new Link("menu:home", "/"));
                     page.link(new Link("menu:counters", "/counters"));
-                    page.link(new Link("menu:locks", "/locks"));
+                    page.link(new Link("menu:locks", "/k"));
                 }
             }
         };

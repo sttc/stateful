@@ -42,6 +42,11 @@ import java.io.IOException;
 public interface Counters {
 
     /**
+     * Maximum allowed per account.
+     */
+    int MAX = 64;
+
+    /**
      * Get list of them all.
      * @return List of counter names
      */

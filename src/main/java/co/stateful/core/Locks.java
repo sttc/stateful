@@ -44,6 +44,11 @@ import java.util.Map;
 public interface Locks {
 
     /**
+     * Maximum allowed per account.
+     */
+    int MAX = 4096;
+
+    /**
      * Get list of them all, and their labels.
      * @return List of locks
      */

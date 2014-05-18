@@ -102,10 +102,10 @@ public final class CounterRs extends BaseRs {
      * @return Decimal
      */
     private BigDecimal decimal(final String text) {
-        if (!text.matches("-?[0-9]+")) {
+        if (!text.matches("-?[0-9]{1,32}")) {
             throw new WebApplicationException(
                 Response.status(HttpURLConnection.HTTP_BAD_REQUEST)
-                    .entity("only integer allowed as a value")
+                    .entity("1-32 integer allowed as a value")
                     .build()
             );
         }
