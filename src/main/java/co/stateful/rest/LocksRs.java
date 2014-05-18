@@ -93,13 +93,13 @@ public final class LocksRs extends BaseRs {
     public Response lock(@FormParam(LocksRs.PARAM) final String name,
         @FormParam("label") @DefaultValue("none") final String label)
         throws IOException {
-        if (!name.matches("[0-9a-zA-Z\\-]{1,32}")) {
+        if (!name.matches("[0-9a-zA-Z\\-]{1,256}")) {
             throw this.flash().redirect(
                 this.uriInfo().getBaseUriBuilder()
                     .clone()
                     .path(LocksRs.class)
                     .build(),
-                "1-32 letters, numbers or dashes",
+                "1-256 letters, numbers or dashes",
                 Level.WARNING
             );
         }
