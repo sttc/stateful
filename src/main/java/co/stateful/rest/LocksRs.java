@@ -108,7 +108,7 @@ public final class LocksRs extends BaseRs {
     public Response lock(@FormParam(LocksRs.PARAM) final String name,
         @FormParam("label") @DefaultValue("none") final String label)
         throws IOException {
-        if (!name.matches("[0-9a-zA-Z\\-]{1,256}")) {
+        if (!name.matches("[0-9a-zA-Z\\-\\._\\$]{1,256}")) {
             throw this.flash().redirect(
                 this.uriInfo().getBaseUriBuilder()
                     .clone()
