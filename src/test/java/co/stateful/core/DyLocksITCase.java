@@ -60,7 +60,7 @@ public final class DyLocksITCase {
             @Override
             @Parallel(threads = Tv.TWENTY)
             public Void call() throws Exception {
-                if (locks.lock(name, "nothing special")) {
+                if (locks.lock(name, "nothing special").isEmpty()) {
                     done.incrementAndGet();
                 }
                 return null;

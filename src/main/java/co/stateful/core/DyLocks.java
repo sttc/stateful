@@ -133,10 +133,10 @@ final class DyLocks implements Locks {
     }
 
     @Override
-    public boolean lock(final String name, final String label)
+    public String lock(final String name, final String label)
         throws IOException {
         final AmazonDynamoDB aws = this.table.region().aws();
-        boolean locked;
+        String msg = "";
         try {
             final PutItemRequest request = new PutItemRequest();
             request.setTableName(this.table.name());
@@ -153,15 +153,14 @@ final class DyLocks implements Locks {
                 ).build()
             );
             aws.putItem(request);
-            locked = true;
         } catch (final ConditionalCheckFailedException ex) {
-            locked = false;
+            msg = ex.getLocalizedMessage();
         } catch (final AmazonClientException ex) {
             throw new IOException(ex);
         } finally {
             aws.shutdown();
         }
-        return locked;
+        return msg;
     }
 
     @Override

@@ -58,10 +58,10 @@ public interface Locks {
      * Lock it.
      * @param name Unique name of the lock
      * @param label Label to attach
-     * @return TRUE if locked successfully
+     * @return Empty if success or a label of a current lock
      * @throws IOException If fails
      */
-    boolean lock(String name, String label) throws IOException;
+    String lock(String name, String label) throws IOException;
 
     /**
      * Unlock it.

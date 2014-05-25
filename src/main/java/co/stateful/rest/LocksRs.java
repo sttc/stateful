@@ -138,7 +138,8 @@ public final class LocksRs extends BaseRs {
                 Level.SEVERE
             );
         }
-        if (this.user().locks().lock(name, label)) {
+        final String msg = this.user().locks().lock(name, label);
+        if (msg.isEmpty()) {
             throw this.flash().redirect(
                 this.uriInfo().getBaseUriBuilder()
                     .clone()
@@ -149,7 +150,9 @@ public final class LocksRs extends BaseRs {
             );
         }
         throw new WebApplicationException(
-            HttpURLConnection.HTTP_CONFLICT
+            Response.status(HttpURLConnection.HTTP_CONFLICT)
+                .entity(msg)
+                .build()
         );
     }
 
