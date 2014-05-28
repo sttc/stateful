@@ -29,6 +29,7 @@
  */
 package co.stateful.core;
 
+import co.stateful.spi.Counters;
 import com.jcabi.urn.URN;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;

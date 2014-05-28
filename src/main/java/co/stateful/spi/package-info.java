@@ -27,50 +27,12 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package co.stateful.core;
-
-import co.stateful.spi.Locks;
-import com.jcabi.aspects.Parallel;
-import com.jcabi.aspects.Tv;
-import com.jcabi.urn.URN;
-import java.util.concurrent.Callable;
-import java.util.concurrent.atomic.AtomicInteger;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.Test;
 
 /**
- * Integration case for {@link DyLocks}.
+ * SPI.
+ *
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
+ * @since 1.4
  */
-public final class DyLocksITCase {
-
-    /**
-     * DyLocks can lock/unlock in parallel threads.
-     * @throws Exception If some problem inside
-     */
-    @Test
-    public void locksAndUnlocksInThreads() throws Exception {
-        final Locks locks = new DefaultUser(
-            new URN("urn:test:787009")
-        ).locks();
-        final String name = "lock-9033";
-        final AtomicInteger done = new AtomicInteger();
-        new Callable<Void>() {
-            @Override
-            @Parallel(threads = Tv.TWENTY)
-            public Void call() throws Exception {
-                if (locks.lock(name, "nothing special").isEmpty()) {
-                    done.incrementAndGet();
-                }
-                return null;
-            }
-        } .call();
-        MatcherAssert.assertThat(
-            done.get(),
-            Matchers.equalTo(1)
-        );
-    }
-
-}
+package co.stateful.spi;

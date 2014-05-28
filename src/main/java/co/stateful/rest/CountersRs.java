@@ -29,7 +29,7 @@
  */
 package co.stateful.rest;
 
-import co.stateful.core.Counters;
+import co.stateful.spi.Counters;
 import com.google.common.collect.Iterables;
 import com.rexsl.page.JaxbBundle;
 import com.rexsl.page.Link;

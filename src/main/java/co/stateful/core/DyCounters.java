@@ -29,6 +29,8 @@
  */
 package co.stateful.core;
 
+import co.stateful.spi.Counter;
+import co.stateful.spi.Counters;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.google.common.base.Function;
 import com.google.common.base.Predicates;

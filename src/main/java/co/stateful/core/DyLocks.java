@@ -29,6 +29,7 @@
  */
 package co.stateful.core;
 
+import co.stateful.spi.Locks;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.model.ConditionalCheckFailedException;

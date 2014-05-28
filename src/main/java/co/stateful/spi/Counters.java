@@ -27,25 +27,49 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package co.stateful.core;
+package co.stateful.spi;
 
 import com.jcabi.aspects.Immutable;
-import com.jcabi.urn.URN;
+import java.io.IOException;
 
 /**
- * Base.
+ * Counters.
  *
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
  */
 @Immutable
-public interface Base {
+public interface Counters {
 
     /**
-     * Get one user.
-     * @param urn URN of the user
-     * @return User
+     * Maximum allowed per account.
      */
-    User user(URN urn);
+    int MAX = 64;
+
+    /**
+     * Get list of them all.
+     * @return List of counter names
+     */
+    Iterable<String> names();
+
+    /**
+     * Create a counter.
+     * @param name Name of it
+     * @throws IOException If fails due to IO problem
+     */
+    void create(String name) throws IOException;
+
+    /**
+     * Delete a counter.
+     * @param name Name of it
+     */
+    void delete(String name);
+
+    /**
+     * Get one counter by name.
+     * @param name Name of it
+     * @return Counter
+     */
+    Counter get(String name);
 
 }

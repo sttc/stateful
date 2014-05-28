@@ -29,8 +29,8 @@
  */
 package co.stateful.rest;
 
-import co.stateful.core.Base;
-import co.stateful.core.User;
+import co.stateful.spi.Base;
+import co.stateful.spi.User;
 import com.jcabi.manifests.Manifests;
 import com.jcabi.urn.URN;
 import com.rexsl.page.BasePage;

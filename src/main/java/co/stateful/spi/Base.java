@@ -27,50 +27,25 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package co.stateful.core;
+package co.stateful.spi;
 
 import com.jcabi.aspects.Immutable;
-import java.io.IOException;
+import com.jcabi.urn.URN;
 
 /**
- * User.
+ * Base.
  *
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
  */
 @Immutable
-public interface User {
+public interface Base {
 
     /**
-     * This user exists.
-     * @return TRUE if this user logged in at least once through UI
+     * Get one user.
+     * @param urn URN of the user
+     * @return User
      */
-    boolean exists();
-
-    /**
-     * Get his security token.
-     * @return Token
-     * @throws IOException If fails due to IO problem
-     */
-    String token() throws IOException;
-
-    /**
-     * Refresh the token.
-     * @throws IOException If fails due to IO problem
-     */
-    void refresh() throws IOException;
-
-    /**
-     * Get his counters.
-     * @return Counters
-     */
-    Counters counters();
-
-    /**
-     * Get his locks.
-     * @return Locks
-     * @since 1.1
-     */
-    Locks locks();
+    User user(URN urn);
 
 }

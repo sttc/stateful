@@ -29,6 +29,8 @@
  */
 package co.stateful.core;
 
+import co.stateful.spi.Counter;
+import co.stateful.spi.Counters;
 import com.jcabi.aspects.Parallel;
 import com.jcabi.aspects.Tv;
 import com.jcabi.urn.URN;

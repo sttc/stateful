@@ -27,34 +27,46 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package co.stateful.core;
+package co.stateful.spi;
 
 import com.jcabi.aspects.Immutable;
 import java.io.IOException;
-import java.math.BigDecimal;
+import java.util.Map;
 
 /**
- * Counter.
+ * Locks.
  *
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
+ * @since 1.1
  */
 @Immutable
-public interface Counter {
+public interface Locks {
 
     /**
-     * Set specific value.
-     * @param value Value to set
-     * @throws IOException If fails due to IO problem
+     * Maximum allowed per account.
      */
-    void set(BigDecimal value) throws IOException;
+    int MAX = 4096;
 
     /**
-     * Add value to it.
-     * @param delta Delta to add
-     * @return New value
-     * @throws IOException If fails due to IO problem
+     * Get list of them all, and their labels.
+     * @return List of locks
      */
-    BigDecimal increment(BigDecimal delta) throws IOException;
+    Map<String, String> names();
+
+    /**
+     * Lock it.
+     * @param name Unique name of the lock
+     * @param label Label to attach
+     * @return Empty if success or a label of a current lock
+     * @throws IOException If fails
+     */
+    String lock(String name, String label) throws IOException;
+
+    /**
+     * Unlock it.
+     * @param name Unique name of the lock
+     */
+    void unlock(String name);
 
 }

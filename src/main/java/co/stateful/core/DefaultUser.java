@@ -29,6 +29,9 @@
  */
 package co.stateful.core;
 
+import co.stateful.spi.Counters;
+import co.stateful.spi.Locks;
+import co.stateful.spi.User;
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Iterables;

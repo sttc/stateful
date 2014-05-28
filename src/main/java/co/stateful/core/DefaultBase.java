@@ -29,6 +29,8 @@
  */
 package co.stateful.core;
 
+import co.stateful.spi.Base;
+import co.stateful.spi.User;
 import com.jcabi.aspects.Immutable;
 import com.jcabi.aspects.Loggable;
 import com.jcabi.urn.URN;

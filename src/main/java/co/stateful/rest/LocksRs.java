@@ -29,7 +29,7 @@
  */
 package co.stateful.rest;
 
-import co.stateful.core.Locks;
+import co.stateful.spi.Locks;
 import com.rexsl.page.JaxbBundle;
 import com.rexsl.page.Link;
 import com.rexsl.page.PageBuilder;

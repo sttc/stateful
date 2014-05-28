@@ -29,6 +29,7 @@
  */
 package co.stateful.core;
 
+import co.stateful.spi.Counter;
 import com.amazonaws.services.dynamodbv2.model.AttributeAction;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.AttributeValueUpdate;

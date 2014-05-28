@@ -29,7 +29,7 @@
  */
 package co.stateful.rest;
 
-import co.stateful.core.Counter;
+import co.stateful.spi.Counter;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.HttpURLConnection;

@@ -27,46 +27,50 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package co.stateful.core;
+package co.stateful.spi;
 
 import com.jcabi.aspects.Immutable;
 import java.io.IOException;
-import java.util.Map;
 
 /**
- * Locks.
+ * User.
  *
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
- * @since 1.1
  */
 @Immutable
-public interface Locks {
+public interface User {
 
     /**
-     * Maximum allowed per account.
+     * This user exists.
+     * @return TRUE if this user logged in at least once through UI
      */
-    int MAX = 4096;
+    boolean exists();
 
     /**
-     * Get list of them all, and their labels.
-     * @return List of locks
+     * Get his security token.
+     * @return Token
+     * @throws IOException If fails due to IO problem
      */
-    Map<String, String> names();
+    String token() throws IOException;
 
     /**
-     * Lock it.
-     * @param name Unique name of the lock
-     * @param label Label to attach
-     * @return Empty if success or a label of a current lock
-     * @throws IOException If fails
+     * Refresh the token.
+     * @throws IOException If fails due to IO problem
      */
-    String lock(String name, String label) throws IOException;
+    void refresh() throws IOException;
 
     /**
-     * Unlock it.
-     * @param name Unique name of the lock
+     * Get his counters.
+     * @return Counters
      */
-    void unlock(String name);
+    Counters counters();
+
+    /**
+     * Get his locks.
+     * @return Locks
+     * @since 1.1
+     */
+    Locks locks();
 
 }

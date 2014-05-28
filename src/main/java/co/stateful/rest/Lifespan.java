@@ -29,8 +29,8 @@
  */
 package co.stateful.rest;
 
-import co.stateful.core.Base;
 import co.stateful.core.DefaultBase;
+import co.stateful.spi.Base;
 import com.jcabi.aspects.Loggable;
 import com.jcabi.manifests.Manifests;
 import java.io.IOException;

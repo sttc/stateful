@@ -27,49 +27,34 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package co.stateful.core;
+package co.stateful.spi;
 
 import com.jcabi.aspects.Immutable;
 import java.io.IOException;
+import java.math.BigDecimal;
 
 /**
- * Counters.
+ * Counter.
  *
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
  */
 @Immutable
-public interface Counters {
+public interface Counter {
 
     /**
-     * Maximum allowed per account.
-     */
-    int MAX = 64;
-
-    /**
-     * Get list of them all.
-     * @return List of counter names
-     */
-    Iterable<String> names();
-
-    /**
-     * Create a counter.
-     * @param name Name of it
+     * Set specific value.
+     * @param value Value to set
      * @throws IOException If fails due to IO problem
      */
-    void create(String name) throws IOException;
+    void set(BigDecimal value) throws IOException;
 
     /**
-     * Delete a counter.
-     * @param name Name of it
+     * Add value to it.
+     * @param delta Delta to add
+     * @return New value
+     * @throws IOException If fails due to IO problem
      */
-    void delete(String name);
-
-    /**
-     * Get one counter by name.
-     * @param name Name of it
-     * @return Counter
-     */
-    Counter get(String name);
+    BigDecimal increment(BigDecimal delta) throws IOException;
 
 }

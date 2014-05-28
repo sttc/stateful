@@ -29,8 +29,8 @@
  */
 package co.stateful.rest;
 
-import co.stateful.core.Base;
 import co.stateful.core.DefaultBase;
+import co.stateful.spi.Base;
 import com.jcabi.matchers.JaxbConverter;
 import com.jcabi.matchers.XhtmlMatchers;
 import com.rexsl.mock.HttpHeadersMocker;
