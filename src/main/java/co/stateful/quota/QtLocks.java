@@ -27,48 +27,65 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package co.stateful.spi;
+package co.stateful.quota;
 
+import co.stateful.spi.Locks;
 import com.jcabi.aspects.Immutable;
+import com.jcabi.aspects.Loggable;
 import java.io.IOException;
 import java.util.Map;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
- * Locks.
+ * Quota on Locks.
  *
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
- * @since 1.1
+ * @since 1.4
  */
 @Immutable
-public interface Locks {
+@ToString
+@EqualsAndHashCode(of = { "origin", "quota" })
+@Loggable(Loggable.DEBUG)
+public final class QtLocks implements Locks {
 
     /**
-     * Maximum allowed per account.
+     * Original object.
      */
-    int MAX = 4096;
+    private final transient Locks origin;
 
     /**
-     * Get list of them all, and their labels.
-     * @return List of locks
-     * @throws IOException If fails
+     * Quota to use.
      */
-    Map<String, String> names() throws IOException;
+    private final transient Quota quota;
 
     /**
-     * Lock it.
-     * @param name Unique name of the lock
-     * @param label Label to attach
-     * @return Empty if success or a label of a current lock
-     * @throws IOException If fails
+     * Ctor.
+     * @param org Original object
+     * @param qta Quota
      */
-    String lock(String name, String label) throws IOException;
+    public QtLocks(final Locks org, final Quota qta) {
+        this.origin = org;
+        this.quota = qta;
+    }
 
-    /**
-     * Unlock it.
-     * @param name Unique name of the lock
-     * @throws IOException If fails
-     */
-    void unlock(String name) throws IOException;
+    @Override
+    public Map<String, String> names() throws IOException {
+        this.quota.use("names");
+        return this.origin.names();
+    }
 
+    @Override
+    public String lock(final String name, final String label)
+        throws IOException {
+        this.quota.use("lock");
+        return this.origin.lock(name, label);
+    }
+
+    @Override
+    public void unlock(final String name) throws IOException {
+        this.quota.use("unlock");
+        this.origin.unlock(name);
+    }
 }

@@ -27,48 +27,47 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package co.stateful.spi;
+package co.stateful.quota;
 
 import com.jcabi.aspects.Immutable;
 import java.io.IOException;
-import java.util.Map;
 
 /**
- * Locks.
+ * Quota.
  *
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
- * @since 1.1
+ * @since 1.4
  */
 @Immutable
-public interface Locks {
+public interface Quota {
 
     /**
-     * Maximum allowed per account.
+     * Unlimited.
      */
-    int MAX = 4096;
+    Quota UNLIMITED = new Quota() {
+        @Override
+        public Quota into(final String path) {
+            return Quota.UNLIMITED;
+        }
+        @Override
+        public void use(final String name) {
+            // nothing to do
+        }
+    };
 
     /**
-     * Get list of them all, and their labels.
-     * @return List of locks
-     * @throws IOException If fails
+     * Into this path.
+     * @param path Path
+     * @return New quota
      */
-    Map<String, String> names() throws IOException;
+    Quota into(String path);
 
     /**
-     * Lock it.
-     * @param name Unique name of the lock
-     * @param label Label to attach
-     * @return Empty if success or a label of a current lock
-     * @throws IOException If fails
+     * Use this named service.
+     * @param name Name of the service
+     * @throws IOException If fails due to IO problem
      */
-    String lock(String name, String label) throws IOException;
-
-    /**
-     * Unlock it.
-     * @param name Unique name of the lock
-     * @throws IOException If fails
-     */
-    void unlock(String name) throws IOException;
+    void use(String name) throws IOException;
 
 }

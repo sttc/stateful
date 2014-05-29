@@ -27,48 +27,12 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package co.stateful.spi;
-
-import com.jcabi.aspects.Immutable;
-import java.io.IOException;
-import java.util.Map;
 
 /**
- * Locks.
+ * Quota.
  *
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
- * @since 1.1
+ * @since 1.4
  */
-@Immutable
-public interface Locks {
-
-    /**
-     * Maximum allowed per account.
-     */
-    int MAX = 4096;
-
-    /**
-     * Get list of them all, and their labels.
-     * @return List of locks
-     * @throws IOException If fails
-     */
-    Map<String, String> names() throws IOException;
-
-    /**
-     * Lock it.
-     * @param name Unique name of the lock
-     * @param label Label to attach
-     * @return Empty if success or a label of a current lock
-     * @throws IOException If fails
-     */
-    String lock(String name, String label) throws IOException;
-
-    /**
-     * Unlock it.
-     * @param name Unique name of the lock
-     * @throws IOException If fails
-     */
-    void unlock(String name) throws IOException;
-
-}
+package co.stateful.quota;

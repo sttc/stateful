@@ -131,10 +131,12 @@ public final class CountersRs extends BaseRs {
     /**
      * Delete a counter.
      * @param name Name of the counter
+     * @throws IOException If fails due to IO problem
      */
     @GET
     @Path("/delete")
-    public void delete(@QueryParam(CountersRs.PARAM) final String name) {
+    public void delete(@QueryParam(CountersRs.PARAM) final String name)
+        throws IOException {
         this.user().counters().delete(name);
         throw this.flash().redirect(
             this.uriInfo().getBaseUriBuilder()
@@ -149,8 +151,9 @@ public final class CountersRs extends BaseRs {
     /**
      * Get all counters of a user.
      * @return Counters
+     * @throws IOException If fails due to IO problem
      */
-    private JaxbBundle list() {
+    private JaxbBundle list() throws IOException {
         return new JaxbBundle("counters").add(
             // @checkstyle AnonInnerLengthCheck (50 lines)
             new JaxbBundle.Group<String>(this.user().counters().names()) {

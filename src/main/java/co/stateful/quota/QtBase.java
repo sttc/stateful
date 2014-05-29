@@ -27,48 +27,54 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package co.stateful.spi;
+package co.stateful.quota;
 
+import co.stateful.spi.Base;
+import co.stateful.spi.User;
 import com.jcabi.aspects.Immutable;
-import java.io.IOException;
-import java.util.Map;
+import com.jcabi.aspects.Loggable;
+import com.jcabi.urn.URN;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
- * Locks.
+ * Quota on a Base.
  *
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
- * @since 1.1
+ * @since 1.4
  */
 @Immutable
-public interface Locks {
+@ToString
+@EqualsAndHashCode(of = { "origin", "quota" })
+@Loggable(Loggable.DEBUG)
+public final class QtBase implements Base {
 
     /**
-     * Maximum allowed per account.
+     * Original object.
      */
-    int MAX = 4096;
+    private final transient Base origin;
 
     /**
-     * Get list of them all, and their labels.
-     * @return List of locks
-     * @throws IOException If fails
+     * Quota.
      */
-    Map<String, String> names() throws IOException;
+    private final transient Quota quota;
 
     /**
-     * Lock it.
-     * @param name Unique name of the lock
-     * @param label Label to attach
-     * @return Empty if success or a label of a current lock
-     * @throws IOException If fails
+     * Ctor.
+     * @param org Original object
+     * @param qta Quota
      */
-    String lock(String name, String label) throws IOException;
+    public QtBase(final Base org, final Quota qta) {
+        this.origin = org;
+        this.quota = qta;
+    }
 
-    /**
-     * Unlock it.
-     * @param name Unique name of the lock
-     * @throws IOException If fails
-     */
-    void unlock(String name) throws IOException;
-
+    @Override
+    public User user(final URN urn) {
+        return new QtUser(
+            this.origin.user(urn),
+            this.quota.into(urn.toString())
+        );
+    }
 }

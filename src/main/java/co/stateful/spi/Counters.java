@@ -49,8 +49,9 @@ public interface Counters {
     /**
      * Get list of them all.
      * @return List of counter names
+     * @throws IOException If fails
      */
-    Iterable<String> names();
+    Iterable<String> names() throws IOException;
 
     /**
      * Create a counter.
@@ -62,8 +63,9 @@ public interface Counters {
     /**
      * Delete a counter.
      * @param name Name of it
+     * @throws IOException If fails
      */
-    void delete(String name);
+    void delete(String name) throws IOException;
 
     /**
      * Get one counter by name.

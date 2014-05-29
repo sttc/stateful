@@ -159,10 +159,12 @@ public final class LocksRs extends BaseRs {
     /**
      * Unlock.
      * @param name Name of the lock
+     * @throws IOException If fails
      */
     @GET
     @Path("/unlock")
-    public void unlock(@QueryParam(LocksRs.PARAM) final String name) {
+    public void unlock(@QueryParam(LocksRs.PARAM) final String name)
+        throws IOException {
         this.user().locks().unlock(name);
         throw this.flash().redirect(
             this.uriInfo().getBaseUriBuilder()
@@ -177,8 +179,9 @@ public final class LocksRs extends BaseRs {
     /**
      * Get all locks of a user.
      * @return Locks
+     * @throws IOException If fails
      */
-    private JaxbBundle list() {
+    private JaxbBundle list() throws IOException {
         return new JaxbBundle("locks").add(
             new JaxbBundle.Group<Map.Entry<String, String>>(
                 this.user().locks().names().entrySet()

@@ -27,48 +27,72 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package co.stateful.spi;
+package co.stateful.quota;
 
+import co.stateful.spi.Counters;
+import co.stateful.spi.Locks;
+import co.stateful.spi.User;
 import com.jcabi.aspects.Immutable;
+import com.jcabi.aspects.Loggable;
 import java.io.IOException;
-import java.util.Map;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
- * Locks.
+ * Quota on a User.
  *
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
- * @since 1.1
+ * @since 1.4
  */
 @Immutable
-public interface Locks {
+@ToString
+@EqualsAndHashCode(of = { "origin", "quota" })
+@Loggable(Loggable.DEBUG)
+public final class QtUser implements User {
 
     /**
-     * Maximum allowed per account.
+     * Original object.
      */
-    int MAX = 4096;
+    private final transient User origin;
 
     /**
-     * Get list of them all, and their labels.
-     * @return List of locks
-     * @throws IOException If fails
+     * Quota to use.
      */
-    Map<String, String> names() throws IOException;
+    private final transient Quota quota;
 
     /**
-     * Lock it.
-     * @param name Unique name of the lock
-     * @param label Label to attach
-     * @return Empty if success or a label of a current lock
-     * @throws IOException If fails
+     * Ctor.
+     * @param org Original object
+     * @param qta Quota
      */
-    String lock(String name, String label) throws IOException;
+    public QtUser(final User org, final Quota qta) {
+        this.origin = org;
+        this.quota = qta;
+    }
 
-    /**
-     * Unlock it.
-     * @param name Unique name of the lock
-     * @throws IOException If fails
-     */
-    void unlock(String name) throws IOException;
+    @Override
+    public boolean exists() {
+        return this.origin.exists();
+    }
 
+    @Override
+    public String token() throws IOException {
+        return this.origin.token();
+    }
+
+    @Override
+    public void refresh() throws IOException {
+        this.origin.refresh();
+    }
+
+    @Override
+    public Counters counters() {
+        return new QtCounters(this.origin.counters(), this.quota.into("c"));
+    }
+
+    @Override
+    public Locks locks() {
+        return new QtLocks(this.origin.locks(), this.quota.into("k"));
+    }
 }

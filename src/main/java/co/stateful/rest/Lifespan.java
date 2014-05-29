@@ -30,6 +30,8 @@
 package co.stateful.rest;
 
 import co.stateful.core.DefaultBase;
+import co.stateful.quota.QtBase;
+import co.stateful.quota.Quota;
 import co.stateful.spi.Base;
 import com.jcabi.aspects.Loggable;
 import com.jcabi.manifests.Manifests;
@@ -55,7 +57,8 @@ public final class Lifespan implements ServletContextListener {
             throw new IllegalStateException(ex);
         }
         event.getServletContext().setAttribute(
-            Base.class.getName(), new DefaultBase()
+            Base.class.getName(),
+            new QtBase(new DefaultBase(), Quota.UNLIMITED)
         );
     }
 
