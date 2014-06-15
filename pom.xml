@@ -188,7 +188,7 @@
                 <plugin>
                     <artifactId>maven-war-plugin</artifactId>
                     <configuration>
-                        <warSourceExcludes>js/**, css/**</warSourceExcludes>
+                        <warSourceExcludes>js/**, css/**, xsl/**</warSourceExcludes>
                         <archive>
                             <manifestEntries>
                                 <Stateful-Version>${project.version}</Stateful-Version>
@@ -263,6 +263,27 @@
                                 <include>*.css</include>
                             </cssSourceIncludes>
                             <skipMerge>false</skipMerge>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.tunyk.mvn.plugins.htmlcompressor</groupId>
+                <artifactId>htmlcompressor-maven-plugin</artifactId>
+                <version>1.3</version>
+                <executions>
+                    <execution>
+                        <id>compress-xsl</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>xml</goal>
+                        </goals>
+                        <configuration>
+                            <srcFolder>${basedir}/src/main/webapp/xsl</srcFolder>
+                            <targetFolder>${project.build.directory}/${project.build.finalName}/xsl</targetFolder>
+                            <fileExt>
+                                <ext>xsl</ext>
+                            </fileExt>
                         </configuration>
                     </execution>
                 </executions>
