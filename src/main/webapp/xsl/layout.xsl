@@ -40,23 +40,12 @@
                 <meta name="description" content="Stateful Web Primitives"/>
                 <meta name="keywords" content="stateful.co"/>
                 <meta name="author" content="www.stateful.co"/>
-                <link rel="icon" type="image/gif">
-                    <xsl:attribute name="href">
-                        <xsl:text>//img.stateful.co/favicon.ico?</xsl:text>
-                        <xsl:value-of select="version/name"/>
-                    </xsl:attribute>
-                </link>
+                <link rel="icon" type="image/gif" href="//img.stateful.co/favicon.ico?{version/name}"/>
                 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"/>
                 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"/>
-                <link rel="stylesheet" type="text/css" media="all">
-                    <xsl:attribute name="href">
-                        <xsl:text>/css/style.css?</xsl:text>
-                        <xsl:value-of select="version/name"/>
-                    </xsl:attribute>
-                </link>
+                <link rel="stylesheet" type="text/css" media="all" href="/css/style.css?{version/name}"/>
                 <script type="text/javascript" src="//code.jquery.com/jquery-2.0.0.js">
                     <xsl:text> </xsl:text>
-                    <!-- this is for W3C compliance -->
                 </script>
                 <xsl:apply-templates select="." mode="head"/>
             </head>
@@ -64,16 +53,8 @@
                 <div class="container">
                     <header class="header">
                         <div>
-                            <a>
-                                <xsl:attribute name="href">
-                                    <xsl:value-of select="links/link[@rel='home']/@href"/>
-                                </xsl:attribute>
-                                <img alt="logo" class="logo">
-                                    <xsl:attribute name="src">
-                                        <xsl:text>//img.stateful.co/pomegranate.svg?</xsl:text>
-                                        <xsl:value-of select="version/name"/>
-                                    </xsl:attribute>
-                                </img>
+                            <a href="{links/link[@rel='home']/@href}">
+                                <img alt="logo" class="logo" src="//img.stateful.co/pomegranate.svg?{version/name}"/>
                             </a>
                         </div>
                         <xsl:choose>
@@ -94,10 +75,7 @@
                                         </code>
                                     </span>
                                     <span>
-                                        <a>
-                                            <xsl:attribute name="href">
-                                                <xsl:value-of select="links/link[@rel='user:refresh']/@href"/>
-                                            </xsl:attribute>
+                                        <a href="{links/link[@rel='user:refresh']/@href}">
                                             <i class="fa fa-refresh"><xsl:comment>refresh</xsl:comment></i>
                                         </a>
                                     </span>
@@ -115,10 +93,7 @@
                                                         <xsl:value-of select="$label"/>
                                                     </xsl:when>
                                                     <xsl:otherwise>
-                                                        <a>
-                                                            <xsl:attribute name="href">
-                                                                <xsl:value-of select="@href"/>
-                                                            </xsl:attribute>
+                                                        <a href="{@href}">
                                                             <xsl:value-of select="$label"/>
                                                         </a>
                                                     </xsl:otherwise>
@@ -196,14 +171,7 @@
     </xsl:template>
     <xsl:template match="identity">
         <span>
-            <img class="photo">
-                <xsl:attribute name="src">
-                    <xsl:value-of select="photo"/>
-                </xsl:attribute>
-                <xsl:attribute name="alt">
-                    <xsl:value-of select="name"/>
-                </xsl:attribute>
-            </img>
+            <img class="photo" src="{photo}" alt="{name}"/>
         </span>
         <span class="name">
             <xsl:value-of select="name"/>
@@ -228,10 +196,7 @@
             </i>
         </span>
         <span>
-            <a>
-                <xsl:attribute name="href">
-                    <xsl:value-of select="/page/links/link[@rel='rexsl:logout']/@href"/>
-                </xsl:attribute>
+            <a href="{/page/links/link[@rel='rexsl:logout']/@href}">
                 <i class="fa fa-sign-out"><xsl:comment>logout</xsl:comment></i>
             </a>
         </span>
@@ -256,24 +221,15 @@
         </div>
     </xsl:template>
     <xsl:template name="buttons">
-        <a>
-            <xsl:attribute name="href">
-                <xsl:value-of select="/page/links/link[@rel='rexsl:facebook']/@href"/>
-            </xsl:attribute>
+        <a href="{/page/links/link[@rel='rexsl:facebook']/@href}">
             <i class="fa fa-facebook-square"><xsl:comment>facebook</xsl:comment></i>
         </a>
         <xsl:text> </xsl:text>
-        <a>
-            <xsl:attribute name="href">
-                <xsl:value-of select="/page/links/link[@rel='rexsl:google']/@href"/>
-            </xsl:attribute>
+        <a href="{/page/links/link[@rel='rexsl:google']/@href}">
             <i class="fa fa-google-plus-square"><xsl:comment>google-plus</xsl:comment></i>
         </a>
         <xsl:text> </xsl:text>
-        <a>
-            <xsl:attribute name="href">
-                <xsl:value-of select="/page/links/link[@rel='rexsl:github']/@href"/>
-            </xsl:attribute>
+        <a href="{/page/links/link[@rel='rexsl:github']/@href}">
             <i class="fa fa-github-square"><xsl:comment>github</xsl:comment></i>
         </a>
     </xsl:template>

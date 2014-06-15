@@ -41,10 +41,7 @@
             <xsl:text>Locks</xsl:text>
         </h1>
         <div class="col-12 col-sm-8 col-lg-6 clearfix" style="padding-left:0;">
-            <form method="post" class="form-inline">
-                <xsl:attribute name="action">
-                    <xsl:value-of select="links/link[@rel='lock']/@href"/>
-                </xsl:attribute>
+            <form method="post" class="form-inline" action="{links/link[@rel='lock']/@href}">
                 <fieldset>
                     <div class="input-group">
                         <input name="name" type="text" class="form-control" placeholder="name of a new lock"/>
@@ -85,12 +82,7 @@
             <td><xsl:value-of select="name"/></td>
             <td><xsl:value-of select="label"/></td>
             <td>
-                <a>
-                    <xsl:attribute name="href">
-                        <xsl:value-of select="/page/links/link[@rel='unlock']/@href"/>
-                        <xsl:text>?name=</xsl:text>
-                        <xsl:value-of select="name"/>
-                    </xsl:attribute>
+                <a href="{/page/links/link[@rel='unlock']/@href}?name={name}">
                     <i class="fa fa-trash-o"><xsl:comment>empty</xsl:comment></i>
                 </a>
             </td>

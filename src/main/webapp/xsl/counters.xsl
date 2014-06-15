@@ -35,11 +35,7 @@
         <title>
             <xsl:text>counters</xsl:text>
         </title>
-        <script type="text/javascript">
-            <xsl:attribute name="src">
-                <xsl:text>/js/counters.js?</xsl:text>
-                <xsl:value-of select="version/name"/>
-            </xsl:attribute>
+        <script type="text/javascript" src="/js/counters.js?{version/name}">
             <xsl:text> </xsl:text>
             <!-- this is for W3C compliance -->
         </script>
@@ -49,10 +45,7 @@
             <xsl:text>Atomic Counters</xsl:text>
         </h1>
         <div class="col-12 col-sm-8 col-lg-6 clearfix" style="padding-left:0;">
-            <form method="post" class="form-inline">
-                <xsl:attribute name="action">
-                    <xsl:value-of select="links/link[@rel='add']/@href"/>
-                </xsl:attribute>
+            <form method="post" class="form-inline" action="{links/link[@rel='add']/@href}">
                 <fieldset>
                     <div class="input-group">
                         <input name="name" type="text" class="form-control" placeholder="name of a new counter"/>
@@ -93,14 +86,9 @@
             <td><xsl:value-of select="name"/></td>
             <td>
                 <div class="input-group counter">
-                    <input type="text" class="form-control" value="?">
-                        <xsl:attribute name="data-href-set">
-                            <xsl:value-of select="links/link[@rel='set']/@href"/>
-                        </xsl:attribute>
-                        <xsl:attribute name="data-href-increment">
-                            <xsl:value-of select="links/link[@rel='increment']/@href"/>
-                        </xsl:attribute>
-                    </input>
+                    <input type="text" class="form-control" value="?"
+                        data-href-set="{links/link[@rel='set']/@href}"
+                        data-href-increment="{links/link[@rel='increment']/@href}"/>
                     <span class="input-group-btn">
                         <button class="refresh btn btn-default" type="button">
                             <i class="fa fa-refresh"><xsl:comment>refresh</xsl:comment></i>
@@ -115,10 +103,7 @@
                 </div>
             </td>
             <td>
-                <a>
-                    <xsl:attribute name="href">
-                        <xsl:value-of select="links/link[@rel='delete']/@href"/>
-                    </xsl:attribute>
+                <a href="{links/link[@rel='delete']/@href}">
                     <i class="fa fa-trash-o"><xsl:comment>empty</xsl:comment></i>
                 </a>
             </td>
