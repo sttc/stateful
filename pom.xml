@@ -284,6 +284,7 @@
                             <fileExt>
                                 <ext>xsl</ext>
                             </fileExt>
+                            <removeIntertagSpaces>false</removeIntertagSpaces>
                         </configuration>
                     </execution>
                 </executions>
