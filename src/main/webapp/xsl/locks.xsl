@@ -59,8 +59,7 @@
                 <table class="table clearfix">
                     <thead>
                         <tr>
-                            <th style="width:20%;"><xsl:text>name</xsl:text></th>
-                            <th style="width:70%;"><xsl:text>label</xsl:text></th>
+                            <th style="width:80%;"><xsl:text>name/label</xsl:text></th>
                             <th><xsl:text>opts</xsl:text></th>
                         </tr>
                     </thead>
@@ -79,8 +78,11 @@
     </xsl:template>
     <xsl:template match="lock">
         <tr>
-            <td><xsl:value-of select="name"/></td>
-            <td><xsl:value-of select="label"/></td>
+            <td>
+                <xsl:value-of select="name"/>
+                <br/>
+                <xsl:value-of select="label"/>
+            </td>
             <td>
                 <a href="{/page/links/link[@rel='unlock']/@href}?name={name}">
                     <i class="fa fa-trash-o"><xsl:comment>empty</xsl:comment></i>
