@@ -71,4 +71,12 @@ public interface Locks {
      */
     void unlock(String name) throws IOException;
 
+    /**
+     * Unlock only if label matches.
+     * @param name Unique name of the lock
+     * @param label Label to match
+     * @throws IOException If fails
+     */
+    void unlock(String name, String label) throws IOException;
+
 }
