@@ -88,11 +88,15 @@ public final class DyLocksITCase {
         locks.lock(name, label);
         MatcherAssert.assertThat(
             locks.unlock(name, "wrong label"),
-            Matchers.equalTo(false)
+            Matchers.not(Matchers.equalTo(""))
         );
         MatcherAssert.assertThat(
             locks.unlock(name, label),
-            Matchers.equalTo(true)
+            Matchers.equalTo("")
+        );
+        MatcherAssert.assertThat(
+            locks.lock(name, "new label"),
+            Matchers.equalTo("")
         );
     }
 

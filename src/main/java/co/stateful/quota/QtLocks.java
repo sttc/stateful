@@ -90,7 +90,7 @@ public final class QtLocks implements Locks {
     }
 
     @Override
-    public boolean unlock(final String name, final String label)
+    public String unlock(final String name, final String label)
         throws IOException {
         this.quota.use("unlock-if");
         return this.origin.unlock(name, label);

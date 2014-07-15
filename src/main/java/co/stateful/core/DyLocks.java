@@ -48,6 +48,7 @@ import com.jcabi.dynamo.QueryValve;
 import com.jcabi.dynamo.Table;
 import com.jcabi.urn.URN;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.Map;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -176,21 +177,22 @@ final class DyLocks implements Locks {
     }
 
     @Override
-    public boolean unlock(final String name, final String label)
+    public String unlock(final String name, final String label)
         throws IOException {
-        final Item item = this.table.frame()
+        final Iterator<Item> items = this.table.frame()
             .through(new QueryValve())
             .where(DyLocks.HASH, this.owner.toString())
             .where(DyLocks.RANGE, name)
-            .iterator().next();
-        final String required = item.get(DyLocks.ATTR_LABEL).getS();
-        final boolean unlocked;
-        if (required.equals(label)) {
-            this.unlock(name);
-            unlocked = true;
-        } else {
-            unlocked = false;
+            .iterator();
+        String msg = "";
+        if (items.hasNext()) {
+            final String required = items.next().get(DyLocks.ATTR_LABEL).getS();
+            if (required.equals(label)) {
+                this.unlock(name);
+            } else {
+                msg = required;
+            }
         }
-        return unlocked;
+        return msg;
     }
 }

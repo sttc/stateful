@@ -75,10 +75,10 @@ public interface Locks {
      * Unlock only if label matches.
      * @param name Unique name of the lock
      * @param label Label to match
-     * @return TRUE if unlocked, otherwise false (label doesn't match)
+     * @return Empty if success or label of current lock
      * @throws IOException If fails
      * @since 1.6
      */
-    boolean unlock(String name, String label) throws IOException;
+    String unlock(String name, String label) throws IOException;
 
 }

@@ -171,10 +171,11 @@ public final class LocksRs extends BaseRs {
         if (StringUtils.isEmpty(label)) {
             this.user().locks().unlock(name);
         } else {
-            if (!this.user().locks().unlock(name, label)) {
+            final String match = this.user().locks().unlock(name, label);
+            if (!match.isEmpty()) {
                 throw new WebApplicationException(
                     Response.status(HttpURLConnection.HTTP_CONFLICT)
-                        .entity("label doesn't match")
+                        .entity(String.format("label doesn't match: %s", match))
                         .build()
                 );
             }
