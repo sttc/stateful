@@ -73,4 +73,27 @@ public final class DyLocksITCase {
         );
     }
 
+    /**
+     * DyLocks can lock/unlock with mandatory label.
+     * @throws Exception If some problem inside
+     * @since 1.6
+     */
+    @Test
+    public void locksAndUnlocksWithLabel() throws Exception {
+        final Locks locks = new DefaultUser(
+            new URN("urn:test:78119")
+        ).locks();
+        final String name = "lock-980";
+        final String label = "some label \u20ac";
+        locks.lock(name, label);
+        MatcherAssert.assertThat(
+            locks.unlock(name, "wrong label"),
+            Matchers.equalTo(false)
+        );
+        MatcherAssert.assertThat(
+            locks.unlock(name, label),
+            Matchers.equalTo(true)
+        );
+    }
+
 }

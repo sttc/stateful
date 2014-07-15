@@ -177,6 +177,34 @@ public final class LocksRs extends BaseRs {
     }
 
     /**
+     * Unlock, if label matches.
+     * @param name Name of the lock
+     * @param label Label to match
+     * @throws IOException If fails
+     * @since 1.6
+     */
+    @GET
+    @Path("/unlock-if")
+    public void unlock(@QueryParam(LocksRs.PARAM) final String name,
+        @QueryParam("label") final String label) throws IOException {
+        if (this.user().locks().unlock(name, label)) {
+            throw this.flash().redirect(
+                this.uriInfo().getBaseUriBuilder()
+                    .clone()
+                    .path(LocksRs.class)
+                    .build(),
+                String.format("%s lock removed, since label matched", name),
+                Level.INFO
+            );
+        }
+        throw new WebApplicationException(
+            Response.status(HttpURLConnection.HTTP_CONFLICT)
+                .entity("label doesn't match")
+                .build()
+        );
+    }
+
+    /**
      * Get all locks of a user.
      * @return Locks
      * @throws IOException If fails

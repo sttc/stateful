@@ -174,4 +174,23 @@ final class DyLocks implements Locks {
             Predicates.alwaysTrue()
         );
     }
+
+    @Override
+    public boolean unlock(final String name, final String label)
+        throws IOException {
+        final Item item = this.table.frame()
+            .through(new QueryValve())
+            .where(DyLocks.HASH, this.owner.toString())
+            .where(DyLocks.RANGE, name)
+            .iterator().next();
+        final String required = item.get(DyLocks.ATTR_LABEL).getS();
+        final boolean unlocked;
+        if (required.equals(label)) {
+            this.unlock(name);
+            unlocked = true;
+        } else {
+            unlocked = false;
+        }
+        return unlocked;
+    }
 }
