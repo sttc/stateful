@@ -15,7 +15,6 @@ release:
   script:
     - "mvn versions:set \"-DnewVersion=${tag}\""
     - "git commit -am \"${tag}\""
-    - "sudo bundle"
     - "mvn clean deploy -Psttc --settings ../settings.xml"
     - "mvn clean site-deploy -Psite -Prempl --settings ../settings.xml"
 
