@@ -33,7 +33,7 @@
 body {
   font-size: 20px;
   padding: 2em;
-  background-color: #778899;
+  background-color: $slate;
 }
 
 .container {
@@ -47,9 +47,9 @@ body {
   text-align: center;
   a {
     color: $blue;
+    text-decoration: none;
     &:hover {
       color: $red;
-      text-decoration: none;
     }
   }
 }
@@ -59,8 +59,9 @@ body {
 }
 
 a {
+  text-decoration: underline;
   color: $blue;
   &:hover {
-      color: $red;
+    color: $red;
   }
 }

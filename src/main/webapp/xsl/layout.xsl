@@ -115,7 +115,7 @@
                         <xsl:apply-templates select="." mode="body"/>
                     </section>
                     <footer class="footer">
-                        <div>
+                        <div style="margin-bottom: 5px">
                             <a href="http://www.teamed.io">
                                 <img src="http://img.teamed.io/btn.svg"/>
                             </a>

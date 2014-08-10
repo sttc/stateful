@@ -43,6 +43,7 @@
 
 .buttons {
   a {
+    text-decoration: none;
     font-size: 36px;
     color: $blue;
     &:hover {
@@ -52,6 +53,9 @@
 }
 
 .menu {
+  a {
+    text-decoration: none;
+  }
   .active {
     border-bottom: 1px solid $red;
   }
