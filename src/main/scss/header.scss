@@ -31,28 +31,28 @@
 @import 'colors';
 
 .logo {
-    width: 80px;
-    height: 80px;
-    margin-bottom: 1em;
+  width: 80px;
+  height: 80px;
+  margin-bottom: 1em;
 }
 
 .photo {
-    width: 1em;
-    height: 1em;
+  width: 1em;
+  height: 1em;
 }
 
 .buttons {
-    a {
-        font-size: 36px;
-        color: $color-gray;
-        &:hover {
-            color: $color-red-light;
-        }
+  a {
+    font-size: 36px;
+    color: $blue;
+    &:hover {
+      color: $red;
     }
+  }
 }
 
 .menu {
-    .active {
-        border-bottom: 1px solid $color-red-light;
-    }
+  .active {
+    border-bottom: 1px solid $red;
+  }
 }

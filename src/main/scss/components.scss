@@ -31,13 +31,13 @@
 @import 'colors';
 
 .btn-primary {
-    background-color: $color-gray;
-    color: $color-black;
-    border-color: $color-gray-dark;
-    &:hover {
-        color: $color-gray;
-        background-color: $color-red;
-        border-color: $color-red;
-    }
+  background-color: $blue;
+  color: $black;
+  border-color: $gray;
+  &:hover {
+    color: $gray;
+    background-color: $red;
+    border-color: $red;
+  }
 }
 

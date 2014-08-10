@@ -31,36 +31,36 @@
 @import 'colors';
 
 body {
-    font-size: 20px;
-    padding: 2em;
-    background-color: #778899;
+  font-size: 20px;
+  padding: 2em;
+  background-color: #778899;
 }
 
 .container {
-    width: 800px;
-    color: $color-black;
+  width: 800px;
+  color: $black;
 }
 
 .header,
 .footer {
-    color: $color-gray;
-    text-align: center;
-    a {
-        color: $color-gray;
-        &:hover {
-            color: $color-red-light;
-            text-decoration: none;
-        }
+  color: $gray;
+  text-align: center;
+  a {
+    color: $blue;
+    &:hover {
+      color: $red;
+      text-decoration: none;
     }
+  }
 }
 
 .footer {
-    font-size: 14px;
+  font-size: 14px;
 }
 
 a {
-    color: $color-red;
-    &:hover {
-        color: $color-red-light;
-    }
+  color: $blue;
+  &:hover {
+      color: $red;
+  }
 }
