@@ -8,7 +8,7 @@ deploy:
   env:
     MAVEN_OPTS: "-XX:MaxPermSize=256m -Xmx1g"
   script:
-    - "mvn clean deploy -Prultor --settings ../settings.xml"
+    - "mvn clean install -Prultor --settings ../settings.xml"
     - "pdd --source=$(pwd) --verbose --file=sttc-stateful.xml"
     - "s3cmd --no-progress put sttc-stateful.xml --config=../s3cfg s3://pdd.teamed.io/sttc-stateful.xml > /dev/null"
 
