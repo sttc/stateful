@@ -117,7 +117,7 @@
                     <footer class="footer">
                         <div>
                             <a href="http://www.teamed.io">
-                                <xsl:text>made by teamed.io</xsl:text>
+                                <img src="http://img.teamed.io/btn.svg"/>
                             </a>
                         </div>
                         <div>
