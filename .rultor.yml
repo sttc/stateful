@@ -19,7 +19,7 @@ release:
     - "mvn versions:set \"-DnewVersion=${tag}\""
     - "git commit -am \"${tag}\""
     - "mvn clean deploy -Psttc --settings ../settings.xml"
-    - "mvn clean site-deploy -Psite -Prempl --settings ../settings.xml"
+    - "mvn clean site-deploy -Psite --settings ../settings.xml"
 
 merge:
   env:
