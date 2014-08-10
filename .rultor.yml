@@ -2,12 +2,15 @@ assets:
   settings.xml: "yegor256/home#assets/sttc/settings.xml"
   pubring.gpg: "yegor256/home#assets/pubring.gpg"
   secring.gpg: "yegor256/home#assets/secring.gpg"
+  s3cfg: "yegor256/home#assets/s3cfg"
 
 deploy:
   env:
     MAVEN_OPTS: "-XX:MaxPermSize=256m -Xmx1g"
   script:
-    - "mvn clean deploy -Ppdd -Prultor --settings ../settings.xml"
+    - "mvn clean deploy -Prultor --settings ../settings.xml"
+    - "pdd --source=$(pwd) --verbose --file=sttc-stateful.xml"
+    - "s3cmd --no-progress put sttc-stateful.xml --config=../s3cfg s3://pdd.teamed.io/sttc-stateful.xml > /dev/null"
 
 release:
   env:
@@ -23,3 +26,4 @@ merge:
     MAVEN_OPTS: "-XX:MaxPermSize=256m -Xmx1g"
   script:
     - "mvn help:system clean install -Pqulice --settings ../settings.xml"
+    - "mvn clean site -Psite --settings ../settings.xml"
