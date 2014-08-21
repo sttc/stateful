@@ -40,6 +40,53 @@
     <version>2.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>stateful</name>
+    <description>Stateful RESTful Web Primitives</description>
+    <url>http://www.stateful.co</url>
+    <inceptionYear>2014</inceptionYear>
+    <organization>
+        <name>teamed.io</name>
+        <url>http://www.teamed.io</url>
+    </organization>
+    <licenses>
+        <license>
+            <name>BSD</name>
+            <url>http://doc.stateful.co/LICENSE.txt</url>
+            <distribution>site</distribution>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <id>1</id>
+            <name>Yegor Bugayenko</name>
+            <email>yegor@tpc2.com</email>
+            <organization>TPC2</organization>
+            <organizationUrl>http://www.tpc2.com</organizationUrl>
+            <roles>
+                <role>Architect</role>
+                <role>Developer</role>
+            </roles>
+            <timezone>+1</timezone>
+        </developer>
+    </developers>
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/sttc/stateful/issues</url>
+    </issueManagement>
+    <scm>
+        <connection>scm:git:git@github.com:sttc/stateful.git</connection>
+        <developerConnection>scm:git:git@github.com:sttc/stateful.git</developerConnection>
+        <url>https://github.com/sttc/stateful</url>
+    </scm>
+    <ciManagement>
+        <system>travis-ci</system>
+        <url>https://travis-ci.org/sttc/stateful</url>
+    </ciManagement>
+    <distributionManagement>
+        <site>
+            <id>github-pages</id>
+            <url>http://doc.stateful.co</url>
+        </site>
+    </distributionManagement>
     <dependencies>
         <dependency>
             <groupId>com.amazonaws</groupId>
