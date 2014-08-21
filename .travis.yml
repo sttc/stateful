@@ -7,5 +7,6 @@ jdk:
   - openjdk7
 before_install:
   - unset GEM_PATH
-script: mvn clean install -Pqulice --quiet --batch-mode --errors
+script:
+  - mvn clean install -Pqulice --quiet --batch-mode --errors
 
