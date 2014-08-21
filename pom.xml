@@ -93,12 +93,12 @@
         <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk</artifactId>
-            <version>1.7.11</version>
+            <version>1.8.9.1</version>
         </dependency>
         <dependency>
             <groupId>com.jcabi</groupId>
             <artifactId>jcabi-dynamo</artifactId>
-            <version>0.15.1</version>
+            <version>0.16.1</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -148,7 +148,7 @@
         <dependency>
             <groupId>com.rexsl</groupId>
             <artifactId>rexsl</artifactId>
-            <version>1.1</version>
+            <version>1.4</version>
         </dependency>
         <dependency>
             <groupId>com.jcabi</groupId>
