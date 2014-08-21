@@ -30,11 +30,11 @@
     <skin>
         <groupId>com.jcabi</groupId>
         <artifactId>jcabi-maven-skin</artifactId>
-        <version>1.2.1</version>
+        <version>1.4</version>
     </skin>
     <bannerLeft>
         <name>stateful</name>
-        <src>http://img.stateful.co/logo-128x128.png</src>
+        <src>http://img.stateful.co/pomegranate.png</src>
         <href>http://www.stateful.co</href>
         <width>64</width>
         <height>64</height>
