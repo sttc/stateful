@@ -11,22 +11,34 @@ install:
   - "sudo gem install pdd"
 
 deploy:
-  script:
-    - "mvn clean install -Prultor --settings ../settings.xml"
-    - "mvn clean"
-    - "pdd --source=$(pwd) --verbose --file=sttc-stateful.xml"
-    - "s3cmd --no-progress put sttc-stateful.xml --config=../s3cfg s3://pdd.teamed.io/sttc-stateful.xml"
+  script: |
+    mvn clean install -Prultor --settings ../settings.xml
+    mvn clean
+    pdd --source=$(pwd) --verbose --file=sttc-stateful.xml
+    s3cmd --no-progress put sttc-stateful.xml --config=../s3cfg s3://pdd.teamed.io/sttc-stateful.xml
 
 release:
-  script:
-    - "mvn versions:set \"-DnewVersion=${tag}\""
-    - "git commit -am \"${tag}\""
-    - "mvn clean deploy -Psttc --settings ../settings.xml"
-    - "mvn clean site-deploy -Psite --settings ../settings.xml"
+  script: |
+    mvn versions:set "-DnewVersion=${tag}"
+    git commit -am "${tag}"
+    cp ../settings.xml settings.xml
+    mvn clean package -Pqulice -Psttc-web --errors --batch-mode
+    git remote add heroku git@heroku.com:stateful.git
+    mkdir ~/.ssh
+    mv ../id_rsa ../id_rsa.pub ~/.ssh
+    chmod -R 600 ~/.ssh/*
+    echo -e "Host *\n  StrictHostKeyChecking no\n  UserKnownHostsFile=/dev/null" > ~/.ssh/config
+    git add settings.xml
+    git commit -m 'settings.xml'
+    git fetch --unshallow
+    git push -f heroku $(git symbolic-ref --short HEAD):master
+    git reset HEAD~1
+    curl -f --connect-timeout 15 --retry 5 --retry-delay 30 http://www.stateful.co
+    mvn clean site-deploy -Psite --batch-mode --settings ../settings.xml
 
 merge:
-  script:
-    - "mvn help:system clean install -Pqulice --settings ../settings.xml"
-    - "mvn clean site -Psite --settings ../settings.xml"
-    - "mvn clean"
-    - "pdd --source=$(pwd) --verbose --file=/dev/null"
+  script: |
+    mvn help:system clean install -Pqulice --settings ../settings.xml
+    mvn clean site -Psite --settings ../settings.xml
+    mvn clean
+    pdd --source=$(pwd) --verbose --file=/dev/null
