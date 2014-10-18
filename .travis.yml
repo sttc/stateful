@@ -2,9 +2,6 @@ language: java
 env:
   global:
     - MAVEN_OPTS="-XX:MaxPermSize=512m -Xmx2g"
-jdk:
-  - oraclejdk7
-  - openjdk7
 before_install:
   - unset GEM_PATH
 script:
