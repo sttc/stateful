@@ -63,6 +63,7 @@ public final class LocksRs extends BaseRs {
 
     /**
      * Query param.
+     * @checkstyle ConstantUsageCheck (3 lines)
      */
     private static final String PARAM = "name";
 
