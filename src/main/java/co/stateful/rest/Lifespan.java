@@ -35,6 +35,7 @@ import co.stateful.quota.Quota;
 import co.stateful.spi.Base;
 import com.jcabi.aspects.Loggable;
 import com.jcabi.manifests.Manifests;
+import com.jcabi.manifests.ServletMfs;
 import java.io.IOException;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -52,7 +53,7 @@ public final class Lifespan implements ServletContextListener {
     @Override
     public void contextInitialized(@NotNull final ServletContextEvent event) {
         try {
-            Manifests.append(event.getServletContext());
+            Manifests.DEFAULT.append(new ServletMfs(event.getServletContext()));
         } catch (final IOException ex) {
             throw new IllegalStateException(ex);
         }
