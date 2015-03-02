@@ -1,24 +1,14 @@
-assets:
-  settings.xml: "yegor256/home#assets/sttc/settings.xml"
-  pubring.gpg: "yegor256/home#assets/pubring.gpg"
-  secring.gpg: "yegor256/home#assets/secring.gpg"
-  id_rsa: "yegor256/home#assets/heroku-key"
-  id_rsa.pub: "yegor256/home#assets/heroku-key.pub"
-  s3cfg: "yegor256/home#assets/s3cfg"
-
-env:
-  MAVEN_OPTS: "-XX:MaxPermSize=256m -Xmx1g"
-
-install:
-  - "sudo gem install pdd"
-
+assets: {settings.xml: yegor256/home#assets/sttc/settings.xml, pubring.gpg: yegor256/home#assets/pubring.gpg,
+  secring.gpg: yegor256/home#assets/secring.gpg, id_rsa: yegor256/home#assets/heroku-key,
+  id_rsa.pub: yegor256/home#assets/heroku-key.pub, s3cfg: yegor256/home#assets/s3cfg}
+env: {MAVEN_OPTS: '-XX:MaxPermSize=256m -Xmx1g'}
+install: [sudo gem install pdd]
 deploy:
   script: |
     mvn clean install -Prultor --settings ../settings.xml
     mvn clean
     pdd --source=$(pwd) --verbose --file=sttc-stateful.xml
     s3cmd --no-progress put sttc-stateful.xml --config=../s3cfg s3://pdd.teamed.io/sttc-stateful.xml
-
 release:
   script: |
     mvn versions:set "-DnewVersion=${tag}"
@@ -37,10 +27,10 @@ release:
     git reset HEAD~1
     curl -f --connect-timeout 15 --retry 5 --retry-delay 30 http://www.stateful.co
     mvn clean site-deploy -Psite --batch-mode --settings ../settings.xml
-
 merge:
-  script: |
+  script: |-
     mvn help:system clean install -Pqulice --settings ../settings.xml
     mvn clean site -Psite --settings ../settings.xml
     mvn clean
     pdd --source=$(pwd) --verbose --file=/dev/null
+architect: [yegor256, yegor256, karato]
