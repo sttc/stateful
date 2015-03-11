@@ -40,6 +40,5 @@ merge:
     mvn clean
     pdd --source=$(pwd) --verbose --file=/dev/null
 architect:
-- yegor256
-- yegor256
 - karato
+- yegor256
