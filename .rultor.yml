@@ -35,6 +35,8 @@ release:
     git reset HEAD~1
     curl -f --connect-timeout 15 --retry 5 --retry-delay 30 http://www.stateful.co
     mvn clean site-deploy -Psite --batch-mode --settings ../settings.xml
+  commanders:
+  - yegor256
 merge:
   script: |-
     mvn help:system clean install -Pqulice --settings ../settings.xml
