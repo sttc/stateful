@@ -110,6 +110,16 @@ public final class LocksRs extends BaseRs {
     public Response lock(@FormParam(LocksRs.PARAM) final String name,
         @FormParam("label") @DefaultValue("none") final String label)
         throws IOException {
+        if (name == null) {
+            throw this.flash().redirect(
+                this.uriInfo().getBaseUriBuilder()
+                    .clone()
+                    .path(LocksRs.class)
+                    .build(),
+                "name can't be empty",
+                Level.WARNING
+            );
+        }
         if (!name.matches("[0-9a-zA-Z\\-\\._\\$]{1,256}")) {
             throw this.flash().redirect(
                 this.uriInfo().getBaseUriBuilder()

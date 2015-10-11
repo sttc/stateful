@@ -4,6 +4,7 @@
 [![DevOps By Rultor.com](http://www.rultor.com/b/sttc/stateful)](http://www.rultor.com/p/sttc/stateful)
 
 [![Build Status](https://travis-ci.org/sttc/stateful.svg?branch=master)](https://travis-ci.org/sttc/stateful)
+[![Dependencies](https://www.versioneye.com/user/projects/561ac664a193340f320010b4/badge.svg?style=flat)](https://www.versioneye.com/user/projects/561ac664a193340f320010b4)
 
 Stateful Web Primitives
 
