@@ -4,7 +4,7 @@ The following members are in the project team:
 
 Role | Members
 ---|---
-PM | 
+PM | @karato
 CR | 
 DEV | 
 IMP | 
