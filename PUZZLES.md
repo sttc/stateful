@@ -1,6 +1,6 @@
 ## Puzzles
 
-There are 1 active puzzles (3 total), updated on 2015-12-09T11:56:37Z:
+There are 1 active puzzles (3 total), updated on 2015-12-09T13:31:42Z:
 
 unknown ?
 &nbsp;[1](https://github.com/sttc/stateful/issues/1) ?
