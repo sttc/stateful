@@ -161,9 +161,6 @@
             <xsl:value-of select="name"/>
         </span>
         <span>
-            <code><xsl:value-of select="revision"/></code>
-        </span>
-        <span>
             <xsl:call-template name="millis">
                 <xsl:with-param name="millis" select="/page/millis"/>
             </xsl:call-template>
