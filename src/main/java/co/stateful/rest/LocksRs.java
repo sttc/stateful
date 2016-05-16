@@ -202,6 +202,19 @@ public final class LocksRs extends BaseRs {
     }
 
     /**
+     * Read label.
+     * @param name Name of the lock
+     * @return Label
+     * @throws IOException If fails
+     */
+    @GET
+    @Path("/label")
+    public String label(@QueryParam(LocksRs.PARAM) final String name)
+        throws IOException {
+        return this.user().locks().label(name);
+    }
+
+    /**
      * Get all locks of a user.
      * @return Locks
      * @throws IOException If fails

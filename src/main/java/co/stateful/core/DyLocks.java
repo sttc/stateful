@@ -179,6 +179,18 @@ final class DyLocks implements Locks {
     @Override
     public String unlock(final String name, final String label)
         throws IOException {
+        final String required = this.label(name);
+        String msg = "";
+        if (required.equals(label)) {
+            this.unlock(name);
+        } else {
+            msg = required;
+        }
+        return msg;
+    }
+
+    @Override
+    public String label(final String name) throws IOException {
         final Iterator<Item> items = this.table.frame()
             .through(new QueryValve())
             .where(DyLocks.HASH, this.owner.toString())
@@ -186,12 +198,7 @@ final class DyLocks implements Locks {
             .iterator();
         String msg = "";
         if (items.hasNext()) {
-            final String required = items.next().get(DyLocks.ATTR_LABEL).getS();
-            if (required.equals(label)) {
-                this.unlock(name);
-            } else {
-                msg = required;
-            }
+            msg = items.next().get(DyLocks.ATTR_LABEL).getS();
         }
         return msg;
     }

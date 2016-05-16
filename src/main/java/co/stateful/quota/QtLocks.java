@@ -84,6 +84,12 @@ public final class QtLocks implements Locks {
     }
 
     @Override
+    public String label(final String name) throws IOException {
+        this.quota.use("label");
+        return this.origin.label(name);
+    }
+
+    @Override
     public void unlock(final String name) throws IOException {
         this.quota.use("unlock");
         this.origin.unlock(name);

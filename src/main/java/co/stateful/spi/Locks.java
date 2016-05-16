@@ -65,6 +65,14 @@ public interface Locks {
     String lock(String name, String label) throws IOException;
 
     /**
+     * Read label.
+     * @param name Unique name of the lock
+     * @return Empty if it doesn't exist, or a label
+     * @throws IOException If fails
+     */
+    String label(String name) throws IOException;
+
+    /**
      * Unlock it.
      * @param name Unique name of the lock
      * @throws IOException If fails
