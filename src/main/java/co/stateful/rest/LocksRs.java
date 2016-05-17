@@ -59,6 +59,7 @@ import org.apache.commons.lang3.StringUtils;
  * @since 1.1
  */
 @Path("/k")
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public final class LocksRs extends BaseRs {
 
     /**
@@ -92,6 +93,7 @@ public final class LocksRs extends BaseRs {
             .append(this.list())
             .append(new JaxbBundle("menu", "locks"))
             .link(new Link("lock", "./lock"))
+            .link(new Link("label", "./label"))
             .link(new Link("unlock", "./unlock"))
             .render()
             .build();
