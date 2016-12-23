@@ -1,10 +1,10 @@
 assets:
-  settings.xml: yegor256/home#assets/sttc/settings.xml
-  pubring.gpg: yegor256/home#assets/pubring.gpg
-  secring.gpg: yegor256/home#assets/secring.gpg
-  id_rsa: yegor256/home#assets/heroku-key
-  id_rsa.pub: yegor256/home#assets/heroku-key.pub
-  s3cfg: yegor256/home#assets/s3cfg
+  settings.xml: zerocracy/home#assets/sttc/settings.xml
+  pubring.gpg: zerocracy/home#assets/pubring.gpg
+  secring.gpg: zerocracy/home#assets/secring.gpg
+  id_rsa: zerocracy/home#assets/heroku-key
+  id_rsa.pub: zerocracy/home#assets/heroku-key.pub
+  s3cfg: zerocracy/home#assets/s3cfg
 env:
   MAVEN_OPTS: -XX:MaxPermSize=256m -Xmx1g
 install:
