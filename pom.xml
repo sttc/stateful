@@ -524,6 +524,7 @@
                                     <arguments>
                                         <argument>clone</argument>
                                         <argument>--depth=1</argument>
+                                        <argument>-b1.1.0</argument>
                                         <argument>https://github.com/n1k0/casperjs.git</argument>
                                         <argument>casperjs-install</argument>
                                     </arguments>
