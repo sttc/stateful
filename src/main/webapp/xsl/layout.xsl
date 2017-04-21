@@ -120,6 +120,11 @@
                                 <img src="http://img.teamed.io/btn.svg"/>
                             </a>
                         </div>
+                        <div style="margin-bottom: 5px">
+                            <a href="http://www.sixnines.io/h/0841">
+                                <img src="http://www.sixnines.io/b/0841?style=flat"/>
+                            </a>
+                        </div>
                         <div>
                             <xsl:apply-templates select="version"/>
                         </div>
