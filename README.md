@@ -1,6 +1,6 @@
 <img src="http://img.stateful.co/pomegranate.svg" width="64px" height="64px"/>
 
-[![Made By Teamed.io](http://img.teamed.io/btn.svg)](http://www.teamed.io)
+[![Managed by Zerocracy](http://www.zerocracy.com/badge.svg)](http://www.zerocracy.com)
 [![DevOps By Rultor.com](http://www.rultor.com/b/sttc/stateful)](http://www.rultor.com/p/sttc/stateful)
 [![We recommend IntelliJ IDEA](http://img.teamed.io/intellij-idea-recommend.svg)](https://www.jetbrains.com/idea/)
 
