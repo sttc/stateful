@@ -2,7 +2,7 @@
 
 [![Managed by Zerocracy](http://www.zerocracy.com/badge.svg)](http://www.zerocracy.com)
 [![DevOps By Rultor.com](http://www.rultor.com/b/sttc/stateful)](http://www.rultor.com/p/sttc/stateful)
-[![We recommend IntelliJ IDEA](http://img.teamed.io/intellij-idea-recommend.svg)](https://www.jetbrains.com/idea/)
+[![We recommend IntelliJ IDEA](http://www.elegantobjects.org/intellij-idea.svg)](https://www.jetbrains.com/idea/)
 
 [![Availability at SixNines](http://www.sixnines.io/b/0841)](http://www.sixnines.io/h/0841)
 [![Build Status](https://travis-ci.org/sttc/stateful.svg?branch=master)](https://travis-ci.org/sttc/stateful)
