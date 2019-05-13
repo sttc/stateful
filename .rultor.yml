@@ -1,3 +1,5 @@
+readers:
+  - "urn:github:526301"
 assets:
   settings.xml: zerocracy/home#assets/sttc/settings.xml
   pubring.gpg: zerocracy/home#assets/pubring.gpg
