@@ -360,6 +360,7 @@
             <id>tomcat-test</id>
             <activation>
                 <file><exists>pom.xml</exists></file>
+                <property><name>!skipTests</name></property>
             </activation>
             <properties>
                 <tomcat.home>${project.build.directory}/webapp-test</tomcat.home>
@@ -560,7 +561,10 @@
         </profile>
         <profile>
             <id>dynamodb</id>
-            <activation><file><exists>pom.xml</exists></file></activation>
+            <activation>
+                <file><exists>pom.xml</exists></file>
+                <property><name>!skipTests</name></property>
+            </activation>
             <build>
                 <plugins>
                     <plugin>
