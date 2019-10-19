@@ -52,7 +52,9 @@ public final class ErrorRsITCase {
     /**
      * IndexRs can hit not-found pages.
      * @throws Exception If some problem inside
-     * @todo #1 The test doesn't work due to a bug in rexsl 1.1
+     * @todo #1:30min The test doesn't work due to a bug in rexsl 1.1 Let's
+     *  do something about it or maybe just remove the test, since we are
+     *  planning to migrate to Takes anyway.
      */
     @Test
     @Ignore
