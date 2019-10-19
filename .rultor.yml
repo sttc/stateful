@@ -35,6 +35,7 @@ release:
     git commit -m 'settings.xml'
     git push -f dokku $(git symbolic-ref --short HEAD):master
     git reset HEAD~1
+    rm settings.xml
     curl -f --connect-timeout 15 --retry 5 --retry-delay 30 http://www.stateful.co
     # mvn clean site-deploy -Psite --batch-mode --settings ../settings.xml
 merge:
