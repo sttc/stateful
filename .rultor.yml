@@ -18,6 +18,8 @@ deploy:
     pdd --source=$(pwd) --verbose --file=sttc-stateful.xml
     s3cmd --no-progress put sttc-stateful.xml --config=../s3cfg s3://pdd.teamed.io/sttc-stateful.xml
 release:
+  sensitive:
+    - settings.xml
   script: |
     mvn versions:set "-DnewVersion=${tag}"
     git commit -am "${tag}"
@@ -30,18 +32,14 @@ release:
     echo -e "Host *\n  StrictHostKeyChecking no\n  UserKnownHostsFile=/dev/null" > ~/.ssh/config
     git add settings.xml
     git fetch
-    git commit -m 'settings.xml' && git push -f dokku $(git symbolic-ref --short HEAD):master && git reset HEAD~1
+    git commit -m 'settings.xml'
+    git push -f dokku $(git symbolic-ref --short HEAD):master
+    git reset HEAD~1
     curl -f --connect-timeout 15 --retry 5 --retry-delay 30 http://www.stateful.co
     # mvn clean site-deploy -Psite --batch-mode --settings ../settings.xml
-  commanders:
-  - yegor256
 merge:
   script: |-
     mvn help:system clean install -Pqulice --settings ../settings.xml
     mvn clean site -Psite --settings ../settings.xml
     mvn clean
     pdd --source=$(pwd) --verbose --file=/dev/null
-  commanders: []
-architect:
-- yegor256
-- karato
