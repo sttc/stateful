@@ -37,6 +37,7 @@
         <html lang="en">
             <head>
                 <meta charset="UTF-8"/>
+                <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1"/>
                 <meta name="description" content="Stateful Web Primitives"/>
                 <meta name="keywords" content="stateful.co"/>
                 <meta name="author" content="www.stateful.co"/>
@@ -54,7 +55,7 @@
                     <header class="header">
                         <div>
                             <a href="{links/link[@rel='home']/@href}">
-                                <img alt="logo" class="logo" src="//img.stateful.co/pomegranate.svg?{version/name}"/>
+                                <img alt="logo" class="logo" src="/images/pomegranate.svg?{version/name}"/>
                             </a>
                         </div>
                         <xsl:choose>
@@ -115,11 +116,6 @@
                         <xsl:apply-templates select="." mode="body"/>
                     </section>
                     <footer class="footer">
-                        <div style="margin-bottom: 5px">
-                            <a href="http://www.teamed.io">
-                                <img src="http://img.teamed.io/btn.svg"/>
-                            </a>
-                        </div>
                         <div style="margin-bottom: 5px">
                             <a href="http://www.sixnines.io/h/0841">
                                 <img src="http://www.sixnines.io/b/0841?style=flat"/>
