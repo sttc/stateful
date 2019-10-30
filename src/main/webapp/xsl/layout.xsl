@@ -41,7 +41,7 @@
                 <meta name="description" content="Stateful Web Primitives"/>
                 <meta name="keywords" content="stateful.co"/>
                 <meta name="author" content="www.stateful.co"/>
-                <link rel="icon" type="image/gif" href="//img.stateful.co/favicon.ico?{version/name}"/>
+                <link rel="icon" type="image/gif" href="/images/favicon.ico?{version/name}"/>
                 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"/>
                 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"/>
                 <link rel="stylesheet" type="text/css" media="all" href="/css/style.css?{version/name}"/>
