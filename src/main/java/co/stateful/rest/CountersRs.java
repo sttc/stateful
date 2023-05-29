@@ -47,7 +47,7 @@ import org.apache.commons.io.IOUtils;
 /**
  * Counters of a user.
  *
- * @author Yegor Bugayenko (yegor@tpc2.com)
+ * @author Yegor Bugayenko (yegor256@gmail.com)
  * @version $Id$
  * @checkstyle MultipleStringLiteralsCheck (500 lines)
  */

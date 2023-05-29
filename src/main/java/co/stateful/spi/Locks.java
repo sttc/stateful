@@ -36,7 +36,7 @@ import java.util.Map;
 /**
  * Locks.
  *
- * @author Yegor Bugayenko (yegor@tpc2.com)
+ * @author Yegor Bugayenko (yegor256@gmail.com)
  * @version $Id$
  * @since 1.1
  */

@@ -37,7 +37,7 @@ import org.junit.Test;
 
 /**
  * Integration case for {@link DefaultUser}.
- * @author Yegor Bugayenko (yegor@tpc2.com)
+ * @author Yegor Bugayenko (yegor256@gmail.com)
  * @version $Id$
  */
 public final class DefaultUserITCase {

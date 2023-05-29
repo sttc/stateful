@@ -61,7 +61,7 @@ import org.apache.commons.lang3.Validate;
  *
  * <p>The class is mutable and NOT thread-safe.
  *
- * @author Yegor Bugayenko (yegor@tpc2.com)
+ * @author Yegor Bugayenko (yegor256@gmail.com)
  * @version $Id$
  * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
  */

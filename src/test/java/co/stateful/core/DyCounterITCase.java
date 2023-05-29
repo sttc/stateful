@@ -45,7 +45,7 @@ import org.junit.Test;
 
 /**
  * Integration case for {@link DyCounter}.
- * @author Yegor Bugayenko (yegor@tpc2.com)
+ * @author Yegor Bugayenko (yegor256@gmail.com)
  * @version $Id$
  */
 public final class DyCounterITCase {

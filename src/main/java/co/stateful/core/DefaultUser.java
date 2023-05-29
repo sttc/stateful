@@ -59,7 +59,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 /**
  * Default user.
  *
- * @author Yegor Bugayenko (yegor@tpc2.com)
+ * @author Yegor Bugayenko (yegor256@gmail.com)
  * @version $Id$
  * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
  */
