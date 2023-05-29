@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
- * Copyright (c) 2014, stateful.co
+ * Copyright (c) 2014-2023, Stateful.co
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -580,7 +580,7 @@
                                         <artifactItem>
                                             <groupId>com.jcabi</groupId>
                                             <artifactId>DynamoDBLocal</artifactId>
-                                            <version>2014-01-08</version>
+                                            <version>2023-05-26</version>
                                             <type>zip</type>
                                             <outputDirectory>${project.build.directory}/dynamodb-dist</outputDirectory>
                                             <overWrite>false</overWrite>
