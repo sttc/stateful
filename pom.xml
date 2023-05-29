@@ -44,13 +44,13 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
   <url>http://www.stateful.co</url>
   <inceptionYear>2014</inceptionYear>
   <organization>
-    <name>teamed.io</name>
-    <url>http://www.teamed.io</url>
+    <name>Zerocracy</name>
+    <url>https://www.zerocracy.com</url>
   </organization>
   <licenses>
     <license>
       <name>BSD</name>
-      <url>http://doc.stateful.co/LICENSE.txt</url>
+      <url>https://doc.stateful.co/LICENSE.txt</url>
       <distribution>site</distribution>
     </license>
   </licenses>
@@ -58,9 +58,9 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
     <developer>
       <id>1</id>
       <name>Yegor Bugayenko</name>
-      <email>yegor@tpc2.com</email>
-      <organization>TPC2</organization>
-      <organizationUrl>http://www.tpc2.com</organizationUrl>
+      <email>yegor256@gmail.com</email>
+      <organization>Zerocracy</organization>
+      <organizationUrl>https://www.yegor256.com</organizationUrl>
       <roles>
         <role>Architect</role>
         <role>Developer</role>
@@ -78,13 +78,13 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
     <url>https://github.com/sttc/stateful</url>
   </scm>
   <ciManagement>
-    <system>travis-ci</system>
-    <url>https://travis-ci.org/sttc/stateful</url>
+    <system>GitHub Actions</system>
+    <url>https://github.com/sttc/stateful</url>
   </ciManagement>
   <distributionManagement>
     <site>
       <id>github-pages</id>
-      <url>http://doc.stateful.co</url>
+      <url>https://doc.stateful.co</url>
     </site>
   </distributionManagement>
   <dependencies>
