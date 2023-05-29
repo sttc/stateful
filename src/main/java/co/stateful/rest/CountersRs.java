@@ -35,6 +35,8 @@ import com.rexsl.page.JaxbBundle;
 import com.rexsl.page.Link;
 import com.rexsl.page.PageBuilder;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -77,7 +79,8 @@ public final class CountersRs extends BaseRs {
                     IOUtils.toString(
                         this.getClass().getResourceAsStream(
                             "doc-counters.html"
-                        )
+                        ),
+                        StandardCharsets.UTF_8
                     )
                 )
             )

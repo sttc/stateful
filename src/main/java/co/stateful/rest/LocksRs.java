@@ -35,6 +35,7 @@ import com.rexsl.page.Link;
 import com.rexsl.page.PageBuilder;
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.logging.Level;
 import javax.ws.rs.Consumes;
@@ -86,7 +87,8 @@ public final class LocksRs extends BaseRs {
                     IOUtils.toString(
                         this.getClass().getResourceAsStream(
                             "doc-locks.html"
-                        )
+                        ),
+                        StandardCharsets.UTF_8
                     )
                 )
             )

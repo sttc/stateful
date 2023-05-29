@@ -37,7 +37,7 @@ import com.jcabi.matchers.W3CMatchers;
 import java.net.HttpURLConnection;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Integration case for {@link CountersRs}.

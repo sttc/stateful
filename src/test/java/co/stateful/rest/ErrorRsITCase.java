@@ -33,8 +33,9 @@ import com.jcabi.http.request.JdkRequest;
 import com.jcabi.http.response.RestResponse;
 import com.jcabi.http.response.XmlResponse;
 import java.net.HttpURLConnection;
-import org.junit.Ignore;
-import org.junit.Test;
+import jdk.nashorn.internal.ir.annotations.Ignore;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  * Integration case for {@link ErrorRs}.
@@ -57,7 +58,7 @@ public final class ErrorRsITCase {
      *  planning to migrate to Takes anyway.
      */
     @Test
-    @Ignore
+    @Disabled
     public void hitsAbsentPages() throws Exception {
         final String[] pages = {
             "/page-doesnt-exist",

@@ -38,7 +38,7 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Integration case for {@link IndexRs}.

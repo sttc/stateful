@@ -33,7 +33,7 @@ import co.stateful.spi.User;
 import com.jcabi.urn.URN;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Integration case for {@link DefaultUser}.

@@ -45,6 +45,8 @@ import com.jcabi.dynamo.Credentials;
 import com.jcabi.dynamo.Item;
 import com.jcabi.dynamo.QueryValve;
 import com.jcabi.dynamo.Region;
+import com.jcabi.dynamo.retry.ReRegion;
+import com.jcabi.log.Logger;
 import com.jcabi.manifests.Manifests;
 import com.jcabi.urn.URN;
 import java.io.IOException;
@@ -107,7 +109,8 @@ final class DefaultUser implements User {
         );
         if ("AAAAABBBBBAAAAABBBBB".equals(key)) {
             creds = new Credentials.Direct(
-                creds, Integer.parseInt(System.getProperty("dynamo.port"))
+                Credentials.Simple.class.cast(creds),
+                Integer.parseInt(System.getProperty("dynamo.port"))
             );
         }
         this.region = new Region.Prefixed(

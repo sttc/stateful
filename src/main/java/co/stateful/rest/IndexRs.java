@@ -32,6 +32,7 @@ package co.stateful.rest;
 import com.rexsl.page.JaxbBundle;
 import com.rexsl.page.PageBuilder;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
@@ -65,7 +66,8 @@ public final class IndexRs extends BaseRs {
                     IOUtils.toString(
                         this.getClass().getResourceAsStream(
                             "doc-index.html"
-                        )
+                        ),
+                        StandardCharsets.UTF_8
                     )
                 )
             )
