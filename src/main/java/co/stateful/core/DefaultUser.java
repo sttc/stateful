@@ -38,15 +38,12 @@ import com.google.common.collect.Iterables;
 import com.jcabi.aspects.Cacheable;
 import com.jcabi.aspects.Immutable;
 import com.jcabi.aspects.Loggable;
-import com.jcabi.aspects.Tv;
 import com.jcabi.dynamo.Attributes;
 import com.jcabi.dynamo.Conditions;
 import com.jcabi.dynamo.Credentials;
 import com.jcabi.dynamo.Item;
 import com.jcabi.dynamo.QueryValve;
 import com.jcabi.dynamo.Region;
-import com.jcabi.dynamo.retry.ReRegion;
-import com.jcabi.log.Logger;
 import com.jcabi.manifests.Manifests;
 import com.jcabi.urn.URN;
 import java.io.IOException;
@@ -155,12 +152,12 @@ final class DefaultUser implements User {
                     DefaultUser.ATTR_TOKEN,
                     Joiner.on('-').join(
                         Iterables.limit(
-                            Splitter.fixedLength(Tv.FOUR).split(
+                            Splitter.fixedLength(4).split(
                                 DigestUtils.md5Hex(
-                                    RandomStringUtils.random(Tv.TEN)
+                                    RandomStringUtils.random(10)
                                 ).toUpperCase(Locale.ENGLISH)
                             ),
-                            Tv.FOUR
+                            4
                         )
                     )
                 )

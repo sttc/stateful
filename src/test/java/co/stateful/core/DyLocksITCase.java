@@ -31,7 +31,6 @@ package co.stateful.core;
 
 import co.stateful.spi.Locks;
 import com.jcabi.aspects.Parallel;
-import com.jcabi.aspects.Tv;
 import com.jcabi.urn.URN;
 import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -59,7 +58,7 @@ public final class DyLocksITCase {
         final AtomicInteger done = new AtomicInteger();
         new Callable<Void>() {
             @Override
-            @Parallel(threads = Tv.TWENTY)
+            @Parallel(threads = 20)
             public Void call() throws Exception {
                 if (locks.lock(name, "nothing special").isEmpty()) {
                     done.incrementAndGet();

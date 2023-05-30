@@ -32,7 +32,6 @@ package co.stateful.core;
 import co.stateful.spi.Counter;
 import co.stateful.spi.Counters;
 import com.jcabi.aspects.Parallel;
-import com.jcabi.aspects.Tv;
 import com.jcabi.urn.URN;
 import java.math.BigDecimal;
 import java.security.SecureRandom;
@@ -92,7 +91,7 @@ public final class DyCounterITCase {
         final Set<BigDecimal> values = new ConcurrentSkipListSet<BigDecimal>();
         new Callable<Void>() {
             @Override
-            @Parallel(threads = Tv.TWENTY)
+            @Parallel(threads = 20)
             public Void call() throws Exception {
                 values.add(counter.increment(new BigDecimal(1L)));
                 return null;
@@ -100,7 +99,7 @@ public final class DyCounterITCase {
         } .call();
         MatcherAssert.assertThat(
             values,
-            Matchers.hasSize(Tv.TWENTY)
+            Matchers.hasSize(20)
         );
     }
 
