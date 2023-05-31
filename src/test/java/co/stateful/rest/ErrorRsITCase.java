@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2014-2023, Stateful.co
  * All rights reserved.
  *
@@ -33,17 +33,15 @@ import com.jcabi.http.request.JdkRequest;
 import com.jcabi.http.response.RestResponse;
 import com.jcabi.http.response.XmlResponse;
 import java.net.HttpURLConnection;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
  * Integration case for {@link ErrorRs}.
- * @author Yegor Bugayenko (yegor256@gmail.com)
- * @version $Id$
+ *
+ * @since 0.1
  */
-@SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
-public final class ErrorRsITCase {
+final class ErrorRsITCase {
 
     /**
      * Tomcat home.
@@ -59,7 +57,7 @@ public final class ErrorRsITCase {
      */
     @Test
     @Disabled
-    public void hitsAbsentPages() throws Exception {
+    void hitsAbsentPages() throws Exception {
         final String[] pages = {
             "/page-doesnt-exist",
             "/xsl/xsl-stylesheet-doesnt-exist.xsl",

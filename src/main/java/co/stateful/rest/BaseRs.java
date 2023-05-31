@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2014-2023, Stateful.co
  * All rights reserved.
  *
@@ -61,8 +61,7 @@ import org.apache.commons.lang3.Validate;
  *
  * <p>The class is mutable and NOT thread-safe.
  *
- * @author Yegor Bugayenko (yegor256@gmail.com)
- * @version $Id$
+ * @since 0.1
  * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
  */
 @Resource.Forwarded
@@ -113,6 +112,7 @@ public class BaseRs extends BaseResource {
     /**
      * Supplementary inset.
      * @return The inset
+     * @checkstyle NonStaticMethodCheck (5 lines)
      */
     @Inset.Runtime
     public final Inset supplementary() {
@@ -173,6 +173,7 @@ public class BaseRs extends BaseResource {
     /**
      * Version inset.
      * @return The inset
+     * @checkstyle NonStaticMethodCheck (5 lines)
      */
     @Inset.Runtime
     public final Inset version() {

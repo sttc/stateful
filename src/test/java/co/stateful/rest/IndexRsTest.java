@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2014-2023, Stateful.co
  * All rights reserved.
  *
@@ -44,17 +44,17 @@ import org.mockito.Mockito;
 
 /**
  * Test case for {@link IndexRs}.
- * @author Yegor Bugayenko (yegor256@gmail.com)
- * @version $Id$
+ *
+ * @since 0.1
  */
-public final class IndexRsTest {
+final class IndexRsTest {
 
     /**
      * IndexRs can render front page.
      * @throws Exception If some problem inside
      */
     @Test
-    public void rendersFrontPage() throws Exception {
+    void rendersFrontPage() throws Exception {
         final IndexRs res = new IndexRs();
         res.setUriInfo(new UriInfoMocker().mock());
         res.setHttpHeaders(new HttpHeadersMocker().mock());

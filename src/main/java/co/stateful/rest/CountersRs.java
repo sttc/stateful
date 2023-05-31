@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2014-2023, Stateful.co
  * All rights reserved.
  *
@@ -35,7 +35,6 @@ import com.rexsl.page.JaxbBundle;
 import com.rexsl.page.Link;
 import com.rexsl.page.PageBuilder;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
 import javax.ws.rs.FormParam;
@@ -49,9 +48,7 @@ import org.apache.commons.io.IOUtils;
 /**
  * Counters of a user.
  *
- * @author Yegor Bugayenko (yegor256@gmail.com)
- * @version $Id$
- * @checkstyle MultipleStringLiteralsCheck (500 lines)
+ * @since 0.1
  */
 @Path("/counters")
 public final class CountersRs extends BaseRs {

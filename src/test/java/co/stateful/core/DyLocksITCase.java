@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2014-2023, Stateful.co
  * All rights reserved.
  *
@@ -40,17 +40,17 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Integration case for {@link DyLocks}.
- * @author Yegor Bugayenko (yegor256@gmail.com)
- * @version $Id$
+ *
+ * @since 0.1
  */
-public final class DyLocksITCase {
+final class DyLocksITCase {
 
     /**
      * DyLocks can lock/unlock in parallel threads.
      * @throws Exception If some problem inside
      */
     @Test
-    public void locksAndUnlocksInThreads() throws Exception {
+    void locksAndUnlocksInThreads() throws Exception {
         final Locks locks = new DefaultUser(
             new URN("urn:test:787009")
         ).locks();
@@ -78,7 +78,7 @@ public final class DyLocksITCase {
      * @since 1.6
      */
     @Test
-    public void locksAndUnlocksWithLabel() throws Exception {
+    void locksAndUnlocksWithLabel() throws Exception {
         final Locks locks = new DefaultUser(
             new URN("urn:test:78119")
         ).locks();

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2014-2023, Stateful.co
  * All rights reserved.
  *
@@ -35,8 +35,6 @@ import java.io.IOException;
 /**
  * Quota.
  *
- * @author Yegor Bugayenko (yegor256@gmail.com)
- * @version $Id$
  * @since 1.4
  */
 @Immutable
@@ -50,6 +48,7 @@ public interface Quota {
         public Quota into(final String path) {
             return Quota.UNLIMITED;
         }
+
         @Override
         public void use(final String name) {
             // nothing to do

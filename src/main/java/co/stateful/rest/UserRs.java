@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2014-2023, Stateful.co
  * All rights reserved.
  *
@@ -37,8 +37,7 @@ import javax.ws.rs.Path;
 /**
  * User manipulations.
  *
- * @author Yegor Bugayenko (yegor256@gmail.com)
- * @version $Id$
+ * @since 0.1
  */
 @Path("/u")
 public final class UserRs extends BaseRs {

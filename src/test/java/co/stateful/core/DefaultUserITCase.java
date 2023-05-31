@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2014-2023, Stateful.co
  * All rights reserved.
  *
@@ -37,17 +37,17 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Integration case for {@link DefaultUser}.
- * @author Yegor Bugayenko (yegor256@gmail.com)
- * @version $Id$
+ *
+ * @since 0.1
  */
-public final class DefaultUserITCase {
+final class DefaultUserITCase {
 
     /**
      * DefaultUser can manage tokens.
      * @throws Exception If some problem inside
      */
     @Test
-    public void managesTokens() throws Exception {
+    void managesTokens() throws Exception {
         final User user = new DefaultUser(
             new URN("urn:test:8900967")
         );

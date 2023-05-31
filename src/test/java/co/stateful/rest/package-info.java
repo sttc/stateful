@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2014-2023, Stateful.co
  * All rights reserved.
  *
@@ -31,7 +31,6 @@
 /**
  * Web front, tests.
  *
- * @author Yegor Bugayenko (yegor256@gmail.com)
- * @version $Id$
+ * @since 0.1
  */
 package co.stateful.rest;

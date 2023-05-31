@@ -21,9 +21,7 @@
  * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY
  * OF SUCH DAMAGE.
  *
- * @author Yegor Bugayenko <egor@stateful.co>
  * @copyright Copyright (c) stateful.co, 2010-2012
- * @version $Id$
  */
 
 /*globals $: false, document: false */

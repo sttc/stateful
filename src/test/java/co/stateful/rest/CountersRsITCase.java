@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2014-2023, Stateful.co
  * All rights reserved.
  *
@@ -41,11 +41,10 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Integration case for {@link CountersRs}.
- * @author Yegor Bugayenko (yegor256@gmail.com)
- * @version $Id$
- * @checkstyle MultipleStringLiteralsCheck (500 lines)
+ *
+ * @since 0.1
  */
-public final class CountersRsITCase {
+final class CountersRsITCase {
 
     /**
      * Tomcat home.
@@ -57,7 +56,7 @@ public final class CountersRsITCase {
      * @throws Exception If some problem inside
      */
     @Test
-    public void listsCounters() throws Exception {
+    void listsCounters() throws Exception {
         new JdkRequest(CountersRsITCase.HOME)
             .header(HttpHeaders.ACCEPT, MediaType.TEXT_XML)
             .fetch()
@@ -90,7 +89,7 @@ public final class CountersRsITCase {
      * @throws Exception If some problem inside
      */
     @Test
-    public void rendersValidHtml() throws Exception {
+    void rendersValidHtml() throws Exception {
         new JdkRequest(CountersRsITCase.HOME)
             .header(HttpHeaders.ACCEPT, MediaType.TEXT_XML)
             .fetch()

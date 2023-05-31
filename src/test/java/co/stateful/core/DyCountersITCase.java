@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2014-2023, Stateful.co
  * All rights reserved.
  *
@@ -37,17 +37,17 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Integration case for {@link DyCounters}.
- * @author Yegor Bugayenko (yegor256@gmail.com)
- * @version $Id$
+ *
+ * @since 0.1
  */
-public final class DyCountersITCase {
+final class DyCountersITCase {
 
     /**
      * DyCounters can manage counters.
      * @throws Exception If some problem inside
      */
     @Test
-    public void managesCounters() throws Exception {
+    void managesCounters() throws Exception {
         final Counters counters = new DefaultUser(
             new URN("urn:test:8900967")
         ).counters();

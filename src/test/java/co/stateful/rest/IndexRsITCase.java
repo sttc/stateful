@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2014-2023, Stateful.co
  * All rights reserved.
  *
@@ -42,11 +42,10 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Integration case for {@link IndexRs}.
- * @author Yegor Bugayenko (yegor256@gmail.com)
- * @version $Id$
+ *
+ * @since 0.1
  */
-@SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
-public final class IndexRsITCase {
+final class IndexRsITCase {
 
     /**
      * Tomcat home.
@@ -58,7 +57,7 @@ public final class IndexRsITCase {
      * @throws Exception If some problem inside
      */
     @Test
-    public void hitsPublicPages() throws Exception {
+    void hitsPublicPages() throws Exception {
         final String[] pages = {
             "/",
             "/robots.txt",
@@ -81,7 +80,7 @@ public final class IndexRsITCase {
      * @throws Exception If some problem inside
      */
     @Test
-    public void rendersPageElements() throws Exception {
+    void rendersPageElements() throws Exception {
         new JdkRequest(IndexRsITCase.HOME)
             .header(HttpHeaders.ACCEPT, MediaType.APPLICATION_XML)
             .fetch()
@@ -99,7 +98,7 @@ public final class IndexRsITCase {
      * @throws Exception If some problem inside
      */
     @Test
-    public void rendersException() throws Exception {
+    void rendersException() throws Exception {
         new JdkRequest(IndexRsITCase.HOME)
             .uri().path("/trap").back()
             .fetch()
@@ -114,7 +113,7 @@ public final class IndexRsITCase {
      * @throws Exception If some problem inside
      */
     @Test
-    public void rendersValidHtml() throws Exception {
+    void rendersValidHtml() throws Exception {
         new JdkRequest(IndexRsITCase.HOME)
             .header(HttpHeaders.ACCEPT, MediaType.TEXT_XML)
             .fetch()

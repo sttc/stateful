@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2014-2023, Stateful.co
  * All rights reserved.
  *
@@ -58,8 +58,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 /**
  * Default user.
  *
- * @author Yegor Bugayenko (yegor256@gmail.com)
- * @version $Id$
+ * @since 0.1
  * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
  */
 @Immutable
@@ -97,6 +96,7 @@ final class DefaultUser implements User {
      * Ctor.
      * @param urn Name of it
      */
+    @SuppressWarnings("PMD.ConstructorOnlyInitializesOrCallOtherConstructors")
     DefaultUser(final URN urn) {
         this.name = urn;
         final String key = Manifests.read("Stateful-DynamoKey");

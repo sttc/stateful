@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2014-2023, Stateful.co
  * All rights reserved.
  *
@@ -41,8 +41,7 @@ import org.apache.commons.io.IOUtils;
 /**
  * Index resource, front page of the website.
  *
- * @author Yegor Bugayenko (yegor256@gmail.com)
- * @version $Id$
+ * @since 0.1
  */
 @Path("/")
 public final class IndexRs extends BaseRs {

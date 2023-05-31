@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2014-2023, Stateful.co
  * All rights reserved.
  *
@@ -44,17 +44,17 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Integration case for {@link DyCounter}.
- * @author Yegor Bugayenko (yegor256@gmail.com)
- * @version $Id$
+ *
+ * @since 0.1
  */
-public final class DyCounterITCase {
+final class DyCounterITCase {
 
     /**
      * DyCounter can increment and set.
      * @throws Exception If some problem inside
      */
     @Test
-    public void incrementAndSet() throws Exception {
+    void incrementAndSet() throws Exception {
         final Counters counters = new DefaultUser(
             new URN("urn:test:7889978")
         ).counters();
@@ -79,7 +79,7 @@ public final class DyCounterITCase {
      * @throws Exception If some problem inside
      */
     @Test
-    public void incrementAndSetInThreads() throws Exception {
+    void incrementAndSetInThreads() throws Exception {
         final Counters counters = new DefaultUser(
             new URN("urn:test:78833")
         ).counters();
@@ -88,7 +88,7 @@ public final class DyCounterITCase {
         final Counter counter = counters.get(name);
         final BigDecimal start = new BigDecimal(new SecureRandom().nextLong());
         counter.set(start);
-        final Set<BigDecimal> values = new ConcurrentSkipListSet<BigDecimal>();
+        final Set<BigDecimal> values = new ConcurrentSkipListSet<>();
         new Callable<Void>() {
             @Override
             @Parallel(threads = 20)

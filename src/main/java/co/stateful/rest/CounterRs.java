@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2014-2023, Stateful.co
  * All rights reserved.
  *
@@ -46,8 +46,7 @@ import javax.ws.rs.core.Response;
 /**
  * Counter of a user.
  *
- * @author Yegor Bugayenko (yegor256@gmail.com)
- * @version $Id$
+ * @since 0.1
  */
 @Path("/c/{cnt}")
 public final class CounterRs extends BaseRs {
@@ -76,7 +75,7 @@ public final class CounterRs extends BaseRs {
     @Path("/set")
     public Response set(@QueryParam("value") final String value)
         throws IOException {
-        this.counter.set(this.decimal(value));
+        this.counter.set(CounterRs.decimal(value));
         return Response.ok().build();
     }
 
@@ -92,7 +91,7 @@ public final class CounterRs extends BaseRs {
     public Response increment(@QueryParam("value") final String value)
         throws IOException {
         return Response.ok()
-            .entity(this.counter.increment(this.decimal(value)).toString())
+            .entity(this.counter.increment(CounterRs.decimal(value)).toString())
             .build();
     }
 
@@ -101,7 +100,7 @@ public final class CounterRs extends BaseRs {
      * @param text Text to convert
      * @return Decimal
      */
-    private BigDecimal decimal(final String text) {
+    private static BigDecimal decimal(final String text) {
         if (!text.matches("-?[0-9]{1,32}")) {
             throw new WebApplicationException(
                 Response.status(HttpURLConnection.HTTP_BAD_REQUEST)

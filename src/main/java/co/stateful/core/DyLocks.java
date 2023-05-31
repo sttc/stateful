@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2014-2023, Stateful.co
  * All rights reserved.
  *
@@ -35,7 +35,6 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.model.ConditionalCheckFailedException;
 import com.amazonaws.services.dynamodbv2.model.ExpectedAttributeValue;
 import com.amazonaws.services.dynamodbv2.model.PutItemRequest;
-import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Iterables;
@@ -56,8 +55,6 @@ import lombok.ToString;
 /**
  * Locks in DynamoDB.
  *
- * @author Yegor Bugayenko (yegor256@gmail.com)
- * @version $Id$
  * @since 1.1
  */
 @Immutable
@@ -109,26 +106,23 @@ final class DyLocks implements Locks {
     @Override
     public Map<String, String> names() {
         final ImmutableMap.Builder<String, String> map =
-            new ImmutableMap.Builder<String, String>();
+            new ImmutableMap.Builder<>();
         Iterables.all(
             this.table.frame().through(
                 new QueryValve().withAttributesToGet(
                     DyLocks.ATTR_LABEL
                 )
             ).where(DyLocks.HASH, Conditions.equalTo(this.owner)),
-            new Predicate<Item>() {
-                @Override
-                public boolean apply(final Item item) {
-                    try {
-                        map.put(
-                            item.get(DyLocks.RANGE).getS(),
-                            item.get(DyLocks.ATTR_LABEL).getS()
-                        );
-                    } catch (final IOException ex) {
-                        throw new IllegalStateException(ex);
-                    }
-                    return true;
+            item -> {
+                try {
+                    map.put(
+                        item.get(DyLocks.RANGE).getS(),
+                        item.get(DyLocks.ATTR_LABEL).getS()
+                    );
+                } catch (final IOException ex) {
+                    throw new IllegalStateException(ex);
                 }
+                return true;
             }
         );
         return map.build();

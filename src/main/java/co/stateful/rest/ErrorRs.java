@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2014-2023, Stateful.co
  * All rights reserved.
  *
@@ -41,8 +41,7 @@ import javax.ws.rs.core.Response;
  *
  * <p>The class is mutable and NOT thread-safe.
  *
- * @author Yegor Bugayenko (yegor256@gmail.com)
- * @version $Id$
+ * @since 0.1
  */
 @Path("/error")
 public final class ErrorRs extends BaseRs {

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2014-2023, Stateful.co
  * All rights reserved.
  *
@@ -54,9 +54,6 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * Locks of a user.
  *
- * @author Yegor Bugayenko (yegor256@gmail.com)
- * @version $Id$
- * @checkstyle MultipleStringLiteralsCheck (500 lines)
  * @since 1.1
  */
 @Path("/k")
