@@ -131,7 +131,8 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
     <dependency>
       <groupId>com.jcabi</groupId>
       <artifactId>jcabi-manifests</artifactId>
-      <version>2.0.0</version>
+      <!-- Don't change this version, it's the one expected by ReXSL -->
+      <version>1.1</version>
     </dependency>
     <dependency>
       <groupId>javax.ws.rs</groupId>
@@ -203,7 +204,8 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
-      <version>2.5</version>
+      <!-- Don't change this version, it's the one expected by ReXSL -->
+      <version>3.0-alpha-1</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -568,22 +570,19 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
           <exists>pom.xml</exists>
         </file>
       </activation>
+      <properties>
+        <tomcat.version>8.5.23</tomcat.version>
+      </properties>
       <dependencies>
         <dependency>
           <groupId>org.apache.tomcat.embed</groupId>
           <artifactId>tomcat-embed-core</artifactId>
-          <version>7.0.34</version>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.tomcat.embed</groupId>
-          <artifactId>tomcat-embed-logging-juli</artifactId>
-          <version>7.0.34</version>
-          <scope>runtime</scope>
+          <version>${tomcat.version}</version>
         </dependency>
         <dependency>
           <groupId>org.apache.tomcat.embed</groupId>
           <artifactId>tomcat-embed-jasper</artifactId>
-          <version>7.0.34</version>
+          <version>${tomcat.version}</version>
           <scope>runtime</scope>
         </dependency>
       </dependencies>
@@ -600,7 +599,6 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                 </goals>
                 <configuration>
                   <classifier>heroku</classifier>
-                  <outputDirectory>${project.build.directory}/heroku</outputDirectory>
                   <archive>
                     <manifestEntries>
                       <Stateful-Version>${project.version}</Stateful-Version>

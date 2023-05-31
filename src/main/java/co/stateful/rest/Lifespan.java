@@ -52,7 +52,7 @@ public final class Lifespan implements ServletContextListener {
     @Override
     public void contextInitialized(@NotNull final ServletContextEvent event) {
         try {
-            Manifests.singleton().append(new ServletMfs(event.getServletContext()));
+            Manifests.DEFAULT.append(new ServletMfs(event.getServletContext()));
         } catch (final IOException ex) {
             throw new IllegalStateException(ex);
         }
