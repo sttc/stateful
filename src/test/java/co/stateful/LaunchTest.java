@@ -29,6 +29,9 @@
  */
 package co.stateful;
 
+import com.jcabi.http.request.JdkRequest;
+import com.jcabi.http.response.RestResponse;
+import java.net.HttpURLConnection;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -42,12 +45,22 @@ final class LaunchTest {
     @Test
     @Disabled
     void startsApp() throws Exception {
-        Launch.main("8080");
-//        final Tomcat tomcat = new Tomcat();
-//        tomcat.setPort(8080);
-//        tomcat.addWebapp("", "src/main/resources/webapp");
-//        tomcat.start();
-//        tomcat.getServer().await();
+        final Thread server = new Thread(
+            () -> {
+                try {
+                    Launch.main("8080");
+                } catch (Exception e) {
+                    throw new IllegalStateException(e);
+                }
+            }
+        );
+        server.start();
+        Thread.sleep(2000L);
+        new JdkRequest("http://localhost:8080/")
+            .fetch()
+            .as(RestResponse.class)
+            .assertStatus(HttpURLConnection.HTTP_OK);
+        server.interrupt();
     }
 
 }
