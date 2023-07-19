@@ -43,6 +43,11 @@ final class LaunchTest {
     @Disabled
     void startsApp() throws Exception {
         Launch.main("8080");
+//        final Tomcat tomcat = new Tomcat();
+//        tomcat.setPort(8080);
+//        tomcat.addWebapp("", "src/main/resources/webapp");
+//        tomcat.start();
+//        tomcat.getServer().await();
     }
 
 }

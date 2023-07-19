@@ -57,8 +57,10 @@ public final class Launch {
         SLF4JBridgeHandler.removeHandlersForRootLogger();
         SLF4JBridgeHandler.install();
         final Tomcat tomcat = new Tomcat();
+        tomcat.setBaseDir("target/tomcat-base");
         final String port = args[0];
         tomcat.setPort(Integer.valueOf(port));
+        tomcat.getConnector();
         final String home = new File("target/classes/webapp").getAbsolutePath();
         Logger.info(Launch.class, "Loading webapp from %s...", home);
         tomcat.addWebapp("", home);
