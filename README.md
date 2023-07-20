@@ -6,7 +6,7 @@
 [![We recommend IntelliJ IDEA](https://www.elegantobjects.org/intellij-idea.svg)](https://www.jetbrains.com/idea/)
 
 [![Availability at SixNines](https://www.sixnines.io/b/0841)](https://www.sixnines.io/h/0841)
-[![Build Status](https://travis-ci.org/sttc/stateful.svg?branch=master)](https://travis-ci.org/sttc/stateful)
+[![mvn](https://github.com/sttc/stateful/actions/workflows/mvn.yml/badge.svg)](https://github.com/sttc/stateful/actions/workflows/mvn.yml)
 
 Stateful Web Primitives
 
