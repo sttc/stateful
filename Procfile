@@ -1,2 +1,2 @@
-web: java -Xmx512m -XX:MaxPermSize=128m -cp target/stateful-heroku.jar:target/deps/* co.stateful.Launch ${PORT} target/heroku-webapp
+web: java -Xmx512m -cp target/stateful-2.0-SNAPSHOT-jar-with-dependencies.jar co.stateful.Launch ${PORT} target/heroku-webapp
 
