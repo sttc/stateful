@@ -44,6 +44,7 @@ import com.jcabi.dynamo.Credentials;
 import com.jcabi.dynamo.Item;
 import com.jcabi.dynamo.QueryValve;
 import com.jcabi.dynamo.Region;
+import com.jcabi.log.Logger;
 import com.jcabi.manifests.Manifests;
 import com.jcabi.urn.URN;
 import java.io.IOException;
@@ -112,6 +113,7 @@ final class DefaultUser implements User {
                 )
             );
         }
+        Logger.info(DefaultUser.class, "Connecting to AWS as %s...", key);
         this.region = new Region.Prefixed(
             new Region.Simple(creds),
             Manifests.read("Stateful-DynamoPrefix")
