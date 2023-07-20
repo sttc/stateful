@@ -32,19 +32,19 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
   <skin>
     <groupId>com.jcabi</groupId>
     <artifactId>jcabi-maven-skin</artifactId>
-    <version>1.4</version>
+    <version>1.7.1</version>
   </skin>
   <bannerLeft>
     <name>stateful</name>
-    <src>http://img.stateful.co/pomegranate.png</src>
-    <href>http://www.stateful.co</href>
+    <src>https://img.stateful.co/pomegranate.png</src>
+    <href>https://www.stateful.co</href>
     <width>64</width>
     <height>64</height>
   </bannerLeft>
   <googleAnalyticsAccountId>UA-1963507-35</googleAnalyticsAccountId>
   <body>
     <head>
-      <link href="http://img.stateful.co/logo-128x128.png" rel="shortcut icon"/>
+      &lt;link href="http://img.stateful.co/logo-128x128.png" rel="shortcut icon"/&gt;
     </head>
     <breadcrumbs>
       <item name="stateful.co" href="http://www.stateful.co"/>
