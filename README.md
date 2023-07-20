@@ -1,7 +1,6 @@
 <img src="http://img.stateful.co/pomegranate.svg" width="64px" height="64px"/>
 
 [![EO principles respected here](https://www.elegantobjects.org/badge.svg)](https://www.elegantobjects.org)
-[![Managed by Zerocracy](https://www.0crat.com/badge/CAZPZR9FS.svg)](https://www.0crat.com/p/CAZPZR9FS)
 [![DevOps By Rultor.com](https://www.rultor.com/b/sttc/stateful)](https://www.rultor.com/p/sttc/stateful)
 [![We recommend IntelliJ IDEA](https://www.elegantobjects.org/intellij-idea.svg)](https://www.jetbrains.com/idea/)
 
