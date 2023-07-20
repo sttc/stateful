@@ -330,6 +330,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
               <goal>single</goal>
             </goals>
             <configuration>
+              <finalName>stateful</finalName>
               <archive>
                 <manifest>
                   <mainClass>co.stateful.Launch</mainClass>
