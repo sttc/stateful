@@ -496,7 +496,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                   <async>true</async>
                   <arguments>
                     <argument>-cp</argument>
-                    <argument>${project.build.directory}/${project.name}-${project.version}-jar-with-dependencies.jar</argument>
+                    <argument>${project.build.directory}/stateful-jar-with-dependencies.jar</argument>
                     <argument>co.stateful.Launch</argument>
                     <argument>${tomcat.port}</argument>
                     <argument>${project.build.directory}/test-webapp</argument>
