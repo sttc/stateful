@@ -3,17 +3,17 @@
     <head>
         <title>Internal application error</title>
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"/>
-        <link href="/css/layout.css?${buildNumber}" rel="stylesheet" type="text/css"/>
-        <link rel="icon" type="image/gif" href="//img.stateful.co/favicon.ico?${buildNumber}"/>
+        <link href="/css/layout.css" rel="stylesheet" type="text/css"/>
+        <link rel="icon" type="image/gif" href="//img.stateful.co/favicon.ico"/>
     </head>
     <body>
         <p>
             <a href="/">
-                <img src="//img.stateful.co/pomegranate.svg?${buildNumber}" class="logo"/>
+                <img src="//img.stateful.co/pomegranate.svg" class="logo"/>
             </a>
         </p>
         <p class="alert alert-danger">
-            Internal application error (<code>${buildNumber}</code>).
+            Internal application error.
         </p>
         <pre>${text}</pre>
     </body>

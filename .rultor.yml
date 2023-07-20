@@ -14,6 +14,10 @@ release:
   script: |
     mvn versions:set "-DnewVersion=${tag}"
     git commit -am "${tag}"
+    build=$(git rev-parse --short HEAD)
+    sed -i "s/BUILD/${build}/g" src/main/resources/webapp/META-INF/MANIFEST.MF
+    git add src/main/resources/webapp/META-INF/MANIFEST.MF
+    git commit -m 'build number set'
     cp ../settings.xml settings.xml
     mvn clean package -Pqulice -Psttc-web --errors --batch-mode
     git remote add dokku dokku@www.stateful.co:stateful
