@@ -44,7 +44,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
         <link rel="icon" type="image/gif" href="/images/favicon.ico?{version/name}"/>
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"/>
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"/>
-        <link rel="stylesheet" type="text/css" media="all" href="/css/style.css?{version/name}"/>
+        <link rel="stylesheet" type="text/css" media="all" href="/css/layout.css?{version/name}"/>
         <script type="text/javascript" src="//code.jquery.com/jquery-2.0.0.js">
           <xsl:text> </xsl:text>
         </script>

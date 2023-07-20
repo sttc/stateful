@@ -1,0 +1,16 @@
+Stateful-Version: 1.0-SNAPSHOT
+Stateful-Revision: 1234567
+Stateful-Date: 9-Dec-2012
+Stateful-SecurityKey: secret
+Stateful-FbId: 1234567
+Stateful-FbSecret: 1234567
+Stateful-GoogleId: 1234567
+Stateful-GoogleSecret: 1234567
+Stateful-GithubId: 1234567
+Stateful-GithubSecret: 1234567
+Stateful-DynamoKey: AAAAABBBBBAAAAABBBBB
+Stateful-DynamoSecret: AFAFAFAFAFAFAFAFAFAFAFAFAFAFAFAFAFAFAFAF
+Stateful-DynamoPrefix: st-
+Stateful-DynamoPort: ${dynamodblocal.port}
+ReXSL-Version: 0.0.0
+ReXSL-Build: 0

@@ -107,7 +107,9 @@ final class DefaultUser implements User {
         if ("AAAAABBBBBAAAAABBBBB".equals(key)) {
             creds = new Credentials.Direct(
                 Credentials.Simple.class.cast(creds),
-                Integer.parseInt(System.getProperty("dynamo.port"))
+                Integer.parseInt(
+                    Manifests.read("Stateful-DynamoPort")
+                )
             );
         }
         this.region = new Region.Prefixed(

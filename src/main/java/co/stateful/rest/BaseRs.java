@@ -86,15 +86,14 @@ public class BaseRs extends BaseResource {
     private static final Provider TESTER = new Provider() {
         @Override
         public Identity identity() {
-            final Identity identity;
-            if ("1234567".equals(Manifests.read("Stateful-Revision"))) {
+            Identity identity = Identity.ANONYMOUS;
+            if ("1234567".equals(Manifests.read("Stateful-Revision"))
+                && !"-".equals(Manifests.read("Stateful-DynamoKey"))) {
                 identity = new Identity.Simple(
                     URN.create("urn:test:123456"),
                     "Localhost",
                     URI.create("http://img.stateful.com/unknown.png")
                 );
-            } else {
-                identity = Identity.ANONYMOUS;
             }
             return identity;
         }
@@ -210,7 +209,7 @@ public class BaseRs extends BaseResource {
                 this.uriInfo().getBaseUriBuilder().clone()
                     .path(IndexRs.class)
                     .build(),
-                "please login first",
+                "Please login first",
                 Level.SEVERE
             );
         }
@@ -225,7 +224,7 @@ public class BaseRs extends BaseResource {
         final Base base = Base.class.cast(
             this.servletContext().getAttribute(Base.class.getName())
         );
-        Validate.notNull(base, "spi is not initialized");
+        Validate.notNull(base, "SPI is not initialized");
         return base;
     }
 

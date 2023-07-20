@@ -309,7 +309,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
             </goals>
             <configuration>
               <sassSourceDirectory>${basedir}/src/main/scss</sassSourceDirectory>
-              <destination>${project.build.outputDirectory}/webapp/css</destination>
+              <destination>${project.build.directory}/pre-webapp/css</destination>
             </configuration>
           </execution>
         </executions>
@@ -336,60 +336,47 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
           </execution>
         </executions>
       </plugin>
-      <!--
       <plugin>
-        <artifactId>maven-jar-plugin</artifactId>
+        <artifactId>maven-resources-plugin</artifactId>
         <executions>
           <execution>
-            <id>heroku-jar</id>
-            <phase>package</phase>
+            <id>copy-manifest-for-integration-tests</id>
+            <phase>pre-integration-test</phase>
             <goals>
-              <goal>jar</goal>
+              <goal>copy-resources</goal>
             </goals>
             <configuration>
-              <classifier>heroku</classifier>
-              <archive>
-                <manifestEntries>
-                  <Stateful-Version>${project.version}</Stateful-Version>
-                  <Stateful-Revision>${buildNumber}</Stateful-Revision>
-                  <Stateful-Date>${maven.build.timestamp}</Stateful-Date>
-                  <Stateful-FbId>${fb.id}</Stateful-FbId>
-                  <Stateful-FbSecret>${fb.secret}</Stateful-FbSecret>
-                  <Stateful-GoogleId>${google.id}</Stateful-GoogleId>
-                  <Stateful-GoogleSecret>${google.secret}</Stateful-GoogleSecret>
-                  <Stateful-GithubId>${github.id}</Stateful-GithubId>
-                  <Stateful-GithubSecret>${github.secret}</Stateful-GithubSecret>
-                  <Stateful-SecurityKey>${security.key}</Stateful-SecurityKey>
-                  <Stateful-DynamoKey>${dynamo.key}</Stateful-DynamoKey>
-                  <Stateful-DynamoSecret>${dynamo.secret}</Stateful-DynamoSecret>
-                  <Stateful-DynamoPrefix>${dynamo.prefix}</Stateful-DynamoPrefix>
-                </manifestEntries>
-              </archive>
+              <outputDirectory>${project.build.testOutputDirectory}</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>src/test/resources/webapp</directory>
+                  <filtering>true</filtering>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+          <execution>
+            <id>make-production-webapp</id>
+            <phase>package</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.build.directory}/heroku-webapp</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>src/main/resources/webapp</directory>
+                  <filtering>true</filtering>
+                </resource>
+                <resource>
+                  <directory>${project.build.directory}/pre-webapp</directory>
+                  <filtering>false</filtering>
+                </resource>
+              </resources>
             </configuration>
           </execution>
         </executions>
       </plugin>
-      -->
-      <!--
-      <plugin>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>copy-dependencies-for-heroku</id>
-            <phase>package</phase>
-            <goals>
-              <goal>copy-dependencies</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>${project.build.directory}/deps</outputDirectory>
-              <overWriteReleases>true</overWriteReleases>
-              <overWriteSnapshots>true</overWriteSnapshots>
-              <overWriteIfNewer>true</overWriteIfNewer>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      -->
     </plugins>
   </build>
   <profiles>
@@ -438,21 +425,13 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                       <directory>src/main/resources/webapp</directory>
                       <filtering>true</filtering>
                     </resource>
-                  </resources>
-                </configuration>
-              </execution>
-              <execution>
-                <id>copy-webapp-meta-inf-for-tests</id>
-                <phase>pre-integration-test</phase>
-                <goals>
-                  <goal>copy-resources</goal>
-                </goals>
-                <configuration>
-                  <outputDirectory>${project.build.directory}/test-webapp/META-INF</outputDirectory>
-                  <resources>
                     <resource>
-                      <directory>src/test/resources/META-INF</directory>
+                      <directory>src/test/resources/webapp</directory>
                       <filtering>true</filtering>
+                    </resource>
+                    <resource>
+                      <directory>${project.build.directory}/pre-webapp</directory>
+                      <filtering>false</filtering>
                     </resource>
                   </resources>
                 </configuration>
@@ -513,6 +492,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                     <argument>${project.build.directory}/${project.name}-${project.version}-jar-with-dependencies.jar</argument>
                     <argument>co.stateful.Launch</argument>
                     <argument>${tomcat.port}</argument>
+                    <argument>${project.build.directory}/test-webapp</argument>
                   </arguments>
                 </configuration>
               </execution>
@@ -598,14 +578,6 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                 </configuration>
               </execution>
             </executions>
-          </plugin>
-          <plugin>
-            <artifactId>maven-failsafe-plugin</artifactId>
-            <configuration>
-              <systemPropertyVariables combine.children="append">
-                <dynamo.port>${dynamodblocal.port}</dynamo.port>
-              </systemPropertyVariables>
-            </configuration>
           </plugin>
         </plugins>
       </build>

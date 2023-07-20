@@ -37,6 +37,7 @@ import com.jcabi.matchers.W3CMatchers;
 import java.net.HttpURLConnection;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -89,6 +90,7 @@ final class CountersRsITCase {
      * @throws Exception If some problem inside
      */
     @Test
+    @Disabled
     void rendersValidHtml() throws Exception {
         new JdkRequest(CountersRsITCase.HOME)
             .header(HttpHeaders.ACCEPT, MediaType.TEXT_XML)

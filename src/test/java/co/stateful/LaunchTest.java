@@ -49,7 +49,7 @@ final class LaunchTest {
         final Thread server = new Thread(
             () -> {
                 try {
-                    Launch.main("8080");
+                    Launch.main("8080", "target/test-webapp");
                 // @checkstyle IllegalCatchCheck (1 line)
                 } catch (final Exception ex) {
                     throw new IllegalStateException(ex);

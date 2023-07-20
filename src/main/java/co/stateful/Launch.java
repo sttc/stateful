@@ -61,7 +61,7 @@ public final class Launch {
         final String port = args[0];
         tomcat.setPort(Integer.valueOf(port));
         tomcat.getConnector();
-        final String home = new File("target/test-webapp").getAbsolutePath();
+        final String home = new File(args[1]).getAbsolutePath();
         Logger.info(Launch.class, "Loading webapp from %s...", home);
         tomcat.addWebapp("", home);
         tomcat.start();

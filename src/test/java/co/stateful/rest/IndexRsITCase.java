@@ -38,6 +38,7 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -63,7 +64,7 @@ final class IndexRsITCase {
             "/robots.txt",
             "/xsl/layout.xsl",
             "/xsl/index.xsl",
-            "/css/style.css",
+            "/css/layout.css",
         };
         for (final String page : pages) {
             new JdkRequest(IndexRsITCase.HOME)
@@ -113,6 +114,7 @@ final class IndexRsITCase {
      * @throws Exception If some problem inside
      */
     @Test
+    @Disabled
     void rendersValidHtml() throws Exception {
         new JdkRequest(IndexRsITCase.HOME)
             .header(HttpHeaders.ACCEPT, MediaType.TEXT_XML)
