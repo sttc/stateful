@@ -88,7 +88,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
     </site>
   </distributionManagement>
   <properties>
-    <tomcat.version>9.0.43</tomcat.version>
+    <tomcat.version>9.0.78</tomcat.version>
   </properties>
   <dependencies>
     <dependency>
