@@ -1,5 +1,5 @@
 Stateful-Version: ${project.version}
-Stateful-Revision: BUILD
+Stateful-Revision: 53d07e8
 Stateful-Date: ${maven.build.timestamp}
 Stateful-FbId: ${fb.id}
 Stateful-FbSecret: ${fb.secret}
