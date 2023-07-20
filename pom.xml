@@ -301,6 +301,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
     </dependency>
   </dependencies>
   <build>
+    <finalName>stateful</finalName>
     <plugins>
       <plugin>
         <groupId>nl.geodienstencentrum.maven</groupId>
@@ -330,7 +331,6 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
               <goal>single</goal>
             </goals>
             <configuration>
-              <finalName>stateful</finalName>
               <archive>
                 <manifest>
                   <mainClass>co.stateful.Launch</mainClass>
@@ -496,7 +496,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                   <async>true</async>
                   <arguments>
                     <argument>-cp</argument>
-                    <argument>${project.build.directory}/stateful-jar-with-dependencies.jar</argument>
+                    <argument>${project.build.directory}/${project.build.finalName}-jar-with-dependencies.jar</argument>
                     <argument>co.stateful.Launch</argument>
                     <argument>${tomcat.port}</argument>
                     <argument>${project.build.directory}/test-webapp</argument>
