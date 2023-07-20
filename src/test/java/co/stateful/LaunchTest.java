@@ -44,13 +44,15 @@ final class LaunchTest {
 
     @Test
     @Disabled
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     void startsApp() throws Exception {
         final Thread server = new Thread(
             () -> {
                 try {
                     Launch.main("8080");
-                } catch (Exception e) {
-                    throw new IllegalStateException(e);
+                // @checkstyle IllegalCatchCheck (1 line)
+                } catch (final Exception ex) {
+                    throw new IllegalStateException(ex);
                 }
             }
         );

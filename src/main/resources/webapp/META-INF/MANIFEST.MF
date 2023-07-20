@@ -1,0 +1,15 @@
+Stateful-Version: ${project.version}
+Stateful-Revision: ${buildNumber}
+Stateful-Date: ${maven.build.timestamp}
+Stateful-FbId: ${fb.id}
+Stateful-FbSecret: ${fb.secret}
+Stateful-GoogleId: ${google.id}
+Stateful-GoogleSecret: ${google.secret}
+Stateful-GithubId: ${github.id}
+Stateful-GithubSecret: ${github.secret}
+Stateful-SecurityKey: ${security.key}
+Stateful-DynamoKey: ${dynamo.key}
+Stateful-DynamoSecret: ${dynamo.secret}
+Stateful-DynamoPrefix: ${dynamo.prefix}
+ReXSL-Version: 0.0.0
+ReXSL-Build: 0
