@@ -11,3 +11,5 @@ Stateful-GithubSecret: 1234567
 Stateful-DynamoKey: AAAAABBBBBAAAAABBBBB
 Stateful-DynamoSecret: AFAFAFAFAFAFAFAFAFAFAFAFAFAFAFAFAFAFAFAF
 Stateful-DynamoPrefix: st-
+ReXSL-Version: 0.0.0
+ReXSL-Build: 0

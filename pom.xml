@@ -423,6 +423,43 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
       <build>
         <plugins>
           <plugin>
+            <artifactId>maven-resources-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>copy-webapp-for-tests</id>
+                <phase>pre-integration-test</phase>
+                <goals>
+                  <goal>copy-resources</goal>
+                </goals>
+                <configuration>
+                  <outputDirectory>${project.build.directory}/test-webapp</outputDirectory>
+                  <resources>
+                    <resource>
+                      <directory>src/main/resources/webapp</directory>
+                      <filtering>true</filtering>
+                    </resource>
+                  </resources>
+                </configuration>
+              </execution>
+              <execution>
+                <id>copy-webapp-meta-inf-for-tests</id>
+                <phase>pre-integration-test</phase>
+                <goals>
+                  <goal>copy-resources</goal>
+                </goals>
+                <configuration>
+                  <outputDirectory>${project.build.directory}/test-webapp/META-INF</outputDirectory>
+                  <resources>
+                    <resource>
+                      <directory>src/test/resources/META-INF</directory>
+                      <filtering>true</filtering>
+                    </resource>
+                  </resources>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>build-helper-maven-plugin</artifactId>
             <version>3.4.0</version>

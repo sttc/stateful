@@ -55,7 +55,7 @@ public final class UserRs extends BaseRs {
                 .clone()
                 .path(IndexRs.class)
                 .build(),
-            "security token successfully refreshed",
+            "Security token successfully refreshed",
             Level.INFO
         );
     }
