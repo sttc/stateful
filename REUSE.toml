@@ -4,8 +4,6 @@
 version = 1
 [[annotations]]
 path = [
-    "src/main/resources/META-INF/services/javax.validation.spi.ValidationProvider",
-    "src/main/resources/webapp/images/favicon.ico",
     ".DS_Store",
     ".gitattributes",
     ".gitignore",
@@ -37,6 +35,8 @@ path = [
     "Procfile",
     "README.md",
     "renovate.json",
+    "src/main/resources/META-INF/services/javax.validation.spi.ValidationProvider",
+    "src/main/resources/webapp/images/favicon.ico",
 ]
 precedence = "override"
 SPDX-FileCopyrightText = "Copyright (c) 2025 Yegor Bugayenko"
