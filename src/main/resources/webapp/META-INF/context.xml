@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
- * SPDX-FileCopyrightText: Copyright (c) 2014-2025, Stateful.co
+ * SPDX-FileCopyrightText: Copyright (c) 2014-2026, Stateful.co
  * SPDX-License-Identifier: MIT
  *
  * Redistribution and use in source and binary forms, with or without
