@@ -5,17 +5,11 @@
 package co.stateful.core;
 
 import co.stateful.spi.Locks;
-import software.amazon.awssdk.core.exception.SdkException;
-import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
-import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
-import software.amazon.awssdk.services.dynamodb.model.ConditionalCheckFailedException;
-import software.amazon.awssdk.services.dynamodb.model.PutItemRequest;
 import com.google.common.base.Predicates;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Iterables;
 import com.jcabi.aspects.Immutable;
 import com.jcabi.aspects.Loggable;
-import com.jcabi.dynamo.Attributes;
 import com.jcabi.dynamo.Conditions;
 import com.jcabi.dynamo.Item;
 import com.jcabi.dynamo.QueryValve;
@@ -26,6 +20,11 @@ import java.util.Iterator;
 import java.util.Map;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import software.amazon.awssdk.core.exception.SdkException;
+import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
+import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
+import software.amazon.awssdk.services.dynamodb.model.ConditionalCheckFailedException;
+import software.amazon.awssdk.services.dynamodb.model.PutItemRequest;
 
 /**
  * Locks in DynamoDB.
@@ -113,9 +112,18 @@ final class DyLocks implements Locks {
                 .tableName(this.table.name())
                 .item(
                     new ImmutableMap.Builder<String, AttributeValue>()
-                        .put(DyLocks.HASH, AttributeValue.builder().s(this.owner.toString()).build())
-                        .put(DyLocks.RANGE, AttributeValue.builder().s(name).build())
-                        .put(DyLocks.ATTR_LABEL, AttributeValue.builder().s(label).build())
+                        .put(
+                            DyLocks.HASH,
+                            AttributeValue.builder().s(this.owner.toString()).build()
+                        )
+                        .put(
+                            DyLocks.RANGE,
+                            AttributeValue.builder().s(name).build()
+                        )
+                        .put(
+                            DyLocks.ATTR_LABEL,
+                            AttributeValue.builder().s(label).build()
+                        )
                         .build()
                 )
                 .conditionExpression("attribute_not_exists(#lbl)")

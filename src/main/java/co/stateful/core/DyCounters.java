@@ -6,7 +6,6 @@ package co.stateful.core;
 
 import co.stateful.spi.Counter;
 import co.stateful.spi.Counters;
-import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import com.google.common.base.Function;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterables;
@@ -24,6 +23,7 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 
 /**
  * Counters in DynamoDB.

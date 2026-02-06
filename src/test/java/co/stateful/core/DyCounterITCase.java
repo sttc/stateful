@@ -39,11 +39,13 @@ final class DyCounterITCase {
         final BigDecimal start = new BigDecimal(new SecureRandom().nextLong());
         counter.set(start);
         MatcherAssert.assertThat(
+            "counter value does not equal start after zero increment",
             counter.increment(new BigDecimal(0L)),
             Matchers.equalTo(start)
         );
         final BigDecimal delta = new BigDecimal(new SecureRandom().nextLong());
         MatcherAssert.assertThat(
+            "counter value does not equal expected after delta increment",
             counter.increment(delta),
             Matchers.equalTo(start.add(delta))
         );
@@ -73,6 +75,7 @@ final class DyCounterITCase {
             }
         } .call();
         MatcherAssert.assertThat(
+            "concurrent increments did not produce expected unique values",
             values,
             Matchers.hasSize(20)
         );

@@ -166,10 +166,27 @@ public class BaseRs extends BaseResource {
     public final AuthInset auth() {
         return new AuthInset(this, Manifests.read("Stateful-SecurityKey"))
             .with(new Auth(this, this.base()))
-            // @checkstyle LineLength (3 lines)
-            .with(new Facebook(this, Manifests.read("Stateful-FbId"), Manifests.read("Stateful-FbSecret")))
-            .with(new Google(this, Manifests.read("Stateful-GoogleId"), Manifests.read("Stateful-GoogleSecret")))
-            .with(new Github(this, Manifests.read("Stateful-GithubId"), Manifests.read("Stateful-GithubSecret")))
+            .with(
+                new Facebook(
+                    this,
+                    Manifests.read("Stateful-FbId"),
+                    Manifests.read("Stateful-FbSecret")
+                )
+            )
+            .with(
+                new Google(
+                    this,
+                    Manifests.read("Stateful-GoogleId"),
+                    Manifests.read("Stateful-GoogleSecret")
+                )
+            )
+            .with(
+                new Github(
+                    this,
+                    Manifests.read("Stateful-GithubId"),
+                    Manifests.read("Stateful-GithubSecret")
+                )
+            )
             .with(BaseRs.TESTER);
     }
 

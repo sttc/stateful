@@ -29,11 +29,13 @@ final class DyCountersITCase {
         final String name = "test-one";
         counters.create(name);
         MatcherAssert.assertThat(
+            "created counter name not found in names list",
             counters.names(),
             Matchers.hasItem(name)
         );
         counters.delete(name);
         MatcherAssert.assertThat(
+            "deleted counter still present in names list",
             counters.names(),
             Matchers.emptyIterable()
         );

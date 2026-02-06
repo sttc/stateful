@@ -30,11 +30,13 @@ final class DefaultUserITCase {
         user.refresh();
         final String second = user.token();
         MatcherAssert.assertThat(
+            "refreshed token should differ from first token",
             second,
             Matchers.not(Matchers.equalTo(first))
         );
         user.refresh();
         MatcherAssert.assertThat(
+            "second refresh should produce new unique token",
             user.token(),
             Matchers.allOf(
                 Matchers.not(Matchers.equalTo(first)),

@@ -42,6 +42,7 @@ final class DyLocksITCase {
             }
         } .call();
         MatcherAssert.assertThat(
+            "parallel locking allowed more than one thread to acquire lock",
             done.get(),
             Matchers.equalTo(1)
         );
@@ -61,14 +62,17 @@ final class DyLocksITCase {
         final String label = "some label \u20ac";
         locks.lock(name, label);
         MatcherAssert.assertThat(
+            "unlock with wrong label should fail and return non-empty string",
             locks.unlock(name, "wrong label"),
             Matchers.not(Matchers.equalTo(""))
         );
         MatcherAssert.assertThat(
+            "unlock with correct label should succeed and return empty string",
             locks.unlock(name, label),
             Matchers.equalTo("")
         );
         MatcherAssert.assertThat(
+            "locking after unlock should succeed and return empty string",
             locks.lock(name, "new label"),
             Matchers.equalTo("")
         );

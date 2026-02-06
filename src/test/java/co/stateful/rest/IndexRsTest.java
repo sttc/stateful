@@ -41,6 +41,7 @@ final class IndexRsTest {
         res.setSecurityContext(sec);
         final Response response = res.index();
         MatcherAssert.assertThat(
+            "front page does not contain required XML elements",
             JaxbConverter.the(response.getEntity()),
             XhtmlMatchers.hasXPaths(
                 "/page/millis",

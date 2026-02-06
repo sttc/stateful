@@ -5,9 +5,6 @@
 package co.stateful.core;
 
 import co.stateful.spi.Counter;
-import software.amazon.awssdk.services.dynamodb.model.AttributeAction;
-import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
-import software.amazon.awssdk.services.dynamodb.model.AttributeValueUpdate;
 import com.jcabi.aspects.Immutable;
 import com.jcabi.aspects.Loggable;
 import com.jcabi.dynamo.Item;
@@ -15,6 +12,9 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import software.amazon.awssdk.services.dynamodb.model.AttributeAction;
+import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
+import software.amazon.awssdk.services.dynamodb.model.AttributeValueUpdate;
 
 /**
  * Counter in DynamoDB.
