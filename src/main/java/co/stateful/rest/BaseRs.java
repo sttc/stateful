@@ -58,20 +58,17 @@ public class BaseRs extends BaseResource {
     /**
      * Test authentication provider.
      */
-    private static final Provider TESTER = new Provider() {
-        @Override
-        public Identity identity() {
-            Identity identity = Identity.ANONYMOUS;
-            if ("1234567".equals(Manifests.read("Stateful-Revision"))
-                && !"-".equals(Manifests.read("Stateful-DynamoKey"))) {
-                identity = new Identity.Simple(
-                    URN.create("urn:test:123456"),
-                    "Localhost",
-                    URI.create("http://img.stateful.com/unknown.png")
-                );
-            }
-            return identity;
+    private static final Provider TESTER = () -> {
+        Identity identity = Identity.ANONYMOUS;
+        if ("1234567".equals(Manifests.read("Stateful-Revision"))
+            && !"-".equals(Manifests.read("Stateful-DynamoKey"))) {
+            identity = new Identity.Simple(
+                URN.create("urn:test:123456"),
+                "Localhost",
+                URI.create("http://img.stateful.com/unknown.png")
+            );
         }
+        return identity;
     };
 
     /**
@@ -90,14 +87,10 @@ public class BaseRs extends BaseResource {
      */
     @Inset.Runtime
     public final Inset supplementary() {
-        return new Inset() {
-            @Override
-            public void render(final BasePage<?, ?> page,
-                final Response.ResponseBuilder builder) {
-                builder.header("X-Sttc-Version", BaseRs.VERSION_LABEL);
-                builder.type(MediaType.TEXT_XML);
-                builder.header(HttpHeaders.VARY, "Cookie");
-            }
+        return (page, builder) -> {
+            builder.header("X-Sttc-Version", BaseRs.VERSION_LABEL);
+            builder.type(MediaType.TEXT_XML);
+            builder.header(HttpHeaders.VARY, "Cookie");
         };
     }
 
@@ -107,15 +100,11 @@ public class BaseRs extends BaseResource {
      */
     @Inset.Runtime
     public final Inset menu() {
-        return new Inset() {
-            @Override
-            public void render(final BasePage<?, ?> page,
-                final Response.ResponseBuilder builder) {
-                if (!BaseRs.this.auth().identity().equals(Identity.ANONYMOUS)) {
-                    page.link(new Link("menu:home", "/"));
-                    page.link(new Link("menu:counters", "/counters"));
-                    page.link(new Link("menu:locks", "/k"));
-                }
+        return (page, builder) -> {
+            if (!this.auth().identity().equals(Identity.ANONYMOUS)) {
+                page.link(new Link("menu:home", "/"));
+                page.link(new Link("menu:counters", "/counters"));
+                page.link(new Link("menu:locks", "/k"));
             }
         };
     }
@@ -126,20 +115,16 @@ public class BaseRs extends BaseResource {
      */
     @Inset.Runtime
     public final Inset token() {
-        return new Inset() {
-            @Override
-            public void render(final BasePage<?, ?> page,
-                final Response.ResponseBuilder builder) {
-                if (!BaseRs.this.auth().identity().equals(Identity.ANONYMOUS)) {
-                    try {
-                        page.append(
-                            new JaxbBundle("token", BaseRs.this.user().token())
-                        );
-                    } catch (final IOException ex) {
-                        throw new IllegalStateException(ex);
-                    }
-                    page.link(new Link("user:refresh", "/u/refresh"));
+        return (page, builder) -> {
+            if (!this.auth().identity().equals(Identity.ANONYMOUS)) {
+                try {
+                    page.append(
+                        new JaxbBundle("token", this.user().token())
+                    );
+                } catch (final IOException ex) {
+                    throw new IllegalStateException(ex);
                 }
+                page.link(new Link("user:refresh", "/u/refresh"));
             }
         };
     }

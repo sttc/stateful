@@ -120,14 +120,11 @@ final class DyCounters implements Counters {
             this.table.frame()
                 .through(new QueryValve())
                 .where(DyCounters.HASH, Conditions.equalTo(this.owner)),
-            new Function<Item, String>() {
-                @Override
-                public String apply(final Item item) {
-                    try {
-                        return item.get(DyCounters.RANGE).s();
-                    } catch (final IOException ex) {
-                        throw new IllegalStateException(ex);
-                    }
+            item -> {
+                try {
+                    return item.get(DyCounters.RANGE).s();
+                } catch (final IOException ex) {
+                    throw new IllegalStateException(ex);
                 }
             }
         );
