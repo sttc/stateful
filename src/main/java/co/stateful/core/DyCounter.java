@@ -5,9 +5,9 @@
 package co.stateful.core;
 
 import co.stateful.spi.Counter;
-import com.amazonaws.services.dynamodbv2.model.AttributeAction;
-import com.amazonaws.services.dynamodbv2.model.AttributeValue;
-import com.amazonaws.services.dynamodbv2.model.AttributeValueUpdate;
+import software.amazon.awssdk.services.dynamodb.model.AttributeAction;
+import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
+import software.amazon.awssdk.services.dynamodb.model.AttributeValueUpdate;
 import com.jcabi.aspects.Immutable;
 import com.jcabi.aspects.Loggable;
 import com.jcabi.dynamo.Item;
@@ -44,10 +44,10 @@ final class DyCounter implements Counter {
     public void set(final BigDecimal value) throws IOException {
         this.item.put(
             DyCounters.ATTR_VALUE,
-            new AttributeValueUpdate(
-                new AttributeValue().withN(value.toString()),
-                AttributeAction.PUT
-            )
+            AttributeValueUpdate.builder()
+                .value(AttributeValue.builder().n(value.toString()).build())
+                .action(AttributeAction.PUT)
+                .build()
         );
     }
 
@@ -56,11 +56,11 @@ final class DyCounter implements Counter {
         return new BigDecimal(
             this.item.put(
                 DyCounters.ATTR_VALUE,
-                new AttributeValueUpdate(
-                    new AttributeValue().withN(delta.toString()),
-                    AttributeAction.ADD
-                )
-            ).get(DyCounters.ATTR_VALUE).getN()
+                AttributeValueUpdate.builder()
+                    .value(AttributeValue.builder().n(delta.toString()).build())
+                    .action(AttributeAction.ADD)
+                    .build()
+            ).get(DyCounters.ATTR_VALUE).n()
         );
     }
 }

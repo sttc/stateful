@@ -113,7 +113,7 @@ final class DefaultUser implements User {
             .iterator();
         final String token;
         if (items.hasNext()) {
-            token = items.next().get(DefaultUser.ATTR_TOKEN).getS();
+            token = items.next().get(DefaultUser.ATTR_TOKEN).s();
         } else {
             this.refresh();
             token = this.token();

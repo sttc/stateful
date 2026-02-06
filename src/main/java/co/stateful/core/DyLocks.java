@@ -5,11 +5,11 @@
 package co.stateful.core;
 
 import co.stateful.spi.Locks;
-import com.amazonaws.AmazonClientException;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
-import com.amazonaws.services.dynamodbv2.model.ConditionalCheckFailedException;
-import com.amazonaws.services.dynamodbv2.model.ExpectedAttributeValue;
-import com.amazonaws.services.dynamodbv2.model.PutItemRequest;
+import software.amazon.awssdk.core.exception.SdkException;
+import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
+import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
+import software.amazon.awssdk.services.dynamodb.model.ConditionalCheckFailedException;
+import software.amazon.awssdk.services.dynamodb.model.PutItemRequest;
 import com.google.common.base.Predicates;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Iterables;
@@ -91,8 +91,8 @@ final class DyLocks implements Locks {
             item -> {
                 try {
                     map.put(
-                        item.get(DyLocks.RANGE).getS(),
-                        item.get(DyLocks.ATTR_LABEL).getS()
+                        item.get(DyLocks.RANGE).s(),
+                        item.get(DyLocks.ATTR_LABEL).s()
                     );
                 } catch (final IOException ex) {
                     throw new IllegalStateException(ex);
@@ -106,30 +106,28 @@ final class DyLocks implements Locks {
     @Override
     public String lock(final String name, final String label)
         throws IOException {
-        final AmazonDynamoDB aws = this.table.region().aws();
+        final DynamoDbClient aws = this.table.region().aws();
         String msg = "";
         try {
-            final PutItemRequest request = new PutItemRequest();
-            request.setTableName(this.table.name());
-            request.setItem(
-                new Attributes()
-                    .with(DyLocks.HASH, this.owner)
-                    .with(DyLocks.RANGE, name)
-                    .with(DyLocks.ATTR_LABEL, label)
-            );
-            request.setExpected(
-                new ImmutableMap.Builder<String, ExpectedAttributeValue>().put(
-                    DyLocks.ATTR_LABEL,
-                    new ExpectedAttributeValue().withExists(false)
-                ).build()
-            );
+            final PutItemRequest request = PutItemRequest.builder()
+                .tableName(this.table.name())
+                .item(
+                    new ImmutableMap.Builder<String, AttributeValue>()
+                        .put(DyLocks.HASH, AttributeValue.builder().s(this.owner.toString()).build())
+                        .put(DyLocks.RANGE, AttributeValue.builder().s(name).build())
+                        .put(DyLocks.ATTR_LABEL, AttributeValue.builder().s(label).build())
+                        .build()
+                )
+                .conditionExpression("attribute_not_exists(#lbl)")
+                .expressionAttributeNames(
+                    ImmutableMap.of("#lbl", DyLocks.ATTR_LABEL)
+                )
+                .build();
             aws.putItem(request);
         } catch (final ConditionalCheckFailedException ex) {
-            msg = ex.getLocalizedMessage();
-        } catch (final AmazonClientException ex) {
+            msg = ex.getMessage();
+        } catch (final SdkException ex) {
             throw new IOException(ex);
-        } finally {
-            aws.shutdown();
         }
         return msg;
     }
@@ -167,7 +165,7 @@ final class DyLocks implements Locks {
             .iterator();
         String msg = "";
         if (items.hasNext()) {
-            msg = items.next().get(DyLocks.ATTR_LABEL).getS();
+            msg = items.next().get(DyLocks.ATTR_LABEL).s();
         }
         return msg;
     }

@@ -1,5 +1,7 @@
+*.iml
+.claude/
 .DS_Store
 .idea/
-*.iml
+ajcore.*
 node_modules/
 target/

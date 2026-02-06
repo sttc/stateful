@@ -6,7 +6,7 @@ package co.stateful.core;
 
 import co.stateful.spi.Counter;
 import co.stateful.spi.Counters;
-import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import com.google.common.base.Function;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterables;
@@ -83,7 +83,7 @@ final class DyCounters implements Counters {
             new Attributes()
                 .with(DyCounters.HASH, this.owner)
                 .with(DyCounters.RANGE, name)
-                .with(DyCounters.ATTR_VALUE, new AttributeValue().withN("0"))
+                .with(DyCounters.ATTR_VALUE, AttributeValue.builder().n("0").build())
         );
     }
 
@@ -124,7 +124,7 @@ final class DyCounters implements Counters {
                 @Override
                 public String apply(final Item item) {
                     try {
-                        return item.get(DyCounters.RANGE).getS();
+                        return item.get(DyCounters.RANGE).s();
                     } catch (final IOException ex) {
                         throw new IllegalStateException(ex);
                     }
