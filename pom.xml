@@ -63,7 +63,7 @@
     </site>
   </distributionManagement>
   <properties>
-    <tomcat.version>9.0.90</tomcat.version>
+    <tomcat.version>11.0.18</tomcat.version>
   </properties>
   <dependencies>
     <dependency>
