@@ -110,7 +110,7 @@
       <groupId>com.jcabi</groupId>
       <artifactId>jcabi-manifests</artifactId>
       <!-- Don't change this version, it's the one expected by ReXSL -->
-      <version>1.1</version>
+      <version>2.2.0</version>
     </dependency>
     <dependency>
       <groupId>com.jcabi</groupId>
