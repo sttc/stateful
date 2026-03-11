@@ -63,7 +63,7 @@
     </site>
   </distributionManagement>
   <properties>
-    <tomcat.version>9.0.90</tomcat.version>
+    <takes.version>1.25.0</takes.version>
   </properties>
   <dependencies>
     <dependency>
@@ -109,8 +109,7 @@
     <dependency>
       <groupId>com.jcabi</groupId>
       <artifactId>jcabi-manifests</artifactId>
-      <!-- Don't change this version, it's the one expected by ReXSL -->
-      <version>1.1</version>
+      <version>2.1.0</version>
     </dependency>
     <dependency>
       <groupId>com.jcabi</groupId>
@@ -118,29 +117,19 @@
       <version>0.24.1</version>
     </dependency>
     <dependency>
-      <groupId>javax.ws.rs</groupId>
-      <artifactId>jsr311-api</artifactId>
-      <version>1.1.1</version>
-      <scope>provided</scope>
+      <groupId>org.takes</groupId>
+      <artifactId>takes</artifactId>
+      <version>${takes.version}</version>
     </dependency>
     <dependency>
-      <groupId>com.rexsl</groupId>
-      <artifactId>rexsl</artifactId>
-      <version>1.6</version>
-      <exclusions>
-        <exclusion>
-          <groupId>com.sun.jersey</groupId>
-          <artifactId>jersey-servlet</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>com.sun.xml.bind</groupId>
-          <artifactId>jaxb-core</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>com.sun.xml.bind</groupId>
-          <artifactId>jaxb-impl</artifactId>
-        </exclusion>
-      </exclusions>
+      <groupId>com.jcabi.incubator</groupId>
+      <artifactId>xembly</artifactId>
+      <version>0.32.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.cactoos</groupId>
+      <artifactId>cactoos</artifactId>
+      <version>0.57.0</version>
     </dependency>
     <dependency>
       <groupId>com.jcabi</groupId>
@@ -170,36 +159,6 @@
       <version>0.10.0</version>
     </dependency>
     <dependency>
-      <groupId>com.sun.jersey</groupId>
-      <artifactId>jersey-core</artifactId>
-      <version>1.18.1</version>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.sun.jersey</groupId>
-      <artifactId>jersey-servlet</artifactId>
-      <version>1.19.4</version>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.sun.activation</groupId>
-      <artifactId>javax.activation</artifactId>
-      <version>1.2.0</version>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>jakarta.xml.bind</groupId>
-      <artifactId>jakarta.xml.bind-api</artifactId>
-      <version>2.3.3</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.glassfish.jaxb</groupId>
-      <artifactId>jaxb-runtime</artifactId>
-      <version>2.3.9</version>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-reload4j</artifactId>
       <version>2.0.12</version>
@@ -218,12 +177,6 @@
       <scope>runtime</scope>
     </dependency>
     <dependency>
-      <groupId>javax.validation</groupId>
-      <artifactId>validation-api</artifactId>
-      <version>2.0.1.Final</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
       <version>5.10.0</version>
@@ -234,46 +187,6 @@
       <artifactId>hamcrest</artifactId>
       <version>2.2</version>
       <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.tomcat.embed</groupId>
-      <artifactId>tomcat-embed-core</artifactId>
-      <version>${tomcat.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.tomcat.embed</groupId>
-      <artifactId>tomcat-embed-jasper</artifactId>
-      <version>${tomcat.version}</version>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.tomcat</groupId>
-      <artifactId>tomcat-jasper</artifactId>
-      <version>${tomcat.version}</version>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.tomcat</groupId>
-      <artifactId>tomcat-jasper-el</artifactId>
-      <version>${tomcat.version}</version>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.tomcat</groupId>
-      <artifactId>tomcat-jsp-api</artifactId>
-      <version>${tomcat.version}</version>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.tomcat</groupId>
-      <artifactId>tomcat-servlet-api</artifactId>
-      <version>${tomcat.version}</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>jul-to-slf4j</artifactId>
-      <version>2.0.12</version>
     </dependency>
   </dependencies>
   <build>
@@ -315,7 +228,7 @@
             <configuration>
               <archive>
                 <manifest>
-                  <mainClass>co.stateful.Launch</mainClass>
+                  <mainClass>co.stateful.Entry</mainClass>
                 </manifest>
               </archive>
               <descriptorRefs>
@@ -384,113 +297,6 @@
                 <exclude>duplicatefinder:.*</exclude>
               </excludes>
             </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-    <profile>
-      <id>tomcat-test</id>
-      <activation>
-        <property>
-          <name>!skipTests</name>
-        </property>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <artifactId>maven-resources-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>copy-webapp-for-tests</id>
-                <phase>pre-integration-test</phase>
-                <goals>
-                  <goal>copy-resources</goal>
-                </goals>
-                <configuration>
-                  <outputDirectory>${project.build.directory}/test-webapp</outputDirectory>
-                  <resources>
-                    <resource>
-                      <directory>src/main/resources/webapp</directory>
-                      <filtering>true</filtering>
-                    </resource>
-                    <resource>
-                      <directory>src/test/resources/webapp</directory>
-                      <filtering>true</filtering>
-                    </resource>
-                    <resource>
-                      <directory>${project.build.directory}/pre-webapp</directory>
-                      <filtering>false</filtering>
-                    </resource>
-                  </resources>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>build-helper-maven-plugin</artifactId>
-            <version>3.5.0</version>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>reserve-network-port</goal>
-                </goals>
-                <configuration>
-                  <portNames>
-                    <portName>tomcat.port</portName>
-                  </portNames>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <artifactId>maven-failsafe-plugin</artifactId>
-            <configuration>
-              <systemPropertyVariables combine.children="append">
-                <tomcat.home>http://localhost:${tomcat.port}</tomcat.home>
-                <tomcat.port>${tomcat.port}</tomcat.port>
-              </systemPropertyVariables>
-              <reuseForks>false</reuseForks>
-            </configuration>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>integration-test</goal>
-                  <goal>verify</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>exec-maven-plugin</artifactId>
-            <version>3.2.0</version>
-            <executions>
-              <execution>
-                <id>start-tomcat-server</id>
-                <phase>pre-integration-test</phase>
-                <goals>
-                  <goal>exec</goal>
-                </goals>
-                <configuration>
-                  <executable>java</executable>
-                  <async>true</async>
-                  <arguments>
-                    <argument>--add-opens</argument>
-                    <argument>java.base/java.lang=ALL-UNNAMED</argument>
-                    <argument>--add-opens</argument>
-                    <argument>java.base/java.io=ALL-UNNAMED</argument>
-                    <argument>--add-opens</argument>
-                    <argument>java.base/java.util=ALL-UNNAMED</argument>
-                    <argument>-cp</argument>
-                    <argument>${project.build.directory}/${project.build.finalName}-jar-with-dependencies.jar</argument>
-                    <argument>co.stateful.Launch</argument>
-                    <argument>${tomcat.port}</argument>
-                    <argument>${project.build.directory}/test-webapp</argument>
-                  </arguments>
-                </configuration>
-              </execution>
-            </executions>
           </plugin>
         </plugins>
       </build>

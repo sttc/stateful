@@ -4,8 +4,8 @@
  */
 
 /**
- * Web front.
+ * Web layer based on Takes framework.
  *
- * @since 0.1
+ * @since 2.0
  */
-package co.stateful.rest;
+package co.stateful.web;

@@ -175,7 +175,7 @@
       </i>
     </span>
     <span>
-      <a href="{/page/links/link[@rel='rexsl:logout']/@href}">
+      <a href="{/page/links/link[@rel='takes:logout']/@href}">
         <i class="fa fa-sign-out">
           <xsl:comment>logout</xsl:comment>
         </i>
@@ -202,19 +202,19 @@
     </div>
   </xsl:template>
   <xsl:template name="buttons">
-    <a href="{/page/links/link[@rel='rexsl:facebook']/@href}">
+    <a href="{/page/links/link[@rel='takes:facebook']/@href}">
       <i class="fa fa-facebook-square">
         <xsl:comment>facebook</xsl:comment>
       </i>
     </a>
     <xsl:text> </xsl:text>
-    <a href="{/page/links/link[@rel='rexsl:google']/@href}">
+    <a href="{/page/links/link[@rel='takes:google']/@href}">
       <i class="fa fa-google-plus-square">
         <xsl:comment>google-plus</xsl:comment>
       </i>
     </a>
     <xsl:text> </xsl:text>
-    <a href="{/page/links/link[@rel='rexsl:github']/@href}">
+    <a href="{/page/links/link[@rel='takes:github']/@href}">
       <i class="fa fa-github-square">
         <xsl:comment>github</xsl:comment>
       </i>

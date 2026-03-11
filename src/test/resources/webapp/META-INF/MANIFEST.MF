@@ -12,5 +12,3 @@ Stateful-DynamoKey: AAAAABBBBBAAAAABBBBB
 Stateful-DynamoSecret: AFAFAFAFAFAFAFAFAFAFAFAFAFAFAFAFAFAFAFAF
 Stateful-DynamoPrefix: st-
 Stateful-DynamoPort: ${dynamodblocal.port}
-ReXSL-Version: 0.0.0
-ReXSL-Build: 0
