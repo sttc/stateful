@@ -20,11 +20,31 @@ import com.jcabi.manifests.Manifests;
 public final class Env {
 
     /**
+     * Prefix for manifest keys.
+     */
+    private final String prefix;
+
+    /**
+     * Ctor.
+     */
+    public Env() {
+        this("");
+    }
+
+    /**
+     * Ctor.
+     * @param pfx Prefix for keys
+     */
+    public Env(final String pfx) {
+        this.prefix = pfx;
+    }
+
+    /**
      * Read a manifest property.
      * @param name Property name
      * @return Property value
      */
     public String read(final String name) {
-        return Manifests.read(name);
+        return Manifests.read(String.format("%s%s", this.prefix, name));
     }
 }

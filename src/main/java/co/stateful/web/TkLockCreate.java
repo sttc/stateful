@@ -61,7 +61,12 @@ public final class TkLockCreate implements Take {
             );
         }
         final Iterator<String> labels = form.param("label").iterator();
-        final String label = labels.hasNext() ? labels.next() : "none";
+        final String label;
+        if (labels.hasNext()) {
+            label = labels.next();
+        } else {
+            label = "none";
+        }
         if (label.isEmpty()) {
             throw new RsForward(
                 new RsFlash("label can't be empty"),

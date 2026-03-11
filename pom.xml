@@ -62,9 +62,6 @@
       <url>https://doc.stateful.co</url>
     </site>
   </distributionManagement>
-  <properties>
-    <takes.version>1.25.0</takes.version>
-  </properties>
   <dependencies>
     <dependency>
       <groupId>software.amazon.awssdk</groupId>
@@ -119,7 +116,7 @@
     <dependency>
       <groupId>org.takes</groupId>
       <artifactId>takes</artifactId>
-      <version>${takes.version}</version>
+      <version>1.25.0</version>
     </dependency>
     <dependency>
       <groupId>com.jcabi.incubator</groupId>
