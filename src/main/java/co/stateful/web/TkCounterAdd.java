@@ -8,7 +8,6 @@ import co.stateful.spi.Base;
 import co.stateful.spi.Counters;
 import com.google.common.collect.Iterables;
 import java.io.IOException;
-import java.net.HttpURLConnection;
 import org.takes.Request;
 import org.takes.Response;
 import org.takes.Take;

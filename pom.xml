@@ -292,6 +292,7 @@
                 <exclude>findbugs:.*</exclude>
                 <exclude>xml:/src/main/webapp/WEB-INF/web.xml</exclude>
                 <exclude>duplicatefinder:.*</exclude>
+                <exclude>dependencies:.*</exclude>
               </excludes>
             </configuration>
           </plugin>

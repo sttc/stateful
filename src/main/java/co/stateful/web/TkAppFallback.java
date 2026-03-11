@@ -5,7 +5,6 @@
 package co.stateful.web;
 
 import com.jcabi.log.Logger;
-import java.io.IOException;
 import java.net.HttpURLConnection;
 import org.takes.Request;
 import org.takes.Response;

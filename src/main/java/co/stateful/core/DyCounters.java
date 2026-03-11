@@ -6,7 +6,6 @@ package co.stateful.core;
 
 import co.stateful.spi.Counter;
 import co.stateful.spi.Counters;
-import com.google.common.base.Function;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Iterators;
@@ -15,7 +14,6 @@ import com.jcabi.aspects.Immutable;
 import com.jcabi.aspects.Loggable;
 import com.jcabi.dynamo.Attributes;
 import com.jcabi.dynamo.Conditions;
-import com.jcabi.dynamo.Item;
 import com.jcabi.dynamo.QueryValve;
 import com.jcabi.dynamo.Table;
 import com.jcabi.urn.URN;

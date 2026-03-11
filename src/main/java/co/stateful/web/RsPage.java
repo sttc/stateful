@@ -5,12 +5,7 @@
 package co.stateful.web;
 
 import com.jcabi.manifests.Manifests;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import lombok.EqualsAndHashCode;
-import org.cactoos.io.InputStreamOf;
-import org.takes.Request;
 import org.takes.Response;
 import org.takes.rs.RsWithType;
 import org.takes.rs.RsWrap;
@@ -25,7 +20,6 @@ import org.takes.rs.xe.XeMillis;
 import org.takes.rs.xe.XeSla;
 import org.takes.rs.xe.XeSource;
 import org.takes.rs.xe.XeStylesheet;
-import org.xembly.Directives;
 
 /**
  * XSL page response builder.
@@ -49,25 +43,20 @@ public final class RsPage extends RsWrap {
     /**
      * Ctor.
      * @param xsl XSL stylesheet path
-     * @param req Request
      * @param sources Extra sources
-     * @throws IOException If fails
      */
-    public RsPage(final String xsl, final Request req,
-        final XeSource... sources) throws IOException {
-        super(RsPage.build(xsl, req, sources));
+    public RsPage(final String xsl, final XeSource... sources) {
+        super(RsPage.build(xsl, sources));
     }
 
     /**
      * Build response.
      * @param xsl XSL stylesheet path
-     * @param req Request
      * @param sources Extra sources
      * @return Response
-     * @throws IOException If fails
      */
-    private static Response build(final String xsl, final Request req,
-        final XeSource... sources) throws IOException {
+    private static Response build(final String xsl,
+        final XeSource... sources) {
         final Response raw = new RsXembly(
             new XeStylesheet(xsl),
             new XeAppend(

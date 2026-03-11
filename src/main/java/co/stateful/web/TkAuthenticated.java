@@ -6,7 +6,6 @@ package co.stateful.web;
 
 import co.stateful.spi.Base;
 import java.io.IOException;
-import java.net.URI;
 import org.takes.Request;
 import org.takes.facets.auth.Identity;
 import org.takes.facets.auth.RqAuth;

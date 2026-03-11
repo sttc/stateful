@@ -11,13 +11,10 @@ import org.apache.commons.io.IOUtils;
 import org.takes.Request;
 import org.takes.Response;
 import org.takes.Take;
-import org.takes.facets.auth.Identity;
-import org.takes.facets.auth.RqAuth;
 import org.takes.rs.xe.XeAppend;
 import org.takes.rs.xe.XeChain;
 import org.takes.rs.xe.XeLink;
 import org.takes.rs.xe.XeSource;
-import org.takes.rs.xe.XeWhen;
 
 /**
  * Home page take.
@@ -49,7 +46,6 @@ public final class TkHome implements Take {
     public Response act(final Request req) throws IOException {
         return new RsPage(
             "/xsl/index.xsl",
-            req,
             new XeAppend("menu", "home"),
             new XeAppend(
                 "documentation",

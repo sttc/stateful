@@ -46,7 +46,6 @@ public final class TkError implements Take {
         return new RsWithStatus(
             new RsPage(
                 "/xsl/error.xsl",
-                req,
                 new XeSource() {
                     @Override
                     public Iterable<org.xembly.Directive> toXembly()

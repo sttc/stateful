@@ -5,11 +5,8 @@
 package co.stateful.web;
 
 import co.stateful.spi.Base;
-import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.takes.Request;
-import org.takes.Response;
 import org.takes.Take;
 import org.takes.facets.flash.TkFlash;
 import org.takes.facets.fork.FkMethods;
@@ -17,8 +14,6 @@ import org.takes.facets.fork.FkRegex;
 import org.takes.facets.fork.TkFork;
 import org.takes.facets.forward.TkForward;
 import org.takes.tk.TkClasspath;
-import org.takes.tk.TkFiles;
-import org.takes.tk.TkRedirect;
 import org.takes.tk.TkWithType;
 import org.takes.tk.TkWrap;
 

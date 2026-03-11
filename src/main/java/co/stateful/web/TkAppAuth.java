@@ -6,8 +6,6 @@ package co.stateful.web;
 
 import co.stateful.spi.Base;
 import com.jcabi.manifests.Manifests;
-import java.io.IOException;
-import java.util.regex.Pattern;
 import org.takes.Request;
 import org.takes.Response;
 import org.takes.Take;
