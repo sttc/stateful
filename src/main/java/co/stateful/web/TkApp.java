@@ -13,7 +13,6 @@ import org.takes.facets.fork.FkMethods;
 import org.takes.facets.fork.FkRegex;
 import org.takes.facets.fork.TkFork;
 import org.takes.facets.forward.TkForward;
-import org.takes.tk.TkClasspath;
 import org.takes.tk.TkWithType;
 import org.takes.tk.TkWrap;
 
@@ -68,13 +67,13 @@ public final class TkApp extends TkWrap {
      */
     private static Take routes(final Base base) {
         return new TkFork(
-            new FkRegex("/robots.txt", new TkClasspath("/webapp/robots.txt")),
-            new FkRegex("/css/.*", new TkClasspath("/webapp")),
-            new FkRegex("/js/.*", new TkClasspath("/webapp")),
-            new FkRegex("/images/.*", new TkClasspath("/webapp")),
+            new FkRegex("/robots.txt", new TkStatic("/webapp/robots.txt")),
+            new FkRegex("/css/.*", new TkStatic("/webapp", true)),
+            new FkRegex("/js/.*", new TkStatic("/webapp", true)),
+            new FkRegex("/images/.*", new TkStatic("/webapp", true)),
             new FkRegex(
                 "/xsl/.*",
-                new TkWithType(new TkClasspath("/webapp"), "text/xsl")
+                new TkWithType(new TkStatic("/webapp", true), "text/xsl")
             ),
             new FkRegex("/", new TkHome(base)),
             new FkRegex("/error", new TkError(base)),

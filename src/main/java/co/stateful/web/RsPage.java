@@ -9,7 +9,6 @@ import lombok.EqualsAndHashCode;
 import org.takes.Response;
 import org.takes.rs.RsWithType;
 import org.takes.rs.RsWrap;
-import org.takes.rs.RsXslt;
 import org.takes.rs.xe.RsXembly;
 import org.takes.rs.xe.XeAppend;
 import org.takes.rs.xe.XeChain;
@@ -73,7 +72,7 @@ public final class RsPage extends RsWrap {
                 )
             )
         );
-        return new RsWithType(new RsXslt(raw), "text/xml");
+        return new RsWithType(raw, "text/xml");
     }
 
     /**
