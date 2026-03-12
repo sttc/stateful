@@ -133,7 +133,7 @@ final class DefaultUser implements User {
                         Iterables.limit(
                             Splitter.fixedLength(4).split(
                                 DigestUtils.md5Hex(
-                                    RandomStringUtils.random(10)
+                                    RandomStringUtils.secure().next(10)
                                 ).toUpperCase(Locale.ENGLISH)
                             ),
                             4

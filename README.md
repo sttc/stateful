@@ -1,6 +1,4 @@
-# Stateful
-
-![Logo](http://img.stateful.co/pomegranate.svg)
+# Stateful.co
 
 [![EO principles respected here](https://www.elegantobjects.org/badge.svg)](https://www.elegantobjects.org)
 [![DevOps By Rultor.com](https://www.rultor.com/b/sttc/stateful)](https://www.rultor.com/p/sttc/stateful)
@@ -11,6 +9,6 @@
 
 Stateful Web Primitives
 
-[www.stateful.co](https://www.stateful.co)
+It's live on [stateful.co](https://www.stateful.co).
 
 Source code documentation is here: [doc.stateful.co](https://doc.stateful.co)
