@@ -16,7 +16,7 @@
   <packaging>jar</packaging>
   <name>stateful</name>
   <description>Stateful RESTful Web Primitives</description>
-  <url>http://www.stateful.co</url>
+  <url>https://www.stateful.co</url>
   <inceptionYear>2014</inceptionYear>
   <organization>
     <name>Zerocracy</name>
