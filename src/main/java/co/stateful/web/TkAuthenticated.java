@@ -5,6 +5,7 @@
 package co.stateful.web;
 
 import co.stateful.spi.Base;
+import com.jcabi.urn.URN;
 import java.io.IOException;
 import org.takes.Request;
 import org.takes.facets.auth.Identity;
@@ -51,9 +52,8 @@ public final class TkAuthenticated {
      */
     public XeSource source(final Request req) throws IOException {
         final Identity identity = new RqAuth(req).identity();
-        final boolean auth = !identity.equals(Identity.ANONYMOUS);
         return new XeWhen(
-            auth,
+            !identity.equals(Identity.ANONYMOUS),
             () -> new XeChain(
                 new XeDirectives(
                     new Directives()
@@ -73,7 +73,7 @@ public final class TkAuthenticated {
                 new XeAppend(
                     "token",
                     this.base.user(
-                        com.jcabi.urn.URN.create(identity.urn())
+                        URN.create(identity.urn())
                     ).token()
                 ),
                 new XeLink("menu:home", "/"),

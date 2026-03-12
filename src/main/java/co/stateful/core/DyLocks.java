@@ -21,7 +21,6 @@ import java.util.Map;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import software.amazon.awssdk.core.exception.SdkException;
-import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.model.ConditionalCheckFailedException;
 import software.amazon.awssdk.services.dynamodb.model.PutItemRequest;
@@ -79,59 +78,53 @@ final class DyLocks implements Locks {
 
     @Override
     public Map<String, String> names() {
-        final ImmutableMap.Builder<String, String> map =
+        final ImmutableMap.Builder<String, String> builder =
             new ImmutableMap.Builder<>();
-        Iterables.all(
-            this.table.frame().through(
-                new QueryValve().withAttributesToGet(
-                    DyLocks.ATTR_LABEL
-                )
-            ).where(DyLocks.HASH, Conditions.equalTo(this.owner)),
-            item -> {
-                try {
-                    map.put(
-                        item.get(DyLocks.RANGE).s(),
-                        item.get(DyLocks.ATTR_LABEL).s()
-                    );
-                } catch (final IOException ex) {
-                    throw new IllegalStateException(ex);
-                }
-                return true;
+        for (final Item item : this.table.frame().through(
+            new QueryValve().withAttributesToGet(DyLocks.ATTR_LABEL)
+        ).where(DyLocks.HASH, Conditions.equalTo(this.owner))) {
+            try {
+                builder.put(
+                    item.get(DyLocks.RANGE).s(),
+                    item.get(DyLocks.ATTR_LABEL).s()
+                );
+            } catch (final IOException ex) {
+                throw new IllegalStateException(ex);
             }
-        );
-        return map.build();
+        }
+        return builder.build();
     }
 
     @Override
     public String lock(final String name, final String label)
         throws IOException {
-        final DynamoDbClient aws = this.table.region().aws();
         String msg = "";
         try {
-            final PutItemRequest request = PutItemRequest.builder()
-                .tableName(this.table.name())
-                .item(
-                    new ImmutableMap.Builder<String, AttributeValue>()
-                        .put(
-                            DyLocks.HASH,
-                            AttributeValue.builder().s(this.owner.toString()).build()
-                        )
-                        .put(
-                            DyLocks.RANGE,
-                            AttributeValue.builder().s(name).build()
-                        )
-                        .put(
-                            DyLocks.ATTR_LABEL,
-                            AttributeValue.builder().s(label).build()
-                        )
-                        .build()
-                )
-                .conditionExpression("attribute_not_exists(#lbl)")
-                .expressionAttributeNames(
-                    ImmutableMap.of("#lbl", DyLocks.ATTR_LABEL)
-                )
-                .build();
-            aws.putItem(request);
+            this.table.region().aws().putItem(
+                PutItemRequest.builder()
+                    .tableName(this.table.name())
+                    .item(
+                        new ImmutableMap.Builder<String, AttributeValue>()
+                            .put(
+                                DyLocks.HASH,
+                                AttributeValue.builder().s(this.owner.toString()).build()
+                            )
+                            .put(
+                                DyLocks.RANGE,
+                                AttributeValue.builder().s(name).build()
+                            )
+                            .put(
+                                DyLocks.ATTR_LABEL,
+                                AttributeValue.builder().s(label).build()
+                            )
+                            .build()
+                    )
+                    .conditionExpression("attribute_not_exists(#lbl)")
+                    .expressionAttributeNames(
+                        ImmutableMap.of("#lbl", DyLocks.ATTR_LABEL)
+                    )
+                    .build()
+            );
         } catch (final ConditionalCheckFailedException ex) {
             msg = ex.getMessage();
         } catch (final SdkException ex) {

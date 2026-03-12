@@ -7,7 +7,6 @@ package co.stateful;
 import co.stateful.core.DefaultBase;
 import co.stateful.quota.QtBase;
 import co.stateful.quota.Quota;
-import co.stateful.spi.Base;
 import co.stateful.web.TkApp;
 import java.io.IOException;
 import org.takes.http.Exit;
@@ -39,7 +38,9 @@ public final class Entry {
      * @throws IOException If fails
      */
     public static void main(final String... args) throws IOException {
-        final Base base = new QtBase(new DefaultBase(), Quota.UNLIMITED);
-        new FtCli(new TkApp(base), args).start(Exit.NEVER);
+        new FtCli(
+            new TkApp(new QtBase(new DefaultBase(), Quota.UNLIMITED)),
+            args
+        ).start(Exit.NEVER);
     }
 }

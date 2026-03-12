@@ -14,6 +14,7 @@ import org.takes.rs.RsWithStatus;
 import org.takes.rs.xe.XeChain;
 import org.takes.rs.xe.XeLink;
 import org.takes.rs.xe.XeSource;
+import org.xembly.Directive;
 
 /**
  * Error page take.
@@ -48,7 +49,7 @@ public final class TkError implements Take {
                 "/xsl/error.xsl",
                 new XeSource() {
                     @Override
-                    public Iterable<org.xembly.Directive> toXembly()
+                    public Iterable<Directive> toXembly()
                         throws IOException {
                         return new XeChain(
                             new TkAuthenticated(TkError.this.base).source(req),

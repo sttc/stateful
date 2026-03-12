@@ -5,7 +5,6 @@
 package co.stateful.web;
 
 import co.stateful.core.DefaultBase;
-import co.stateful.spi.Base;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -19,10 +18,9 @@ final class TkLocksTest {
 
     @Test
     void instantiatesWithBase() {
-        final Base base = new DefaultBase();
         MatcherAssert.assertThat(
             "TkLocks cannot be instantiated with base",
-            new TkLocks(base),
+            new TkLocks(new DefaultBase()),
             Matchers.notNullValue()
         );
     }

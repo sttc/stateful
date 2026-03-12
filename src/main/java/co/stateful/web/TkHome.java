@@ -15,6 +15,7 @@ import org.takes.rs.xe.XeAppend;
 import org.takes.rs.xe.XeChain;
 import org.takes.rs.xe.XeLink;
 import org.takes.rs.xe.XeSource;
+import org.xembly.Directive;
 
 /**
  * Home page take.
@@ -58,7 +59,7 @@ public final class TkHome implements Take {
             ),
             new XeSource() {
                 @Override
-                public Iterable<org.xembly.Directive> toXembly()
+                public Iterable<Directive> toXembly()
                     throws IOException {
                     return new XeChain(
                         new TkAuthenticated(TkHome.this.base).source(req),

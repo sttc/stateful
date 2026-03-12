@@ -5,7 +5,6 @@
 package co.stateful.web;
 
 import co.stateful.core.DefaultBase;
-import co.stateful.spi.Base;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -19,10 +18,9 @@ final class TkHomeTest {
 
     @Test
     void instantiatesWithBase() throws Exception {
-        final Base base = new DefaultBase();
         MatcherAssert.assertThat(
             "TkHome cannot be instantiated with base",
-            new TkHome(base),
+            new TkHome(new DefaultBase()),
             Matchers.notNullValue()
         );
     }

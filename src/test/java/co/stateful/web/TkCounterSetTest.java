@@ -5,7 +5,6 @@
 package co.stateful.web;
 
 import co.stateful.core.DefaultBase;
-import co.stateful.spi.Base;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -19,10 +18,9 @@ final class TkCounterSetTest {
 
     @Test
     void instantiatesWithBaseAndName() {
-        final Base base = new DefaultBase();
         MatcherAssert.assertThat(
             "TkCounterSet cannot be instantiated with base and name",
-            new TkCounterSet(base, "test-counter"),
+            new TkCounterSet(new DefaultBase(), "test-counter"),
             Matchers.notNullValue()
         );
     }

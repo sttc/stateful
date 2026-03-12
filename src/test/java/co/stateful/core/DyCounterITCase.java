@@ -29,6 +29,7 @@ final class DyCounterITCase {
      * @throws Exception If some problem inside
      */
     @Test
+    @SuppressWarnings("PMD.UnitTestContainsTooManyAsserts")
     void incrementAndSet() throws Exception {
         final Counters counters = new DefaultUser(
             new URN("urn:test:7889978")
@@ -40,7 +41,7 @@ final class DyCounterITCase {
         counter.set(start);
         MatcherAssert.assertThat(
             "counter value does not equal start after zero increment",
-            counter.increment(new BigDecimal(0L)),
+            counter.increment(BigDecimal.ZERO),
             Matchers.equalTo(start)
         );
         final BigDecimal delta = new BigDecimal(new SecureRandom().nextLong());
@@ -56,6 +57,7 @@ final class DyCounterITCase {
      * @throws Exception If some problem inside
      */
     @Test
+    @SuppressWarnings("PMD.UnnecessaryLocalRule")
     void incrementAndSetInThreads() throws Exception {
         final Counters counters = new DefaultUser(
             new URN("urn:test:78833")
@@ -63,14 +65,13 @@ final class DyCounterITCase {
         final String name = "test-9990";
         counters.create(name);
         final Counter counter = counters.get(name);
-        final BigDecimal start = new BigDecimal(new SecureRandom().nextLong());
-        counter.set(start);
+        counter.set(new BigDecimal(new SecureRandom().nextLong()));
         final Set<BigDecimal> values = new ConcurrentSkipListSet<>();
         new Callable<Void>() {
             @Override
             @Parallel(threads = 20)
             public Void call() throws Exception {
-                values.add(counter.increment(new BigDecimal(1L)));
+                values.add(counter.increment(BigDecimal.ONE));
                 return null;
             }
         } .call();

@@ -40,7 +40,10 @@ public final class TkLockLabel implements Take {
 
     @Override
     public Response act(final Request req) throws IOException {
-        final String name = new RqHref.Base(req).href().param("name").iterator().next();
-        return new RsText(new RqUser(req, this.base).user().locks().label(name));
+        return new RsText(
+            new RqUser(req, this.base).user().locks().label(
+                new RqHref.Base(req).href().param("name").iterator().next()
+            )
+        );
     }
 }

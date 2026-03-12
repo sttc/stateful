@@ -113,13 +113,13 @@ public final class TkApp extends TkWrap {
      */
     private static Take counterSet(final Base base) {
         return req -> {
-            final String path = req.head().iterator().next().split(" ")[1];
-            final Matcher matcher = TkApp.PTN_COUNTER.matcher(path);
+            final Matcher matcher = TkApp.PTN_COUNTER.matcher(
+                req.head().iterator().next().split(" ")[1]
+            );
             if (!matcher.matches()) {
                 throw new IllegalStateException("Invalid counter URL");
             }
-            final String name = matcher.group(1);
-            return new TkCounterSet(base, name).act(req);
+            return new TkCounterSet(base, matcher.group(1)).act(req);
         };
     }
 
@@ -130,13 +130,13 @@ public final class TkApp extends TkWrap {
      */
     private static Take counterInc(final Base base) {
         return req -> {
-            final String path = req.head().iterator().next().split(" ")[1];
-            final Matcher matcher = TkApp.PTN_COUNTER.matcher(path);
+            final Matcher matcher = TkApp.PTN_COUNTER.matcher(
+                req.head().iterator().next().split(" ")[1]
+            );
             if (!matcher.matches()) {
                 throw new IllegalStateException("Invalid counter URL");
             }
-            final String name = matcher.group(1);
-            return new TkCounterInc(base, name).act(req);
+            return new TkCounterInc(base, matcher.group(1)).act(req);
         };
     }
 }

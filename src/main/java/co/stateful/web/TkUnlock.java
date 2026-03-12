@@ -49,8 +49,7 @@ public final class TkUnlock implements Take {
         final Iterator<String> labels = href.href().param("label").iterator();
         final RqUser user = new RqUser(req, this.base);
         if (labels.hasNext()) {
-            final String label = labels.next();
-            final String match = user.user().locks().unlock(name, label);
+            final String match = user.user().locks().unlock(name, labels.next());
             if (!match.isEmpty()) {
                 throw new HttpException(
                     HttpURLConnection.HTTP_CONFLICT,

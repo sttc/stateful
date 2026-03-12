@@ -16,6 +16,7 @@ import org.takes.rs.xe.XeChain;
 import org.takes.rs.xe.XeDirectives;
 import org.takes.rs.xe.XeLink;
 import org.takes.rs.xe.XeSource;
+import org.xembly.Directive;
 import org.xembly.Directives;
 
 /**
@@ -62,7 +63,7 @@ public final class TkCounters implements Take {
             new XeLink("add", "./add"),
             new XeSource() {
                 @Override
-                public Iterable<org.xembly.Directive> toXembly()
+                public Iterable<Directive> toXembly()
                     throws IOException {
                     return new XeChain(
                         new TkAuthenticated(TkCounters.this.base).source(req),

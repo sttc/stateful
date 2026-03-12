@@ -56,23 +56,25 @@ public final class RsPage extends RsWrap {
      */
     private static Response build(final String xsl,
         final XeSource... sources) {
-        final Response raw = new RsXembly(
-            new XeStylesheet(xsl),
-            new XeAppend(
-                "page",
-                new XeChain(sources),
-                new XeMillis(),
-                new XeSla(),
-                new XeDate(),
-                new XeLocalhost(),
-                new XeLink("home", "/"),
+        return new RsWithType(
+            new RsXembly(
+                new XeStylesheet(xsl),
                 new XeAppend(
-                    "version",
-                    new XeAppend("name", RsPage.version())
+                    "page",
+                    new XeChain(sources),
+                    new XeMillis(),
+                    new XeSla(),
+                    new XeDate(),
+                    new XeLocalhost(),
+                    new XeLink("home", "/"),
+                    new XeAppend(
+                        "version",
+                        new XeAppend("name", RsPage.version())
+                    )
                 )
-            )
+            ),
+            "text/xml"
         );
-        return new RsWithType(raw, "text/xml");
     }
 
     /**

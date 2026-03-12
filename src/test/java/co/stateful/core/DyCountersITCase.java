@@ -22,6 +22,7 @@ final class DyCountersITCase {
      * @throws Exception If some problem inside
      */
     @Test
+    @SuppressWarnings("PMD.UnitTestContainsTooManyAsserts")
     void managesCounters() throws Exception {
         final Counters counters = new DefaultUser(
             new URN("urn:test:8900967")

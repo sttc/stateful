@@ -57,8 +57,9 @@ public final class TkCounterInc implements Take {
                 "1-32 integer allowed as a value"
             );
         }
-        final BigDecimal result = new RqUser(req, this.base).user().counters()
-            .get(this.name).increment(new BigDecimal(value));
-        return new RsText(result.toString());
+        return new RsText(
+            new RqUser(req, this.base).user().counters()
+                .get(this.name).increment(new BigDecimal(value)).toString()
+        );
     }
 }

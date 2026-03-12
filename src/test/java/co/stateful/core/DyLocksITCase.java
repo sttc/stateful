@@ -25,6 +25,7 @@ final class DyLocksITCase {
      * @throws Exception If some problem inside
      */
     @Test
+    @SuppressWarnings("PMD.UnnecessaryLocalRule")
     void locksAndUnlocksInThreads() throws Exception {
         final Locks locks = new DefaultUser(
             new URN("urn:test:787009")
@@ -54,6 +55,7 @@ final class DyLocksITCase {
      * @since 1.6
      */
     @Test
+    @SuppressWarnings("PMD.UnitTestContainsTooManyAsserts")
     void locksAndUnlocksWithLabel() throws Exception {
         final Locks locks = new DefaultUser(
             new URN("urn:test:78119")

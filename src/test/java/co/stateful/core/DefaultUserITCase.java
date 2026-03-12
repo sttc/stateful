@@ -22,6 +22,7 @@ final class DefaultUserITCase {
      * @throws Exception If some problem inside
      */
     @Test
+    @SuppressWarnings("PMD.UnitTestContainsTooManyAsserts")
     void managesTokens() throws Exception {
         final User user = new DefaultUser(
             new URN("urn:test:8900967")

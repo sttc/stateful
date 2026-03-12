@@ -13,6 +13,7 @@ import com.jcabi.urn.URN;
  * @since 0.1
  */
 @Immutable
+@FunctionalInterface
 public interface Base {
 
     /**
