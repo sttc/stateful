@@ -1,4 +1,6 @@
-<img src="http://img.stateful.co/pomegranate.svg" width="64px" height="64px"/>
+# Stateful
+
+![Logo](http://img.stateful.co/pomegranate.svg)
 
 [![EO principles respected here](https://www.elegantobjects.org/badge.svg)](https://www.elegantobjects.org)
 [![DevOps By Rultor.com](https://www.rultor.com/b/sttc/stateful)](https://www.rultor.com/p/sttc/stateful)
