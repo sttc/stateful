@@ -4,9 +4,11 @@
  */
 package co.stateful.web;
 
+import com.jcabi.matchers.XhtmlMatchers;
+import org.cactoos.text.TextOf;
 import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
+import org.takes.rs.RsPrint;
 import org.takes.rs.xe.XeAppend;
 
 /**
@@ -17,24 +19,69 @@ import org.takes.rs.xe.XeAppend;
 final class RsPageTest {
 
     @Test
-    void instantiatesWithXslPath() {
+    void rendersXmlPageWithStylesheet() throws Exception {
         MatcherAssert.assertThat(
-            "RsPage cannot be instantiated with XSL path",
-            new RsPage("/xsl/index.xsl"),
-            Matchers.notNullValue()
+            "RsPage did not render XML with stylesheet reference",
+            XhtmlMatchers.xhtml(
+                new TextOf(
+                    new RsPrint(
+                        new RsPage("/xsl/index.xsl")
+                    ).body()
+                ).asString()
+            ),
+            XhtmlMatchers.hasXPath("/page")
         );
     }
 
     @Test
-    void instantiatesWithXslPathAndSources() {
+    void rendersXmlPageWithSources() throws Exception {
         MatcherAssert.assertThat(
-            "RsPage cannot be instantiated with XSL path and sources",
-            new RsPage(
-                "/xsl/index.xsl",
-                new XeAppend("menu", "home"),
-                new XeAppend("content", "test")
+            "RsPage did not include provided sources in output",
+            XhtmlMatchers.xhtml(
+                new TextOf(
+                    new RsPrint(
+                        new RsPage(
+                            "/xsl/index.xsl",
+                            new XeAppend("menu", "főoldal"),
+                            new XeAppend("content", "tartalom-αβγ")
+                        )
+                    ).body()
+                ).asString()
             ),
-            Matchers.notNullValue()
+            XhtmlMatchers.hasXPaths(
+                "/page/menu[.='főoldal']",
+                "/page/content[.='tartalom-αβγ']"
+            )
+        );
+    }
+
+    @Test
+    void includesVersionInPage() throws Exception {
+        MatcherAssert.assertThat(
+            "RsPage did not include version element",
+            XhtmlMatchers.xhtml(
+                new TextOf(
+                    new RsPrint(
+                        new RsPage("/xsl/index.xsl")
+                    ).body()
+                ).asString()
+            ),
+            XhtmlMatchers.hasXPath("/page/version/name")
+        );
+    }
+
+    @Test
+    void includesMillisInPage() throws Exception {
+        MatcherAssert.assertThat(
+            "RsPage did not include millis element",
+            XhtmlMatchers.xhtml(
+                new TextOf(
+                    new RsPrint(
+                        new RsPage("/xsl/index.xsl")
+                    ).body()
+                ).asString()
+            ),
+            XhtmlMatchers.hasXPath("/page/millis")
         );
     }
 }

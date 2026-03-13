@@ -4,10 +4,15 @@
  */
 package co.stateful.web;
 
-import co.stateful.core.DefaultBase;
+import co.stateful.fake.FkBase;
+import co.stateful.fake.RqAuth;
+import com.jcabi.matchers.XhtmlMatchers;
+import com.jcabi.urn.URN;
+import org.cactoos.text.TextOf;
 import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
+import org.takes.rq.RqFake;
+import org.takes.rs.RsPrint;
 
 /**
  * Test case for {@link TkLocks}.
@@ -17,11 +22,96 @@ import org.junit.jupiter.api.Test;
 final class TkLocksTest {
 
     @Test
-    void instantiatesWithBase() {
+    void rendersLocksPage() throws Exception {
         MatcherAssert.assertThat(
-            "TkLocks cannot be instantiated with base",
-            new TkLocks(new DefaultBase()),
-            Matchers.notNullValue()
+            "TkLocks did not render locks menu",
+            XhtmlMatchers.xhtml(
+                new TextOf(
+                    new RsPrint(
+                        new TkLocks(new FkBase()).act(
+                            new RqAuth(
+                                new RqFake(),
+                                "urn:test:1",
+                                "Tëst-Üsér-αβγ"
+                            )
+                        )
+                    ).body()
+                ).asString()
+            ),
+            XhtmlMatchers.hasXPath("/page/menu[.='locks']")
+        );
+    }
+
+    @Test
+    void includesDocumentation() throws Exception {
+        MatcherAssert.assertThat(
+            "TkLocks did not include documentation",
+            XhtmlMatchers.xhtml(
+                new TextOf(
+                    new RsPrint(
+                        new TkLocks(new FkBase()).act(
+                            new RqAuth(
+                                new RqFake(),
+                                "urn:test:2",
+                                "Üsér"
+                            )
+                        )
+                    ).body()
+                ).asString()
+            ),
+            XhtmlMatchers.hasXPath("/page/documentation")
+        );
+    }
+
+    @Test
+    void listsUserLocks() throws Exception {
+        final FkBase base = new FkBase();
+        final URN urn = URN.create("urn:test:3");
+        base.user(urn).locks().lock("замок-αβγ", "мітка");
+        MatcherAssert.assertThat(
+            "TkLocks did not list user locks",
+            XhtmlMatchers.xhtml(
+                new TextOf(
+                    new RsPrint(
+                        new TkLocks(base).act(
+                            new RqAuth(
+                                new RqFake(),
+                                urn.toString(),
+                                "Námé"
+                            )
+                        )
+                    ).body()
+                ).asString()
+            ),
+            XhtmlMatchers.hasXPaths(
+                "/page/locks/lock/name[.='замок-αβγ']",
+                "/page/locks/lock/label[.='мітка']"
+            )
+        );
+    }
+
+    @Test
+    void includesLockOperationLinks() throws Exception {
+        MatcherAssert.assertThat(
+            "TkLocks did not include lock operation links",
+            XhtmlMatchers.xhtml(
+                new TextOf(
+                    new RsPrint(
+                        new TkLocks(new FkBase()).act(
+                            new RqAuth(
+                                new RqFake(),
+                                "urn:test:4",
+                                "Üsér"
+                            )
+                        )
+                    ).body()
+                ).asString()
+            ),
+            XhtmlMatchers.hasXPaths(
+                "/page/links/link[@rel='lock']",
+                "/page/links/link[@rel='unlock']",
+                "/page/links/link[@rel='label']"
+            )
         );
     }
 }
