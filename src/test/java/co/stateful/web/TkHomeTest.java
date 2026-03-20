@@ -80,9 +80,8 @@ final class TkHomeTest {
                     ).body()
                 ).asString()
             ),
-            XhtmlMatchers.hasXPaths(
-                "/page/links/link[@rel='takes:github']",
-                "/page/links/link[@rel='takes:facebook']"
+            XhtmlMatchers.hasXPath(
+                "/page/links/link[@rel='takes:github']"
             )
         );
     }

@@ -64,8 +64,6 @@ public final class TkHome implements Take {
                     throws IOException {
                     return new XeChain(
                         new TkAuthenticated(TkHome.this.base).source(req),
-                        new XeLink("takes:facebook", "/?PsFacebook"),
-                        new XeLink("takes:google", "/?PsGoogle"),
                         new XeLink("takes:github", "/?PsGithub"),
                         new XeLink("takes:logout", "/?PsLogout")
                     ).toXembly();

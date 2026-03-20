@@ -20,9 +20,7 @@ import org.takes.facets.auth.codecs.CcPlain;
 import org.takes.facets.auth.codecs.CcSafe;
 import org.takes.facets.auth.codecs.CcSalted;
 import org.takes.facets.auth.codecs.CcXor;
-import org.takes.facets.auth.social.PsFacebook;
 import org.takes.facets.auth.social.PsGithub;
-import org.takes.facets.auth.social.PsGoogle;
 
 /**
  * Authentication wrapper.
@@ -72,14 +70,6 @@ public final class TkAppAuth implements Take {
                         new PsLogout()
                     ),
                     new PsByFlag.Pair(
-                        PsFacebook.class.getSimpleName(),
-                        TkAppAuth.facebook()
-                    ),
-                    new PsByFlag.Pair(
-                        PsGoogle.class.getSimpleName(),
-                        TkAppAuth.google()
-                    ),
-                    new PsByFlag.Pair(
                         PsGithub.class.getSimpleName(),
                         TkAppAuth.github()
                     )
@@ -103,29 +93,6 @@ public final class TkAppAuth implements Take {
                     Manifests.read("Stateful-SecurityKey")
                 )
             )
-        );
-    }
-
-    /**
-     * Facebook provider.
-     * @return Pass
-     */
-    private static PsFacebook facebook() {
-        return new PsFacebook(
-            Manifests.read("Stateful-FbId"),
-            Manifests.read("Stateful-FbSecret")
-        );
-    }
-
-    /**
-     * Google provider.
-     * @return Pass
-     */
-    private static PsGoogle google() {
-        return new PsGoogle(
-            Manifests.read("Stateful-GoogleId"),
-            Manifests.read("Stateful-GoogleSecret"),
-            "https://www.stateful.co/?PsGoogle"
         );
     }
 

@@ -156,22 +156,8 @@
       <xsl:value-of select="name"/>
     </span>
     <span>
-      <i>
-        <xsl:attribute name="class">
-          <xsl:text>auth fa </xsl:text>
-          <xsl:choose>
-            <xsl:when test="starts-with(urn, 'urn:facebook:')">
-              <xsl:text>fa-facebook-square</xsl:text>
-            </xsl:when>
-            <xsl:when test="starts-with(urn, 'urn:google:')">
-              <xsl:text>fa-google-plus-square</xsl:text>
-            </xsl:when>
-            <xsl:when test="starts-with(urn, 'urn:github:')">
-              <xsl:text>fa-github-square</xsl:text>
-            </xsl:when>
-          </xsl:choose>
-        </xsl:attribute>
-        <xsl:comment>icon</xsl:comment>
+      <i class="auth fa fa-github-square">
+        <xsl:comment>github</xsl:comment>
       </i>
     </span>
     <span>
@@ -202,18 +188,6 @@
     </div>
   </xsl:template>
   <xsl:template name="buttons">
-    <a href="{/page/links/link[@rel='takes:facebook']/@href}">
-      <i class="fa fa-facebook-square">
-        <xsl:comment>facebook</xsl:comment>
-      </i>
-    </a>
-    <xsl:text> </xsl:text>
-    <a href="{/page/links/link[@rel='takes:google']/@href}">
-      <i class="fa fa-google-plus-square">
-        <xsl:comment>google-plus</xsl:comment>
-      </i>
-    </a>
-    <xsl:text> </xsl:text>
     <a href="{/page/links/link[@rel='takes:github']/@href}">
       <i class="fa fa-github-square">
         <xsl:comment>github</xsl:comment>

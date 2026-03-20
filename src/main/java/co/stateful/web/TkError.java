@@ -54,8 +54,6 @@ public final class TkError implements Take {
                         throws IOException {
                         return new XeChain(
                             new TkAuthenticated(TkError.this.base).source(req),
-                            new XeLink("takes:facebook", "/?PsFacebook"),
-                            new XeLink("takes:google", "/?PsGoogle"),
                             new XeLink("takes:github", "/?PsGithub"),
                             new XeLink("takes:logout", "/?PsLogout")
                         ).toXembly();
