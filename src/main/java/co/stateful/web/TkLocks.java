@@ -71,8 +71,8 @@ public final class TkLocks implements Take {
                     throws IOException {
                     return new XeChain(
                         new TkAuthenticated(TkLocks.this.base).source(req),
-                        new XeLink("takes:github", "/?PsGithub"),
-                        new XeLink("takes:logout", "/?PsLogout")
+                        new XeLink("takes:github", "/?PsByFlag=PsGithub"),
+                        new XeLink("takes:logout", "/?PsByFlag=PsLogout")
                     ).toXembly();
                 }
             }
