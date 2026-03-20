@@ -126,7 +126,7 @@
     </html>
   </xsl:template>
   <xsl:template name="millis">
-    <xsl:param name="millis" as="xs:integer"/>
+    <xsl:param name="millis"/>
     <xsl:choose>
       <xsl:when test="$millis &gt; 1000">
         <xsl:value-of select="format-number($millis div 1000, '0.0')"/>

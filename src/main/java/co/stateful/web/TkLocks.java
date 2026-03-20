@@ -49,7 +49,8 @@ public final class TkLocks implements Take {
     @Override
     public Response act(final Request req) throws IOException {
         return new RsPage(
-            "/xsl/locks.xsl",
+            "/webapp/xsl/locks.xsl",
+            req,
             new XeAppend(
                 "documentation",
                 IOUtils.toString(

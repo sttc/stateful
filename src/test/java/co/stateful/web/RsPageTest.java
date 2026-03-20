@@ -7,7 +7,10 @@ package co.stateful.web;
 import com.jcabi.matchers.XhtmlMatchers;
 import org.cactoos.text.TextOf;
 import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
+import org.takes.rq.RqFake;
+import org.takes.rq.RqWithHeader;
 import org.takes.rs.RsPrint;
 import org.takes.rs.xe.XeAppend;
 
@@ -21,11 +24,14 @@ final class RsPageTest {
     @Test
     void rendersXmlPageWithStylesheet() throws Exception {
         MatcherAssert.assertThat(
-            "RsPage did not render XML with stylesheet reference",
+            "RsPage did not render XML with page element",
             XhtmlMatchers.xhtml(
                 new TextOf(
                     new RsPrint(
-                        new RsPage("/xsl/index.xsl")
+                        new RsPage(
+                            "/webapp/xsl/index.xsl",
+                            new RqWithHeader(new RqFake(), "Accept", "text/xml")
+                        )
                     ).body()
                 ).asString()
             ),
@@ -41,7 +47,8 @@ final class RsPageTest {
                 new TextOf(
                     new RsPrint(
                         new RsPage(
-                            "/xsl/index.xsl",
+                            "/webapp/xsl/index.xsl",
+                            new RqWithHeader(new RqFake(), "Accept", "text/xml"),
                             new XeAppend("menu", "főoldal"),
                             new XeAppend("content", "tartalom-αβγ")
                         )
@@ -62,7 +69,10 @@ final class RsPageTest {
             XhtmlMatchers.xhtml(
                 new TextOf(
                     new RsPrint(
-                        new RsPage("/xsl/index.xsl")
+                        new RsPage(
+                            "/webapp/xsl/index.xsl",
+                            new RqWithHeader(new RqFake(), "Accept", "text/xml")
+                        )
                     ).body()
                 ).asString()
             ),
@@ -77,11 +87,30 @@ final class RsPageTest {
             XhtmlMatchers.xhtml(
                 new TextOf(
                     new RsPrint(
-                        new RsPage("/xsl/index.xsl")
+                        new RsPage(
+                            "/webapp/xsl/index.xsl",
+                            new RqWithHeader(new RqFake(), "Accept", "text/xml")
+                        )
                     ).body()
                 ).asString()
             ),
             XhtmlMatchers.hasXPath("/page/millis")
+        );
+    }
+
+    @Test
+    void rendersHtmlWhenNoXmlAcceptHeader() throws Exception {
+        MatcherAssert.assertThat(
+            "RsPage did not render HTML when Accept is not XML",
+            new TextOf(
+                new RsPrint(
+                    new RsPage(
+                        "/webapp/xsl/index.xsl",
+                        new RqFake()
+                    )
+                ).body()
+            ).asString(),
+            Matchers.containsString("<!DOCTYPE html>")
         );
     }
 }

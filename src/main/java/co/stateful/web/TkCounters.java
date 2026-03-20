@@ -48,7 +48,8 @@ public final class TkCounters implements Take {
     @Override
     public Response act(final Request req) throws IOException {
         return new RsPage(
-            "/xsl/counters.xsl",
+            "/webapp/xsl/counters.xsl",
+            req,
             new XeAppend(
                 "documentation",
                 IOUtils.toString(

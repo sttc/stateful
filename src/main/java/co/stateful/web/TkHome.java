@@ -46,7 +46,8 @@ public final class TkHome implements Take {
     @Override
     public Response act(final Request req) throws IOException {
         return new RsPage(
-            "/xsl/index.xsl",
+            "/webapp/xsl/index.xsl",
+            req,
             new XeAppend("menu", "home"),
             new XeAppend(
                 "documentation",

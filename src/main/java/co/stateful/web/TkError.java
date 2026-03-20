@@ -46,7 +46,8 @@ public final class TkError implements Take {
     public Response act(final Request req) throws IOException {
         return new RsWithStatus(
             new RsPage(
-                "/xsl/error.xsl",
+                "/webapp/xsl/error.xsl",
+                req,
                 new XeSource() {
                     @Override
                     public Iterable<Directive> toXembly()

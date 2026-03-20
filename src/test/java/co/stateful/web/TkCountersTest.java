@@ -12,6 +12,7 @@ import org.cactoos.text.TextOf;
 import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.Test;
 import org.takes.rq.RqFake;
+import org.takes.rq.RqWithHeader;
 import org.takes.rs.RsPrint;
 
 /**
@@ -30,7 +31,7 @@ final class TkCountersTest {
                     new RsPrint(
                         new TkCounters(new FkBase()).act(
                             new RqAuth(
-                                new RqFake(),
+                                new RqWithHeader(new RqFake(), "Accept", "text/xml"),
                                 "urn:test:1",
                                 "Tëst-Üsér-αβγ"
                             )
@@ -51,7 +52,7 @@ final class TkCountersTest {
                     new RsPrint(
                         new TkCounters(new FkBase()).act(
                             new RqAuth(
-                                new RqFake(),
+                                new RqWithHeader(new RqFake(), "Accept", "text/xml"),
                                 "urn:test:2",
                                 "Üsér"
                             )
@@ -75,7 +76,7 @@ final class TkCountersTest {
                     new RsPrint(
                         new TkCounters(base).act(
                             new RqAuth(
-                                new RqFake(),
+                                new RqWithHeader(new RqFake(), "Accept", "text/xml"),
                                 urn.toString(),
                                 "Námé"
                             )
@@ -99,7 +100,7 @@ final class TkCountersTest {
                     new RsPrint(
                         new TkCounters(base).act(
                             new RqAuth(
-                                new RqFake(),
+                                new RqWithHeader(new RqFake(), "Accept", "text/xml"),
                                 urn.toString(),
                                 "Üsér"
                             )

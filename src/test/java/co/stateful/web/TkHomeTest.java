@@ -11,6 +11,7 @@ import org.cactoos.text.TextOf;
 import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.Test;
 import org.takes.rq.RqFake;
+import org.takes.rq.RqWithHeader;
 import org.takes.rs.RsPrint;
 
 /**
@@ -29,7 +30,7 @@ final class TkHomeTest {
                     new RsPrint(
                         new TkHome(new FkBase()).act(
                             new RqAuth(
-                                new RqFake(),
+                                new RqWithHeader(new RqFake(), "Accept", "text/xml"),
                                 "urn:test:1",
                                 "Tëst-Üsér-αβγ"
                             )
@@ -50,7 +51,7 @@ final class TkHomeTest {
                     new RsPrint(
                         new TkHome(new FkBase()).act(
                             new RqAuth(
-                                new RqFake(),
+                                new RqWithHeader(new RqFake(), "Accept", "text/xml"),
                                 "urn:test:2",
                                 "Üsér"
                             )
@@ -71,7 +72,7 @@ final class TkHomeTest {
                     new RsPrint(
                         new TkHome(new FkBase()).act(
                             new RqAuth(
-                                new RqFake(),
+                                new RqWithHeader(new RqFake(), "Accept", "text/xml"),
                                 "urn:test:3",
                                 "Námé"
                             )
