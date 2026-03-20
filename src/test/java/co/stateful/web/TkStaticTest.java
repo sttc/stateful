@@ -49,6 +49,21 @@ final class TkStaticTest {
     }
 
     @Test
+    void servesCssFromWebappDirectory() throws Exception {
+        MatcherAssert.assertThat(
+            "TkStatic did not serve CSS file from webapp/css path",
+            new TextOf(
+                new RsPrint(
+                    new TkStatic("/webapp", true).act(
+                        new RqFake("GET", "/css/test-αβγ.css")
+                    )
+                ).body()
+            ).asString(),
+            Matchers.containsString("Unicode")
+        );
+    }
+
+    @Test
     void throwsOnMissingResource() throws Exception {
         try {
             new TkStatic("/nonexistent-resource-αβγ.txt").act(new RqFake());
