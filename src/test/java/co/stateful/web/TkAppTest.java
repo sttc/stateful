@@ -39,20 +39,17 @@ final class TkAppTest {
     }
 
     @Test
-    void servesStaticCss() throws Exception {
+    void servesCssWithCorrectContentType() throws Exception {
         MatcherAssert.assertThat(
-            "TkApp did not handle css request",
+            "TkApp did not set text/css for CSS file",
             new RsPrint(
                 new TkApp(
                     new QtBase(new FkBase(), Quota.UNLIMITED)
                 ).act(
-                    new RqFake("GET", "/css/main.css")
+                    new RqFake("GET", "/css/test-αβγ.css")
                 )
             ).printHead(),
-            Matchers.anyOf(
-                Matchers.containsString("200"),
-                Matchers.containsString("404")
-            )
+            Matchers.containsString("Content-Type: text/css")
         );
     }
 
@@ -83,6 +80,21 @@ final class TkAppTest {
                 )
             ).printHead(),
             Matchers.containsString("404")
+        );
+    }
+
+    @Test
+    void servesSvgWithCorrectContentType() throws Exception {
+        MatcherAssert.assertThat(
+            "TkApp did not set image/svg+xml for SVG file",
+            new RsPrint(
+                new TkApp(
+                    new QtBase(new FkBase(), Quota.UNLIMITED)
+                ).act(
+                    new RqFake("GET", "/images/pomegranate.svg")
+                )
+            ).printHead(),
+            Matchers.containsString("Content-Type: image/svg+xml")
         );
     }
 }

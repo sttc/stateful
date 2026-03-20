@@ -68,8 +68,15 @@ public final class TkApp extends TkWrap {
     private static Take routes(final Base base) {
         return new TkFork(
             new FkRegex("/robots.txt", new TkStatic("/webapp/robots.txt")),
-            new FkRegex("/css/.*", new TkStatic("/webapp", true)),
+            new FkRegex(
+                "/css/.*",
+                new TkWithType(new TkStatic("/webapp", true), "text/css")
+            ),
             new FkRegex("/js/.*", new TkStatic("/webapp", true)),
+            new FkRegex(
+                "/images/.*\\.svg",
+                new TkWithType(new TkStatic("/webapp", true), "image/svg+xml")
+            ),
             new FkRegex("/images/.*", new TkStatic("/webapp", true)),
             new FkRegex(
                 "/xsl/.*",
