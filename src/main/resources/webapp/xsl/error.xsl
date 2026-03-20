@@ -23,7 +23,7 @@
                 to
             </xsl:text>
       <a href="https://github.com/sttc/stateful/issues">
-        <xsl:text>our issues list in Github</xsl:text>
+        <xsl:text>our issues list on GitHub</xsl:text>
       </a>
       <xsl:text>.</xsl:text>
     </p>
