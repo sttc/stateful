@@ -40,4 +40,13 @@ final class TkAppAuthTest {
             Matchers.notNullValue()
         );
     }
+
+    @Test
+    void verifiesXhtmlMatchersClassAvailable() throws Exception {
+        MatcherAssert.assertThat(
+            "XhtmlMatchers class not available for GitHub OAuth",
+            Class.forName("com.jcabi.matchers.XhtmlMatchers"),
+            Matchers.notNullValue()
+        );
+    }
 }
