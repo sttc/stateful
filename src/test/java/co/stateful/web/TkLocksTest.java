@@ -6,13 +6,13 @@ package co.stateful.web;
 
 import co.stateful.fake.FkBase;
 import co.stateful.fake.RqAuth;
+import co.stateful.fake.RqXml;
 import com.jcabi.matchers.XhtmlMatchers;
 import com.jcabi.urn.URN;
 import org.cactoos.text.TextOf;
 import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.Test;
 import org.takes.rq.RqFake;
-import org.takes.rq.RqWithHeader;
 import org.takes.rs.RsPrint;
 
 /**
@@ -31,7 +31,7 @@ final class TkLocksTest {
                     new RsPrint(
                         new TkLocks(new FkBase()).act(
                             new RqAuth(
-                                new RqWithHeader(new RqFake(), "Accept", "text/xml"),
+                                new RqXml(new RqFake()),
                                 "urn:test:1",
                                 "Tëst-Üsér-αβγ"
                             )
@@ -52,7 +52,7 @@ final class TkLocksTest {
                     new RsPrint(
                         new TkLocks(new FkBase()).act(
                             new RqAuth(
-                                new RqWithHeader(new RqFake(), "Accept", "text/xml"),
+                                new RqXml(new RqFake()),
                                 "urn:test:2",
                                 "Üsér"
                             )
@@ -76,7 +76,7 @@ final class TkLocksTest {
                     new RsPrint(
                         new TkLocks(base).act(
                             new RqAuth(
-                                new RqWithHeader(new RqFake(), "Accept", "text/xml"),
+                                new RqXml(new RqFake()),
                                 urn.toString(),
                                 "Námé"
                             )
@@ -100,7 +100,7 @@ final class TkLocksTest {
                     new RsPrint(
                         new TkLocks(new FkBase()).act(
                             new RqAuth(
-                                new RqWithHeader(new RqFake(), "Accept", "text/xml"),
+                                new RqXml(new RqFake()),
                                 "urn:test:4",
                                 "Üsér"
                             )
@@ -113,6 +113,27 @@ final class TkLocksTest {
                 "/page/links/link[@rel='unlock']",
                 "/page/links/link[@rel='label']"
             )
+        );
+    }
+
+    @Test
+    void usesAbsolutePathsForUnlockLink() throws Exception {
+        MatcherAssert.assertThat(
+            "TkLocks did not use absolute path for unlock link",
+            XhtmlMatchers.xhtml(
+                new TextOf(
+                    new RsPrint(
+                        new TkLocks(new FkBase()).act(
+                            new RqAuth(
+                                new RqXml(new RqFake()),
+                                "urn:test:5",
+                                "Üsér-βγδ"
+                            )
+                        )
+                    ).body()
+                ).asString()
+            ),
+            XhtmlMatchers.hasXPath("/page/links/link[@rel='unlock'][@href='/k/unlock']")
         );
     }
 }

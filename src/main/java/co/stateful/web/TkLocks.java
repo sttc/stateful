@@ -62,9 +62,9 @@ public final class TkLocks implements Take {
             ),
             this.list(req),
             new XeAppend("menu", "locks"),
-            new XeLink("lock", "./lock"),
-            new XeLink("label", "./label"),
-            new XeLink("unlock", "./unlock"),
+            new XeLink("lock", "/k/lock"),
+            new XeLink("label", "/k/label"),
+            new XeLink("unlock", "/k/unlock"),
             new XeSource() {
                 @Override
                 public Iterable<Directive> toXembly()
