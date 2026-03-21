@@ -68,7 +68,6 @@ public final class TkCounters implements Take {
                     throws IOException {
                     return new XeChain(
                         new TkAuthenticated(TkCounters.this.base).source(req),
-                        new XeLink("takes:github", "/?PsByFlag=PsGithub"),
                         new XeLink("takes:logout", "/?PsByFlag=PsLogout")
                     ).toXembly();
                 }

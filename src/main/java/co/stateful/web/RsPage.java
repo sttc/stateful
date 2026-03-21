@@ -16,6 +16,7 @@ import org.takes.rs.RsWithType;
 import org.takes.rs.RsWrap;
 import org.takes.rs.RsXslt;
 import org.takes.rs.xe.RsXembly;
+import org.takes.facets.auth.social.XeGithubLink;
 import org.takes.rs.xe.XeAppend;
 import org.takes.rs.xe.XeChain;
 import org.takes.rs.xe.XeDate;
@@ -79,6 +80,7 @@ public final class RsPage extends RsWrap {
                 new XeDate(),
                 new XeLocalhost(),
                 new XeLink("home", "/"),
+                new XeGithubLink(req, Manifests.read("Stateful-GithubId")),
                 new XeAppend(
                     "version",
                     new XeAppend("name", RsPage.version())
