@@ -21,6 +21,11 @@ import org.takes.rs.xe.XeAppend;
  */
 final class RsPageTest {
 
+    /**
+     * XSL stylesheet path.
+     */
+    private static final String XSL = "/webapp/xsl/index.xsl";
+
     @Test
     void rendersXmlPageWithStylesheet() throws Exception {
         MatcherAssert.assertThat(
@@ -29,7 +34,7 @@ final class RsPageTest {
                 new TextOf(
                     new RsPrint(
                         new RsPage(
-                            "/webapp/xsl/index.xsl",
+                            RsPageTest.XSL,
                             new RqWithHeader(new RqFake(), "Accept", "text/xml")
                         )
                     ).body()
@@ -47,7 +52,7 @@ final class RsPageTest {
                 new TextOf(
                     new RsPrint(
                         new RsPage(
-                            "/webapp/xsl/index.xsl",
+                            RsPageTest.XSL,
                             new RqWithHeader(new RqFake(), "Accept", "text/xml"),
                             new XeAppend("menu", "főoldal"),
                             new XeAppend("content", "tartalom-αβγ")
@@ -70,7 +75,7 @@ final class RsPageTest {
                 new TextOf(
                     new RsPrint(
                         new RsPage(
-                            "/webapp/xsl/index.xsl",
+                            RsPageTest.XSL,
                             new RqWithHeader(new RqFake(), "Accept", "text/xml")
                         )
                     ).body()
@@ -88,7 +93,7 @@ final class RsPageTest {
                 new TextOf(
                     new RsPrint(
                         new RsPage(
-                            "/webapp/xsl/index.xsl",
+                            RsPageTest.XSL,
                             new RqWithHeader(new RqFake(), "Accept", "text/xml")
                         )
                     ).body()
@@ -105,7 +110,7 @@ final class RsPageTest {
             new TextOf(
                 new RsPrint(
                     new RsPage(
-                        "/webapp/xsl/index.xsl",
+                        RsPageTest.XSL,
                         new RqFake()
                     )
                 ).body()

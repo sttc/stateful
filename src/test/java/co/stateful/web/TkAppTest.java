@@ -21,6 +21,11 @@ import org.takes.rs.RsPrint;
  */
 final class TkAppTest {
 
+    /**
+     * HTTP GET method.
+     */
+    private static final String GET = "GET";
+
     @Test
     void servesRobotsTxt() throws Exception {
         MatcherAssert.assertThat(
@@ -30,7 +35,7 @@ final class TkAppTest {
                     new TkApp(
                         new QtBase(new FkBase(), Quota.UNLIMITED)
                     ).act(
-                        new RqFake("GET", "/robots.txt")
+                        new RqFake(TkAppTest.GET, "/robots.txt")
                     )
                 ).body()
             ).asString(),
@@ -46,7 +51,7 @@ final class TkAppTest {
                 new TkApp(
                     new QtBase(new FkBase(), Quota.UNLIMITED)
                 ).act(
-                    new RqFake("GET", "/css/test-αβγ.css")
+                    new RqFake(TkAppTest.GET, "/css/test-αβγ.css")
                 )
             ).printHead(),
             Matchers.containsString("Content-Type: text/css")
@@ -61,7 +66,7 @@ final class TkAppTest {
                 new TkApp(
                     new QtBase(new FkBase(), Quota.UNLIMITED)
                 ).act(
-                    new RqFake("GET", "/js/counters.js")
+                    new RqFake(TkAppTest.GET, "/js/counters.js")
                 )
             ).printHead(),
             Matchers.containsString("200")
@@ -76,7 +81,7 @@ final class TkAppTest {
                 new TkApp(
                     new QtBase(new FkBase(), Quota.UNLIMITED)
                 ).act(
-                    new RqFake("GET", "/nonexistent-path-αβγ")
+                    new RqFake(TkAppTest.GET, "/nonexistent-path-αβγ")
                 )
             ).printHead(),
             Matchers.containsString("404")
@@ -91,7 +96,7 @@ final class TkAppTest {
                 new TkApp(
                     new QtBase(new FkBase(), Quota.UNLIMITED)
                 ).act(
-                    new RqFake("GET", "/images/pomegranate.svg")
+                    new RqFake(TkAppTest.GET, "/images/pomegranate.svg")
                 )
             ).printHead(),
             Matchers.containsString("Content-Type: image/svg+xml")

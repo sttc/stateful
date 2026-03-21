@@ -35,6 +35,16 @@ public final class TkApp extends TkWrap {
     private static final Pattern PTN_COUNTER = Pattern.compile("/c/([^/]+)/.*");
 
     /**
+     * Webapp resources path.
+     */
+    private static final String WEBAPP = "/webapp";
+
+    /**
+     * Robots.txt path.
+     */
+    private static final String ROBOTS = "/webapp/robots.txt";
+
+    /**
      * Ctor.
      * @param base Base
      */
@@ -67,20 +77,20 @@ public final class TkApp extends TkWrap {
      */
     private static Take routes(final Base base) {
         return new TkFork(
-            new FkRegex("/robots.txt", new TkStatic("/webapp/robots.txt")),
+            new FkRegex("/robots.txt", new TkStatic(TkApp.ROBOTS)),
             new FkRegex(
                 "/css/.*",
-                new TkWithType(new TkStatic("/webapp", true), "text/css")
+                new TkWithType(new TkStatic(TkApp.WEBAPP, true), "text/css")
             ),
-            new FkRegex("/js/.*", new TkStatic("/webapp", true)),
+            new FkRegex("/js/.*", new TkStatic(TkApp.WEBAPP, true)),
             new FkRegex(
                 "/images/.*\\.svg",
-                new TkWithType(new TkStatic("/webapp", true), "image/svg+xml")
+                new TkWithType(new TkStatic(TkApp.WEBAPP, true), "image/svg+xml")
             ),
-            new FkRegex("/images/.*", new TkStatic("/webapp", true)),
+            new FkRegex("/images/.*", new TkStatic(TkApp.WEBAPP, true)),
             new FkRegex(
                 "/xsl/.*",
-                new TkWithType(new TkStatic("/webapp", true), "text/xsl")
+                new TkWithType(new TkStatic(TkApp.WEBAPP, true), "text/xsl")
             ),
             new FkRegex("/", new TkHome(base)),
             new FkRegex("/error", new TkError(base)),

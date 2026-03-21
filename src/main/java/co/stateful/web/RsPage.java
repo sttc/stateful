@@ -11,12 +11,12 @@ import java.util.HashSet;
 import lombok.EqualsAndHashCode;
 import org.takes.Request;
 import org.takes.Response;
+import org.takes.facets.auth.social.XeGithubLink;
 import org.takes.rq.RqHeaders;
 import org.takes.rs.RsWithType;
 import org.takes.rs.RsWrap;
 import org.takes.rs.RsXslt;
 import org.takes.rs.xe.RsXembly;
-import org.takes.facets.auth.social.XeGithubLink;
 import org.takes.rs.xe.XeAppend;
 import org.takes.rs.xe.XeChain;
 import org.takes.rs.xe.XeDate;
@@ -70,24 +70,26 @@ public final class RsPage extends RsWrap {
      */
     private static Response make(final String xsl, final Request req,
         final XeSource... sources) throws IOException {
-        final Response raw = new RsXembly(
-            new XeStylesheet(xsl),
-            new XeAppend(
-                "page",
-                new XeChain(sources),
-                new XeMillis(),
-                new XeSla(),
-                new XeDate(),
-                new XeLocalhost(),
-                new XeLink("home", "/"),
-                new XeGithubLink(req, Manifests.read("Stateful-GithubId")),
+        return RsPage.negotiate(
+            new RsXembly(
+                new XeStylesheet(xsl),
                 new XeAppend(
-                    "version",
-                    new XeAppend("name", RsPage.version())
+                    "page",
+                    new XeChain(sources),
+                    new XeMillis(),
+                    new XeSla(),
+                    new XeDate(),
+                    new XeLocalhost(),
+                    new XeLink("home", "/"),
+                    new XeGithubLink(req, Manifests.read("Stateful-GithubId")),
+                    new XeAppend(
+                        "version",
+                        new XeAppend("name", RsPage.version())
+                    )
                 )
-            )
+            ),
+            req
         );
-        return RsPage.negotiate(raw, req);
     }
 
     /**
