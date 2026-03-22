@@ -64,7 +64,7 @@
       </td>
       <td>
         <a href="{/page/links/link[@rel='unlock']/@href}?name={name}">
-          <i class="fa fa-trash-o">
+          <i class="fa-regular fa-trash-can">
             <xsl:comment>empty</xsl:comment>
           </i>
         </a>
