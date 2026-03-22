@@ -65,7 +65,7 @@ public final class TkAuthenticated {
                         .add("photo").set(
                             identity.properties().getOrDefault(
                                 "picture",
-                                "http://img.stateful.co/unknown.png"
+                                "/images/pomegranate.svg"
                             )
                         ).up()
                         .up()
