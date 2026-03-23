@@ -66,6 +66,10 @@ public final class TkAppFallback implements Take {
                     HttpURLConnection.HTTP_UNAUTHORIZED,
                     (Fallback) req -> new Opt.Single<>(TkAppFallback.unauthorized())
                 ),
+                new FbStatus(
+                    HttpURLConnection.HTTP_CONFLICT,
+                    (Fallback) req -> new Opt.Single<>(TkAppFallback.conflict(req))
+                ),
                 req -> {
                     Logger.error(
                         TkAppFallback.class,
@@ -97,6 +101,18 @@ public final class TkAppFallback implements Take {
         return new RsWithStatus(
             new RsText("Authentication required"),
             HttpURLConnection.HTTP_UNAUTHORIZED
+        );
+    }
+
+    /**
+     * Conflict response.
+     * @param req Fallback request
+     * @return Response
+     */
+    private static Response conflict(final RqFallback req) {
+        return new RsWithStatus(
+            new RsText(req.throwable().getMessage()),
+            HttpURLConnection.HTTP_CONFLICT
         );
     }
 

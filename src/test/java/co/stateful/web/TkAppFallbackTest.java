@@ -66,6 +66,24 @@ final class TkAppFallbackTest {
     }
 
     @Test
+    void handlesConflictStatus() throws Exception {
+        MatcherAssert.assertThat(
+            "TkAppFallback did not return 409 status",
+            new RsPrint(
+                new TkAppFallback(
+                    req -> {
+                        throw new HttpException(
+                            HttpURLConnection.HTTP_CONFLICT,
+                            "läbel-mïsmatch-αβγ"
+                        );
+                    }
+                ).act(new RqFake())
+            ).printHead(),
+            Matchers.containsString("409")
+        );
+    }
+
+    @Test
     void handlesInternalError() throws Exception {
         MatcherAssert.assertThat(
             "TkAppFallback did not return 500 status",
