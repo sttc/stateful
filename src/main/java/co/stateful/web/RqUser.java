@@ -8,6 +8,8 @@ import co.stateful.spi.Base;
 import co.stateful.spi.User;
 import com.jcabi.urn.URN;
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import org.takes.HttpException;
 import org.takes.Request;
 import org.takes.facets.auth.Identity;
 import org.takes.facets.auth.RqAuth;
@@ -45,9 +47,13 @@ public final class RqUser extends RqWrap {
      * Get user.
      * @return User
      * @throws IOException If fails
+     * @throws HttpException If not authenticated
      */
     public User user() throws IOException {
         final Identity identity = new RqAuth(this).identity();
+        if (identity.equals(Identity.ANONYMOUS)) {
+            throw new HttpException(HttpURLConnection.HTTP_UNAUTHORIZED);
+        }
         return this.base.user(URN.create(identity.urn()));
     }
 
