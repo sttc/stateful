@@ -46,17 +46,17 @@ final class DefaultUser implements User {
     /**
      * Table name.
      */
-    public static final String TOKENS = "tokens";
+    static final String TOKENS = "tokens";
 
     /**
      * Hash.
      */
-    public static final String HASH = "urn";
+    static final String HASH = "urn";
 
     /**
      * Token attribute.
      */
-    public static final String ATTR_TOKEN = "token";
+    static final String ATTR_TOKEN = "token";
 
     /**
      * Name of the user.
