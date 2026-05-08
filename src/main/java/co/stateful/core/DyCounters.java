@@ -37,22 +37,22 @@ final class DyCounters implements Counters {
     /**
      * Table name.
      */
-    public static final String TBL = "counters";
+    static final String TBL = "counters";
 
     /**
      * Hash.
      */
-    public static final String HASH = "urn";
+    static final String HASH = "urn";
 
     /**
      * Range.
      */
-    public static final String RANGE = "name";
+    static final String RANGE = "name";
 
     /**
      * Value attribute.
      */
-    public static final String ATTR_VALUE = "value";
+    static final String ATTR_VALUE = "value";
 
     /**
      * Dynamo table.

@@ -39,22 +39,22 @@ final class DyLocks implements Locks {
     /**
      * Table name.
      */
-    public static final String TBL = "locks";
+    static final String TBL = "locks";
 
     /**
      * Hash.
      */
-    public static final String HASH = "urn";
+    static final String HASH = "urn";
 
     /**
      * Range.
      */
-    public static final String RANGE = "name";
+    static final String RANGE = "name";
 
     /**
      * Label.
      */
-    public static final String ATTR_LABEL = "label";
+    static final String ATTR_LABEL = "label";
 
     /**
      * Dynamo table.

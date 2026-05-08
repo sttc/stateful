@@ -6,6 +6,8 @@ package co.stateful.web;
 
 import co.stateful.spi.Base;
 import com.jcabi.manifests.Manifests;
+import java.nio.charset.StandardCharsets;
+import java.util.regex.Pattern;
 import org.takes.Request;
 import org.takes.Response;
 import org.takes.Take;
@@ -66,11 +68,15 @@ public final class TkAppAuth implements Take {
             new PsChain(
                 new PsByFlag(
                     new PsByFlag.Pair(
-                        PsLogout.class.getSimpleName(),
+                        Pattern.compile(
+                            Pattern.quote(PsLogout.class.getSimpleName())
+                        ),
                         new PsLogout()
                     ),
                     new PsByFlag.Pair(
-                        PsGithub.class.getSimpleName(),
+                        Pattern.compile(
+                            Pattern.quote(PsGithub.class.getSimpleName())
+                        ),
                         TkAppAuth.github()
                     )
                 ),
@@ -91,6 +97,7 @@ public final class TkAppAuth implements Take {
                 new CcXor(
                     new CcSalted(new CcPlain()),
                     Manifests.read("Stateful-SecurityKey")
+                        .getBytes(StandardCharsets.UTF_8)
                 )
             )
         );
