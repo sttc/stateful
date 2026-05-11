@@ -16,7 +16,7 @@ release:
   sensitive:
     - settings.xml
   script: |
-    mvn versions:set "-DnewVersion=${tag}"
+    mvn -ntp versions:set "-DnewVersion=${tag}"
     git commit -am "${tag}"
     build=$(git rev-parse --short HEAD)
     sed -i "s/BUILD/${build}/g" src/main/resources/webapp/META-INF/MANIFEST.MF
