@@ -6,9 +6,10 @@ package co.stateful;
 
 import co.stateful.core.DefaultBase;
 import co.stateful.quota.QtBase;
-import co.stateful.quota.Quota;
+import co.stateful.quota.RtQuota;
 import co.stateful.web.TkApp;
 import java.io.IOException;
+import org.h2.jdbcx.JdbcDataSource;
 import org.takes.http.Exit;
 import org.takes.http.FtCli;
 
@@ -37,9 +38,16 @@ public final class Entry {
      * @param args Command line args
      * @throws IOException If fails
      */
+    /**
+     * Maximum requests per user per minute.
+     */
+    private static final int MAX_RPM = 300;
+
     public static void main(final String... args) throws IOException {
+        final JdbcDataSource src = new JdbcDataSource();
+        src.setURL("jdbc:h2:mem:rate-limit;DB_CLOSE_DELAY=-1");
         new FtCli(
-            new TkApp(new QtBase(new DefaultBase(), Quota.UNLIMITED)),
+            new TkApp(new QtBase(new DefaultBase(), new RtQuota(src, Entry.MAX_RPM))),
             args
         ).start(Exit.NEVER);
     }
