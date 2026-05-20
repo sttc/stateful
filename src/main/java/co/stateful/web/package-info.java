@@ -5,7 +5,6 @@
 
 /**
  * Web layer based on Takes framework.
- *
  * @since 2.0
  */
 package co.stateful.web;

@@ -16,7 +16,6 @@ import org.takes.rs.RsPrint;
 
 /**
  * Test case for {@link TkLockLabel}.
- *
  * @since 2.0
  */
 final class TkLockLabelTest {

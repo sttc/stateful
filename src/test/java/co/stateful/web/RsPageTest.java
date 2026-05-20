@@ -16,7 +16,6 @@ import org.takes.rs.xe.XeAppend;
 
 /**
  * Test case for {@link RsPage}.
- *
  * @since 2.0
  */
 final class RsPageTest {

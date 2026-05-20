@@ -7,6 +7,8 @@ package co.stateful.web;
 import co.stateful.spi.Base;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.takes.Request;
+import org.takes.Response;
 import org.takes.Take;
 import org.takes.facets.flash.TkFlash;
 import org.takes.facets.fork.FkMethods;
@@ -49,21 +51,101 @@ public final class TkApp extends TkWrap {
      * @param base Base
      */
     public TkApp(final Base base) {
-        super(TkApp.make(base));
-    }
-
-    /**
-     * Create main take.
-     * @param base Base
-     * @return Take
-     */
-    private static Take make(final Base base) {
-        return new TkAppFallback(
-            new TkAppAuth(
-                base,
-                new TkForward(
-                    new TkFlash(
-                        TkApp.routes(base)
+        super(
+            new TkAppFallback(
+                new TkAppAuth(
+                    base,
+                    new TkForward(
+                        new TkFlash(
+                            new TkFork(
+                                new FkRegex(
+                                    "/robots.txt",
+                                    new TkStatic(TkApp.ROBOTS)
+                                ),
+                                new FkRegex(
+                                    "/css/.*",
+                                    new TkWithType(
+                                        new TkStatic(TkApp.WEBAPP, true),
+                                        "text/css"
+                                    )
+                                ),
+                                new FkRegex(
+                                    "/js/.*",
+                                    new TkStatic(TkApp.WEBAPP, true)
+                                ),
+                                new FkRegex(
+                                    "/images/.*\\.svg",
+                                    new TkWithType(
+                                        new TkStatic(TkApp.WEBAPP, true),
+                                        "image/svg+xml"
+                                    )
+                                ),
+                                new FkRegex(
+                                    "/images/.*",
+                                    new TkStatic(TkApp.WEBAPP, true)
+                                ),
+                                new FkRegex(
+                                    "/xsl/.*",
+                                    new TkWithType(
+                                        new TkStatic(TkApp.WEBAPP, true),
+                                        "text/xsl"
+                                    )
+                                ),
+                                new FkRegex("/", new TkHome(base)),
+                                new FkRegex("/error", new TkError(base)),
+                                new FkRegex("/counters", new TkCounters(base)),
+                                new FkRegex(
+                                    "/counters/add",
+                                    new TkFork(
+                                        new FkMethods(
+                                            "POST",
+                                            new TkCounterAdd(base)
+                                        )
+                                    )
+                                ),
+                                new FkRegex(
+                                    "/counters/delete",
+                                    new TkCounterDelete(base)
+                                ),
+                                new FkRegex(
+                                    "/c/(?<name>[^/]+)/set",
+                                    new TkFork(
+                                        new FkMethods(
+                                            "PUT",
+                                            (Take) req -> TkApp.counter(
+                                                base, req, true
+                                            )
+                                        ),
+                                        new FkMethods(
+                                            "GET",
+                                            (Take) req -> TkApp.counter(
+                                                base, req, true
+                                            )
+                                        )
+                                    )
+                                ),
+                                new FkRegex(
+                                    "/c/(?<name>[^/]+)/inc",
+                                    (Take) req -> TkApp.counter(base, req, false)
+                                ),
+                                new FkRegex("/k", new TkLocks(base)),
+                                new FkRegex(
+                                    "/k/lock",
+                                    new TkFork(
+                                        new FkMethods(
+                                            "POST",
+                                            new TkLockCreate(base)
+                                        )
+                                    )
+                                ),
+                                new FkRegex("/k/unlock", new TkUnlock(base)),
+                                new FkRegex("/k/label", new TkLockLabel(base)),
+                                new FkRegex(
+                                    "/u/refresh",
+                                    new TkUserRefresh(base)
+                                )
+                            )
+                        )
                     )
                 )
             )
@@ -71,89 +153,31 @@ public final class TkApp extends TkWrap {
     }
 
     /**
-     * Create routes.
+     * Dispatch a counter-set or counter-increment request.
+     *
+     * <p>Extracts the counter name from the URL, then delegates to the
+     * appropriate take.
+     *
      * @param base Base
-     * @return Take
+     * @param req Incoming request
+     * @param set True for set, false for increment
+     * @return Response from the dispatched take
+     * @throws Exception If the take fails
      */
-    private static Take routes(final Base base) {
-        return new TkFork(
-            new FkRegex("/robots.txt", new TkStatic(TkApp.ROBOTS)),
-            new FkRegex(
-                "/css/.*",
-                new TkWithType(new TkStatic(TkApp.WEBAPP, true), "text/css")
-            ),
-            new FkRegex("/js/.*", new TkStatic(TkApp.WEBAPP, true)),
-            new FkRegex(
-                "/images/.*\\.svg",
-                new TkWithType(new TkStatic(TkApp.WEBAPP, true), "image/svg+xml")
-            ),
-            new FkRegex("/images/.*", new TkStatic(TkApp.WEBAPP, true)),
-            new FkRegex(
-                "/xsl/.*",
-                new TkWithType(new TkStatic(TkApp.WEBAPP, true), "text/xsl")
-            ),
-            new FkRegex("/", new TkHome(base)),
-            new FkRegex("/error", new TkError(base)),
-            new FkRegex("/counters", new TkCounters(base)),
-            new FkRegex(
-                "/counters/add",
-                new TkFork(
-                    new FkMethods("POST", new TkCounterAdd(base))
-                )
-            ),
-            new FkRegex("/counters/delete", new TkCounterDelete(base)),
-            new FkRegex(
-                "/c/(?<name>[^/]+)/set",
-                new TkFork(
-                    new FkMethods("PUT", TkApp.counterSet(base)),
-                    new FkMethods("GET", TkApp.counterSet(base))
-                )
-            ),
-            new FkRegex("/c/(?<name>[^/]+)/inc", TkApp.counterInc(base)),
-            new FkRegex("/k", new TkLocks(base)),
-            new FkRegex(
-                "/k/lock",
-                new TkFork(
-                    new FkMethods("POST", new TkLockCreate(base))
-                )
-            ),
-            new FkRegex("/k/unlock", new TkUnlock(base)),
-            new FkRegex("/k/label", new TkLockLabel(base)),
-            new FkRegex("/u/refresh", new TkUserRefresh(base))
+    private static Response counter(final Base base, final Request req,
+        final boolean set) throws Exception {
+        final Matcher matcher = TkApp.PTN_COUNTER.matcher(
+            req.head().iterator().next().split(" ")[1]
         );
-    }
-
-    /**
-     * Counter set take.
-     * @param base Base
-     * @return Take
-     */
-    private static Take counterSet(final Base base) {
-        return req -> {
-            final Matcher matcher = TkApp.PTN_COUNTER.matcher(
-                req.head().iterator().next().split(" ")[1]
-            );
-            if (!matcher.matches()) {
-                throw new IllegalStateException("Invalid counter URL");
-            }
-            return new TkCounterSet(base, matcher.group(1)).act(req);
-        };
-    }
-
-    /**
-     * Counter increment take.
-     * @param base Base
-     * @return Take
-     */
-    private static Take counterInc(final Base base) {
-        return req -> {
-            final Matcher matcher = TkApp.PTN_COUNTER.matcher(
-                req.head().iterator().next().split(" ")[1]
-            );
-            if (!matcher.matches()) {
-                throw new IllegalStateException("Invalid counter URL");
-            }
-            return new TkCounterInc(base, matcher.group(1)).act(req);
-        };
+        if (!matcher.matches()) {
+            throw new IllegalStateException("Invalid counter URL");
+        }
+        final Take take;
+        if (set) {
+            take = new TkCounterSet(base, matcher.group(1));
+        } else {
+            take = new TkCounterInc(base, matcher.group(1));
+        }
+        return take.act(req);
     }
 }

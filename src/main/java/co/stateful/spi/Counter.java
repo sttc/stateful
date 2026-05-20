@@ -10,7 +10,6 @@ import java.math.BigDecimal;
 
 /**
  * Counter.
- *
  * @since 0.1
  */
 @Immutable
@@ -30,5 +29,4 @@ public interface Counter {
      * @throws IOException If fails due to IO problem
      */
     BigDecimal increment(BigDecimal delta) throws IOException;
-
 }

@@ -17,7 +17,6 @@ import org.takes.rs.RsPrint;
 
 /**
  * Test case for {@link TkCounters}.
- *
  * @since 2.0
  */
 final class TkCountersTest {

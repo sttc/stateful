@@ -60,8 +60,7 @@ public final class TkHome implements Take {
             ),
             new XeSource() {
                 @Override
-                public Iterable<Directive> toXembly()
-                    throws IOException {
+                public Iterable<Directive> toXembly() throws IOException {
                     return new XeChain(
                         new TkAuthenticated(TkHome.this.base).source(req),
                         new XeLink("takes:logout", "/?PsByFlag=PsLogout")

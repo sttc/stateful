@@ -16,13 +16,11 @@ import org.takes.http.FtRemote;
 
 /**
  * Integration test case for {@link TkApp}.
- *
  * @since 2.0
  */
 final class TkAppITCase {
 
     @Test
-    @SuppressWarnings("PMD.UnitTestShouldIncludeAssert")
     void rendersHomePageWithDocumentation() throws Exception {
         new FtRemote(
             new TkApp(new QtBase(new DefaultBase(), Quota.UNLIMITED))
@@ -39,7 +37,6 @@ final class TkAppITCase {
     }
 
     @Test
-    @SuppressWarnings("PMD.UnitTestShouldIncludeAssert")
     void servesStaticResources() throws Exception {
         new FtRemote(
             new TkApp(new QtBase(new DefaultBase(), Quota.UNLIMITED))

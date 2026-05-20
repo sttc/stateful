@@ -15,7 +15,6 @@ import org.takes.rs.RsPrint;
 
 /**
  * Test case for {@link TkAppFallback}.
- *
  * @since 2.0
  */
 final class TkAppFallbackTest {

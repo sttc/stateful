@@ -14,7 +14,6 @@ import lombok.ToString;
 
 /**
  * Quota on counter.
- *
  * @since 1.4
  */
 @Immutable

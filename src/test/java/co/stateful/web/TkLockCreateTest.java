@@ -20,18 +20,15 @@ import org.takes.rq.RqWithBody;
 
 /**
  * Test case for {@link TkLockCreate}.
- *
  * @since 2.0
  */
 final class TkLockCreateTest {
 
     @Test
     void createsLock() {
-        final FkBase base = new FkBase();
-        final URN urn = URN.create("urn:test:1");
         Assertions.assertThrows(
             RsForward.class,
-            () -> new TkLockCreate(base).act(
+            () -> new TkLockCreate(new FkBase()).act(
                 new RqAuth(
                     new RqWithBody(
                         new RqFake(
@@ -44,7 +41,7 @@ final class TkLockCreateTest {
                         ),
                         "name=mylock&label=mylabel"
                     ),
-                    urn.toString(),
+                    URN.create("urn:test:1").toString(),
                     "Tëst-Üsér"
                 )
             ),

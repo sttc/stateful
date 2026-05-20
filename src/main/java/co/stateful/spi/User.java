@@ -9,7 +9,6 @@ import java.io.IOException;
 
 /**
  * User.
- *
  * @since 0.1
  */
 @Immutable
@@ -46,5 +45,4 @@ public interface User {
      * @since 1.1
      */
     Locks locks();
-
 }

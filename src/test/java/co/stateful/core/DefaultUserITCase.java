@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Integration case for {@link DefaultUser}.
- *
  * @since 0.1
  */
 final class DefaultUserITCase {
@@ -45,5 +44,4 @@ final class DefaultUserITCase {
             )
         );
     }
-
 }

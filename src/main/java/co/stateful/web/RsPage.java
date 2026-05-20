@@ -6,6 +6,7 @@ package co.stateful.web;
 
 import com.jcabi.manifests.Manifests;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collection;
 import java.util.HashSet;
 import lombok.EqualsAndHashCode;
@@ -49,79 +50,111 @@ import org.takes.rs.xe.XeStylesheet;
 public final class RsPage extends RsWrap {
 
     /**
+     * Pre-loaded GitHub app id from the manifest.
+     */
+    private static final String GITHUB_ID =
+        Manifests.read("Stateful-GithubId");
+
+    /**
+     * Pre-loaded version string in {@code version/revision} format.
+     */
+    private static final String VERSION = String.format(
+        "%s/%s",
+        Manifests.read("Stateful-Version"),
+        Manifests.read("Stateful-Revision")
+    );
+
+    /**
      * Ctor.
      * @param xsl XSL stylesheet path
      * @param req Request
      * @param sources Extra sources
-     * @throws IOException If fails
      */
     public RsPage(final String xsl, final Request req,
-        final XeSource... sources) throws IOException {
-        super(RsPage.make(xsl, req, sources));
+        final XeSource... sources) {
+        super(new RsPage.Negotiated(xsl, req, sources));
     }
 
     /**
-     * Build response with content negotiation.
-     * @param xsl XSL stylesheet path
-     * @param req Request
-     * @param sources Extra sources
-     * @return Response
-     * @throws IOException If fails
+     * Response wrapper that picks the content type based on the request's
+     * Accept header and lazily delegates to either raw XML or XSL-transformed
+     * HTML.
+     * @since 2.0
      */
-    private static Response make(final String xsl, final Request req,
-        final XeSource... sources) throws IOException {
-        return RsPage.negotiate(
-            new RsXembly(
-                new XeStylesheet(xsl),
+    private static final class Negotiated implements Response {
+
+        /**
+         * XSL stylesheet path applied when the client wants HTML.
+         */
+        private final String xsl;
+
+        /**
+         * Original request, used for content negotiation.
+         */
+        private final Request req;
+
+        /**
+         * Extra XE sources merged into the page.
+         */
+        private final XeSource[] sources;
+
+        /**
+         * Ctor.
+         * @param sheet XSL stylesheet path
+         * @param request Original HTTP request
+         * @param srcs Extra XE sources to merge into the page
+         */
+        Negotiated(final String sheet, final Request request,
+            final XeSource... srcs) {
+            this.xsl = sheet;
+            this.req = request;
+            this.sources = srcs.clone();
+        }
+
+        @Override
+        public Iterable<String> head() throws IOException {
+            return this.choose().head();
+        }
+
+        @Override
+        public InputStream body() throws IOException {
+            return this.choose().body();
+        }
+
+        /**
+         * Compose the response, applying content negotiation.
+         * @return Either the raw XML response or its HTML transform
+         * @throws IOException If header inspection fails
+         */
+        private Response choose() throws IOException {
+            final Response raw = new RsXembly(
+                new XeStylesheet(this.xsl),
                 new XeAppend(
                     "page",
-                    new XeChain(sources),
+                    new XeChain(this.sources),
                     new XeMillis(),
                     new XeSla(),
                     new XeDate(),
                     new XeLocalhost(),
                     new XeLink("home", "/"),
-                    new XeGithubLink(req, Manifests.read("Stateful-GithubId")),
+                    new XeGithubLink(this.req, RsPage.GITHUB_ID),
                     new XeAppend(
                         "version",
-                        new XeAppend("name", RsPage.version())
+                        new XeAppend("name", RsPage.VERSION)
                     )
                 )
-            ),
-            req
-        );
-    }
-
-    /**
-     * Content negotiation based on Accept header.
-     * @param raw Raw XML response
-     * @param req Request
-     * @return Response with correct content type
-     * @throws IOException If fails
-     */
-    private static Response negotiate(final Response raw, final Request req)
-        throws IOException {
-        final Response result;
-        final Collection<String> headers = new HashSet<>(
-            new RqHeaders.Base(req).header("Accept")
-        );
-        if (headers.contains("application/xml") || headers.contains("text/xml")) {
-            result = new RsWithType(raw, "text/xml");
-        } else {
-            result = new RsXslt(new RsWithType(raw, "text/html"));
+            );
+            final Collection<String> headers = new HashSet<>(
+                new RqHeaders.Base(this.req).header("Accept")
+            );
+            final Response result;
+            if (headers.contains("application/xml")
+                || headers.contains("text/xml")) {
+                result = new RsWithType(raw, "text/xml");
+            } else {
+                result = new RsXslt(new RsWithType(raw, "text/html"));
+            }
+            return result;
         }
-        return result;
-    }
-
-    /**
-     * Read version from manifest.
-     * @return Version string
-     */
-    private static String version() {
-        return String.format(
-            "%s/%s",
-            Manifests.read("Stateful-Version"),
-            Manifests.read("Stateful-Revision")
-        );
     }
 }

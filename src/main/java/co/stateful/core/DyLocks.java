@@ -27,7 +27,6 @@ import software.amazon.awssdk.services.dynamodb.model.PutItemRequest;
 
 /**
  * Locks in DynamoDB.
- *
  * @since 1.1
  */
 @Immutable
@@ -101,29 +100,20 @@ final class DyLocks implements Locks {
         String msg = "";
         try {
             this.table.region().aws().putItem(
-                PutItemRequest.builder()
-                    .tableName(this.table.name())
-                    .item(
-                        new ImmutableMap.Builder<String, AttributeValue>()
-                            .put(
-                                DyLocks.HASH,
-                                AttributeValue.builder().s(this.owner.toString()).build()
-                            )
-                            .put(
-                                DyLocks.RANGE,
-                                AttributeValue.builder().s(name).build()
-                            )
-                            .put(
-                                DyLocks.ATTR_LABEL,
-                                AttributeValue.builder().s(label).build()
-                            )
-                            .build()
-                    )
-                    .conditionExpression("attribute_not_exists(#lbl)")
-                    .expressionAttributeNames(
-                        ImmutableMap.of("#lbl", DyLocks.ATTR_LABEL)
-                    )
-                    .build()
+                PutItemRequest.builder().tableName(this.table.name()).item(
+                    new ImmutableMap.Builder<String, AttributeValue>().put(
+                        DyLocks.HASH,
+                        AttributeValue.builder().s(this.owner.toString()).build()
+                    ).put(
+                        DyLocks.RANGE,
+                        AttributeValue.builder().s(name).build()
+                    ).put(
+                        DyLocks.ATTR_LABEL,
+                        AttributeValue.builder().s(label).build()
+                    ).build()
+                ).conditionExpression("attribute_not_exists(#lbl)").expressionAttributeNames(
+                    ImmutableMap.of("#lbl", DyLocks.ATTR_LABEL)
+                ).build()
             );
         } catch (final ConditionalCheckFailedException ex) {
             msg = ex.getMessage();

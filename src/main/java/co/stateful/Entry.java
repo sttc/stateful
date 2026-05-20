@@ -9,6 +9,9 @@ import co.stateful.quota.QtBase;
 import co.stateful.quota.RtQuota;
 import co.stateful.web.TkApp;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import org.h2.jdbcx.JdbcDataSource;
 import org.takes.http.Exit;
 import org.takes.http.FtCli;
@@ -27,6 +30,11 @@ import org.takes.http.FtCli;
 public final class Entry {
 
     /**
+     * Maximum requests per user per minute.
+     */
+    private static final int MAX_RPM = 300;
+
+    /**
      * Ctor.
      */
     private Entry() {
@@ -38,14 +46,17 @@ public final class Entry {
      * @param args Command line args
      * @throws IOException If fails
      */
-    /**
-     * Maximum requests per user per minute.
-     */
-    private static final int MAX_RPM = 300;
-
     public static void main(final String... args) throws IOException {
         final JdbcDataSource src = new JdbcDataSource();
         src.setURL("jdbc:h2:mem:rate-limit;DB_CLOSE_DELAY=-1");
+        try (
+            Connection conn = src.getConnection();
+            Statement stmt = conn.createStatement()
+        ) {
+            stmt.execute(RtQuota.SCHEMA);
+        } catch (final SQLException ex) {
+            throw new IOException("Failed to initialize rate-limit table", ex);
+        }
         new FtCli(
             new TkApp(new QtBase(new DefaultBase(), new RtQuota(src, Entry.MAX_RPM))),
             args

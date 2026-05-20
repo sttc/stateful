@@ -17,7 +17,6 @@ import org.takes.rs.RsPrint;
 
 /**
  * Test case for {@link TkLocks}.
- *
  * @since 2.0
  */
 final class TkLocksTest {

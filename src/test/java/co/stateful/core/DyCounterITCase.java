@@ -19,7 +19,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Integration case for {@link DyCounter}.
- *
  * @since 0.1
  */
 final class DyCounterITCase {
@@ -57,7 +56,6 @@ final class DyCounterITCase {
      * @throws Exception If some problem inside
      */
     @Test
-    @SuppressWarnings("PMD.UnnecessaryLocalRule")
     void incrementAndSetInThreads() throws Exception {
         final Counters counters = new DefaultUser(
             new URN("urn:test:78833")
@@ -81,5 +79,4 @@ final class DyCounterITCase {
             Matchers.hasSize(20)
         );
     }
-
 }

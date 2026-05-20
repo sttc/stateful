@@ -15,7 +15,6 @@ import lombok.ToString;
 
 /**
  * Quota on a User.
- *
  * @since 1.4
  */
 @Immutable

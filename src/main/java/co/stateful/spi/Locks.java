@@ -10,7 +10,6 @@ import java.util.Map;
 
 /**
  * Locks.
- *
  * @since 1.1
  */
 @Immutable
@@ -61,5 +60,4 @@ public interface Locks {
      * @since 1.6
      */
     String unlock(String name, String label) throws IOException;
-
 }

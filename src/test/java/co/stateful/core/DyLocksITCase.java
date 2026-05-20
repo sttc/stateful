@@ -15,7 +15,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Integration case for {@link DyLocks}.
- *
  * @since 0.1
  */
 final class DyLocksITCase {
@@ -79,5 +78,4 @@ final class DyLocksITCase {
             Matchers.equalTo("")
         );
     }
-
 }
