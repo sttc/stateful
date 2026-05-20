@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Integration case for {@link DyCounters}.
- *
  * @since 0.1
  */
 final class DyCountersITCase {
@@ -41,5 +40,4 @@ final class DyCountersITCase {
             Matchers.emptyIterable()
         );
     }
-
 }

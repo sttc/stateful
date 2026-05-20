@@ -9,7 +9,6 @@ import java.io.IOException;
 
 /**
  * Quota.
- *
  * @since 1.4
  */
 @Immutable
@@ -43,5 +42,4 @@ public interface Quota {
      * @throws IOException If fails due to IO problem
      */
     void use(String name) throws IOException;
-
 }

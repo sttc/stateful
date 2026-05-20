@@ -19,7 +19,6 @@ import org.takes.rs.xe.XeChain;
 
 /**
  * Test case for {@link TkAuthenticated}.
- *
  * @since 2.0
  */
 final class TkAuthenticatedTest {

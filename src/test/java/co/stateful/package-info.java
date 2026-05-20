@@ -5,7 +5,6 @@
 
 /**
  * App, tests.
- *
  * @since 0.1
  */
 package co.stateful;

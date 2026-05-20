@@ -5,6 +5,9 @@
 package co.stateful.quota;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.Statement;
+import javax.sql.DataSource;
 import org.h2.jdbcx.JdbcDataSource;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -12,7 +15,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link RtQuota}.
- *
  * @since 2.0
  */
 final class RtQuotaTest {
@@ -21,6 +23,7 @@ final class RtQuotaTest {
     void blocksAfterMaximumRequests() throws Exception {
         final JdbcDataSource src = new JdbcDataSource();
         src.setURL("jdbc:h2:mem:test-block;DB_CLOSE_DELAY=-1");
+        RtQuotaTest.prepare(src);
         final Quota quota = new RtQuota(src, 3);
         final Quota user = quota.into("urn:test:1");
         user.use("a");
@@ -42,13 +45,14 @@ final class RtQuotaTest {
     void allowsRequestsFromDifferentUsers() throws Exception {
         final JdbcDataSource src = new JdbcDataSource();
         src.setURL("jdbc:h2:mem:test-users;DB_CLOSE_DELAY=-1");
+        RtQuotaTest.prepare(src);
         final Quota quota = new RtQuota(src, 2);
-        final Quota user1 = quota.into("urn:test:1");
-        final Quota user2 = quota.into("urn:test:2");
-        user1.use("op");
-        user1.use("op");
-        user2.use("op");
-        user2.use("op");
+        final Quota alice = quota.into("urn:test:1");
+        final Quota bob = quota.into("urn:test:2");
+        alice.use("op");
+        alice.use("op");
+        bob.use("op");
+        bob.use("op");
         MatcherAssert.assertThat(
             "Different users should have independent limits",
             true,
@@ -60,6 +64,7 @@ final class RtQuotaTest {
     void doesNotThrowWhenBelowLimit() throws Exception {
         final JdbcDataSource src = new JdbcDataSource();
         src.setURL("jdbc:h2:mem:test-below;DB_CLOSE_DELAY=-1");
+        RtQuotaTest.prepare(src);
         final Quota quota = new RtQuota(src, 300);
         final Quota user = quota.into("urn:test:1");
         for (int idx = 0; idx < 300; ++idx) {
@@ -70,5 +75,19 @@ final class RtQuotaTest {
             true,
             Matchers.is(true)
         );
+    }
+
+    /**
+     * Initialize the rate-limit tracking table on the test data source.
+     * @param src Data source to prepare
+     * @throws Exception If the schema cannot be created
+     */
+    private static void prepare(final DataSource src) throws Exception {
+        try (
+            Connection conn = src.getConnection();
+            Statement stmt = conn.createStatement()
+        ) {
+            stmt.execute(RtQuota.SCHEMA);
+        }
     }
 }

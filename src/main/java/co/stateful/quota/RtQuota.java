@@ -9,7 +9,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import javax.sql.DataSource;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -32,9 +31,12 @@ import lombok.ToString;
 public final class RtQuota implements Quota {
 
     /**
-     * DDL to create the tracking table.
+     * DDL that ensures the rate-limit tracking table exists.
+     *
+     * <p>Run this once on the configured data source before constructing any
+     * {@link RtQuota}; the constructor does not create the schema itself.
      */
-    private static final String CREATE =
+    public static final String SCHEMA =
         "CREATE TABLE IF NOT EXISTS requests (usr VARCHAR(512), ts BIGINT)";
 
     /**
@@ -63,7 +65,6 @@ public final class RtQuota implements Quota {
     /**
      * Shared data source for H2 in-memory database.
      */
-    @SuppressWarnings("PMD.BeanMembersShouldSerialize")
     private final transient DataSource source;
 
     /**
@@ -77,21 +78,12 @@ public final class RtQuota implements Quota {
     private final transient int maximum;
 
     /**
-     * Public constructor; initializes the H2 tracking table.
+     * Public constructor.
      * @param src H2 in-memory data source
      * @param max Maximum requests allowed per minute
-     * @throws IOException If the tracking table cannot be created
      */
-    public RtQuota(final DataSource src, final int max) throws IOException {
+    public RtQuota(final DataSource src, final int max) {
         this(src, "", max);
-        try (
-            Connection conn = this.source.getConnection();
-            Statement stmt = conn.createStatement()
-        ) {
-            stmt.execute(RtQuota.CREATE);
-        } catch (final SQLException ex) {
-            throw new IOException("Failed to initialize rate-limit table", ex);
-        }
     }
 
     /**
@@ -124,45 +116,71 @@ public final class RtQuota implements Quota {
         }
         final long now = System.currentTimeMillis();
         final long since = now - RtQuota.WINDOW;
-        try {
-            try (Connection conn = this.source.getConnection()) {
-                try (PreparedStatement stmt = conn.prepareStatement(
-                    RtQuota.INSERT
-                )) {
-                    stmt.setString(1, this.user);
-                    stmt.setLong(2, now);
-                    stmt.executeUpdate();
-                }
-                try (PreparedStatement stmt = conn.prepareStatement(
-                    RtQuota.DELETE
-                )) {
-                    stmt.setString(1, this.user);
-                    stmt.setLong(2, since);
-                    stmt.executeUpdate();
-                }
-                final int count;
-                try (PreparedStatement stmt = conn.prepareStatement(
-                    RtQuota.COUNT
-                )) {
-                    stmt.setString(1, this.user);
-                    stmt.setLong(2, since);
-                    try (ResultSet rs = stmt.executeQuery()) {
-                        rs.next();
-                        count = rs.getInt(1);
-                    }
-                }
-                if (count > this.maximum) {
-                    throw new IOException(
-                        String.format(
-                            "Rate limit exceeded for %s: %d requests/min (max: %d)",
-                            this.user, count, this.maximum
-                        )
-                    );
-                }
+        try (Connection conn = this.source.getConnection()) {
+            this.insert(conn, now);
+            this.purge(conn, since);
+            final int count = this.count(conn, since);
+            if (count > this.maximum) {
+                throw new IOException(
+                    String.format(
+                        "Rate limit exceeded for %s: %d requests/min (max: %d)",
+                        this.user, count, this.maximum
+                    )
+                );
             }
         } catch (final SQLException ex) {
             throw new IOException("Failed to check rate limit", ex);
         }
     }
 
+    /**
+     * Insert a request timestamp for the current user.
+     * @param conn Database connection
+     * @param when Timestamp of the request
+     * @throws SQLException If a database error occurs
+     */
+    private void insert(final Connection conn, final long when)
+        throws SQLException {
+        try (PreparedStatement stmt = conn.prepareStatement(RtQuota.INSERT)) {
+            stmt.setString(1, this.user);
+            stmt.setLong(2, when);
+            stmt.executeUpdate();
+        }
+    }
+
+    /**
+     * Remove expired request records for the current user.
+     * @param conn Database connection
+     * @param since Cutoff timestamp; entries older than this are removed
+     * @throws SQLException If a database error occurs
+     */
+    private void purge(final Connection conn, final long since)
+        throws SQLException {
+        try (PreparedStatement stmt = conn.prepareStatement(RtQuota.DELETE)) {
+            stmt.setString(1, this.user);
+            stmt.setLong(2, since);
+            stmt.executeUpdate();
+        }
+    }
+
+    /**
+     * Count the requests by the current user in the active window.
+     * @param conn Database connection
+     * @param since Window start timestamp
+     * @return Number of requests within the window
+     * @throws SQLException If a database error occurs
+     */
+    private int count(final Connection conn, final long since)
+        throws SQLException {
+        try (PreparedStatement stmt = conn.prepareStatement(RtQuota.COUNT)) {
+            stmt.setString(1, this.user);
+            stmt.setLong(2, since);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (!rs.next()) {
+                    throw new SQLException("Empty count result");
+                }
+                return rs.getInt(1);
+            }
+        }
+    }
 }

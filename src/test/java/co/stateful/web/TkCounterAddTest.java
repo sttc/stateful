@@ -16,18 +16,15 @@ import org.takes.rq.RqWithBody;
 
 /**
  * Test case for {@link TkCounterAdd}.
- *
  * @since 2.0
  */
 final class TkCounterAddTest {
 
     @Test
     void createsCounter() {
-        final FkBase base = new FkBase();
-        final URN urn = URN.create("urn:test:1");
         Assertions.assertThrows(
             RsForward.class,
-            () -> new TkCounterAdd(base).act(
+            () -> new TkCounterAdd(new FkBase()).act(
                 new RqAuth(
                     new RqWithBody(
                         new RqFake(
@@ -40,7 +37,7 @@ final class TkCounterAddTest {
                         ),
                         "name=counter123"
                     ),
-                    urn.toString(),
+                    URN.create("urn:test:1").toString(),
                     "Tëst-Üsér-αβγ"
                 )
             ),
@@ -75,7 +72,6 @@ final class TkCounterAddTest {
 
     @Test
     void rejectsTooLongName() {
-        final String name = "a".repeat(64);
         Assertions.assertThrows(
             RsForward.class,
             () -> new TkCounterAdd(new FkBase()).act(
@@ -89,7 +85,7 @@ final class TkCounterAddTest {
                             ),
                             ""
                         ),
-                        String.format("name=%s", name)
+                        String.format("name=%s", "a".repeat(64))
                     ),
                     "urn:test:3",
                     "Námé"

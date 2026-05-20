@@ -67,8 +67,7 @@ public final class TkLocks implements Take {
             new XeLink("unlock", "/k/unlock"),
             new XeSource() {
                 @Override
-                public Iterable<Directive> toXembly()
-                    throws IOException {
+                public Iterable<Directive> toXembly() throws IOException {
                     return new XeChain(
                         new TkAuthenticated(TkLocks.this.base).source(req),
                         new XeLink("takes:logout", "/?PsByFlag=PsLogout")

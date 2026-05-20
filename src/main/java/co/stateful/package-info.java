@@ -5,7 +5,6 @@
 
 /**
  * Main.
- *
  * @since 1.6.6
  */
 package co.stateful;

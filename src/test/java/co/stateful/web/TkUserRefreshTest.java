@@ -16,7 +16,6 @@ import org.takes.rq.RqFake;
 
 /**
  * Test case for {@link TkUserRefresh}.
- *
  * @since 2.0
  */
 final class TkUserRefreshTest {

@@ -18,7 +18,6 @@ import org.takes.rs.RsPrint;
 
 /**
  * Test case for {@link TkError}.
- *
  * @since 2.0
  */
 final class TkErrorTest {

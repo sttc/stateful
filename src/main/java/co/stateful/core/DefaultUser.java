@@ -33,7 +33,6 @@ import org.apache.commons.lang3.RandomStringUtils;
 
 /**
  * Default user.
- *
  * @since 0.1
  * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
  */
@@ -59,46 +58,27 @@ final class DefaultUser implements User {
     static final String ATTR_TOKEN = "token";
 
     /**
+     * Shared DynamoDB region for all users; built once from the manifest.
+     */
+    private static final Region REGION = DefaultUser.region();
+
+    /**
      * Name of the user.
      */
     private final transient URN name;
 
     /**
-     * Region.
-     */
-    private final transient Region region;
-
-    /**
      * Ctor.
      * @param urn Name of it
      */
-    @SuppressWarnings("PMD.ConstructorOnlyInitializesOrCallOtherConstructors")
     DefaultUser(final URN urn) {
         this.name = urn;
-        final String key = Manifests.read("Stateful-DynamoKey");
-        Credentials creds = new Credentials.Simple(
-            key,
-            Manifests.read("Stateful-DynamoSecret")
-        );
-        if ("AAAAABBBBBAAAAABBBBB".equals(key)) {
-            creds = new Credentials.Direct(
-                Credentials.Simple.class.cast(creds),
-                Integer.parseInt(
-                    Manifests.read("Stateful-DynamoPort")
-                )
-            );
-        }
-        Logger.info(DefaultUser.class, "Connecting to AWS as %s...", key);
-        this.region = new Region.Prefixed(
-            new Region.Simple(creds),
-            Manifests.read("Stateful-DynamoPrefix")
-        );
     }
 
     @Override
     @Cacheable(forever = true)
     public boolean exists() {
-        return this.region.table(DefaultUser.TOKENS)
+        return DefaultUser.REGION.table(DefaultUser.TOKENS)
             .frame().through(new QueryValve())
             .where(DefaultUser.HASH, Conditions.equalTo(this.name))
             .iterator().hasNext();
@@ -107,7 +87,7 @@ final class DefaultUser implements User {
     @Override
     @Cacheable(lifetime = 1, unit = TimeUnit.HOURS)
     public String token() throws IOException {
-        final Iterator<Item> items = this.region.table(DefaultUser.TOKENS)
+        final Iterator<Item> items = DefaultUser.REGION.table(DefaultUser.TOKENS)
             .frame().through(new QueryValve())
             .where(DefaultUser.HASH, Conditions.equalTo(this.name))
             .iterator();
@@ -124,33 +104,54 @@ final class DefaultUser implements User {
     @Override
     @Cacheable.FlushAfter
     public void refresh() throws IOException {
-        this.region.table(DefaultUser.TOKENS).put(
-            new Attributes()
-                .with(DefaultUser.HASH, this.name)
-                .with(
-                    DefaultUser.ATTR_TOKEN,
-                    Joiner.on('-').join(
-                        Iterables.limit(
-                            Splitter.fixedLength(4).split(
-                                DigestUtils.md5Hex(
-                                    RandomStringUtils.secure().next(10)
-                                ).toUpperCase(Locale.ENGLISH)
-                            ),
-                            4
-                        )
+        DefaultUser.REGION.table(DefaultUser.TOKENS).put(
+            new Attributes().with(DefaultUser.HASH, this.name).with(
+                DefaultUser.ATTR_TOKEN,
+                Joiner.on('-').join(
+                    Iterables.limit(
+                        Splitter.fixedLength(4).split(
+                            DigestUtils.md5Hex(
+                                RandomStringUtils.secure().next(10)
+                            ).toUpperCase(Locale.ENGLISH)
+                        ),
+                        4
                     )
                 )
+            )
         );
     }
 
     @Override
     @Cacheable(lifetime = 1, unit = TimeUnit.HOURS)
     public Counters counters() {
-        return new DyCounters(this.region.table(DyCounters.TBL), this.name);
+        return new DyCounters(DefaultUser.REGION.table(DyCounters.TBL), this.name);
     }
 
     @Override
     public Locks locks() {
-        return new DyLocks(this.region.table(DyLocks.TBL), this.name);
+        return new DyLocks(DefaultUser.REGION.table(DyLocks.TBL), this.name);
+    }
+
+    /**
+     * Build the shared DynamoDB region from the manifest.
+     * @return Prefixed region
+     */
+    private static Region region() {
+        final String key = Manifests.read("Stateful-DynamoKey");
+        Credentials creds = new Credentials.Simple(
+            key,
+            Manifests.read("Stateful-DynamoSecret")
+        );
+        if ("AAAAABBBBBAAAAABBBBB".equals(key)) {
+            creds = new Credentials.Direct(
+                Credentials.Simple.class.cast(creds),
+                Integer.parseInt(Manifests.read("Stateful-DynamoPort"))
+            );
+        }
+        Logger.info(DefaultUser.class, "Connecting to AWS as %s...", key);
+        return new Region.Prefixed(
+            new Region.Simple(creds),
+            Manifests.read("Stateful-DynamoPrefix")
+        );
     }
 }

@@ -14,7 +14,6 @@ import lombok.ToString;
 
 /**
  * Quota on Locks.
- *
  * @since 1.4
  */
 @Immutable

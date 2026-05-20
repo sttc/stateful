@@ -5,7 +5,6 @@
 
 /**
  * Fake objects for testing.
- *
  * @since 2.0
  */
 package co.stateful.fake;

@@ -46,8 +46,7 @@ public final class RqUser extends RqWrap {
     /**
      * Get user.
      * @return User
-     * @throws IOException If fails
-     * @throws HttpException If not authenticated
+     * @throws IOException If fails or not authenticated
      */
     public User user() throws IOException {
         final Identity identity = new RqAuth(this).identity();

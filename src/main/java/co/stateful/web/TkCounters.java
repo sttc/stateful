@@ -64,8 +64,7 @@ public final class TkCounters implements Take {
             new XeLink("add", "./add"),
             new XeSource() {
                 @Override
-                public Iterable<Directive> toXembly()
-                    throws IOException {
+                public Iterable<Directive> toXembly() throws IOException {
                     return new XeChain(
                         new TkAuthenticated(TkCounters.this.base).source(req),
                         new XeLink("takes:logout", "/?PsByFlag=PsLogout")

@@ -54,33 +54,41 @@ public final class TkAuthenticated {
         final Identity identity = new RqAuth(req).identity();
         return new XeWhen(
             !identity.equals(Identity.ANONYMOUS),
-            () -> new XeChain(
-                new XeDirectives(
-                    new Directives()
-                        .add("identity")
-                        .add("urn").set(identity.urn()).up()
-                        .add("name").set(
-                            identity.properties().getOrDefault("name", "unknown")
-                        ).up()
-                        .add("photo").set(
-                            identity.properties().getOrDefault(
-                                "picture",
-                                "/images/pomegranate.svg"
-                            )
-                        ).up()
-                        .up()
-                ),
-                new XeAppend(
-                    "token",
-                    this.base.user(
-                        URN.create(identity.urn())
-                    ).token()
-                ),
-                new XeLink("menu:home", "/"),
-                new XeLink("menu:counters", "/counters"),
-                new XeLink("menu:locks", "/k"),
-                new XeLink("user:refresh", "/u/refresh")
-            )
+            () -> this.chain(identity)
+        );
+    }
+
+    /**
+     * Build the XeChain for an authenticated identity.
+     * @param identity Authenticated identity
+     * @return XeSource chain
+     * @throws IOException If fails
+     */
+    private XeSource chain(final Identity identity) throws IOException {
+        return new XeChain(
+            new XeDirectives(
+                new Directives()
+                    .add("identity")
+                    .add("urn").set(identity.urn()).up()
+                    .add("name").set(
+                        identity.properties().getOrDefault("name", "unknown")
+                    ).up()
+                    .add("photo").set(
+                        identity.properties().getOrDefault(
+                            "picture",
+                            "/images/pomegranate.svg"
+                        )
+                    ).up()
+                    .up()
+            ),
+            new XeAppend(
+                "token",
+                this.base.user(URN.create(identity.urn())).token()
+            ),
+            new XeLink("menu:home", "/"),
+            new XeLink("menu:counters", "/counters"),
+            new XeLink("menu:locks", "/k"),
+            new XeLink("user:refresh", "/u/refresh")
         );
     }
 }

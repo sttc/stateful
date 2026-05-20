@@ -41,21 +41,7 @@ public final class TkAppFallback implements Take {
      * @param origin Origin take
      */
     public TkAppFallback(final Take origin) {
-        this.take = TkAppFallback.wrap(origin);
-    }
-
-    @Override
-    public Response act(final Request req) throws Exception {
-        return this.take.act(req);
-    }
-
-    /**
-     * Wrap with fallback.
-     * @param origin Origin take
-     * @return Wrapped take
-     */
-    private static Take wrap(final Take origin) {
-        return new TkFallback(
+        this.take = new TkFallback(
             origin,
             new FbChain(
                 new FbStatus(
@@ -80,6 +66,11 @@ public final class TkAppFallback implements Take {
                 }
             )
         );
+    }
+
+    @Override
+    public Response act(final Request req) throws Exception {
+        return this.take.act(req);
     }
 
     /**

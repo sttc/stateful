@@ -25,7 +25,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public final class FkUser implements User {
 
     /**
-     * Token.
+     * Token, generated lazily on first read and resettable via refresh.
      */
     private final AtomicReference<String> tkn;
 
@@ -43,7 +43,7 @@ public final class FkUser implements User {
      * Ctor.
      */
     public FkUser() {
-        this(new FkCounters(), new FkLocks());
+        this(new FkCounters(), new FkLocks(), new AtomicReference<>());
     }
 
     /**
@@ -52,9 +52,20 @@ public final class FkUser implements User {
      * @param locks Locks
      */
     public FkUser(final Counters counters, final Locks locks) {
-        this.tkn = new AtomicReference<>(UUID.randomUUID().toString());
+        this(counters, locks, new AtomicReference<>());
+    }
+
+    /**
+     * Ctor that stores all dependencies as-is.
+     * @param counters Counters
+     * @param locks Locks
+     * @param token Initial token holder; empty value means lazy-generate
+     */
+    private FkUser(final Counters counters, final Locks locks,
+        final AtomicReference<String> token) {
         this.ctrs = counters;
         this.lcks = locks;
+        this.tkn = token;
     }
 
     @Override
@@ -64,7 +75,17 @@ public final class FkUser implements User {
 
     @Override
     public String token() {
-        return this.tkn.get();
+        return this.tkn.updateAndGet(
+            prev -> {
+                final String value;
+                if (prev == null) {
+                    value = UUID.randomUUID().toString();
+                } else {
+                    value = prev;
+                }
+                return value;
+            }
+        );
     }
 
     @Override

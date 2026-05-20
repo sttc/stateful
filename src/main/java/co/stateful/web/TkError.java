@@ -50,8 +50,7 @@ public final class TkError implements Take {
                 req,
                 new XeSource() {
                     @Override
-                    public Iterable<Directive> toXembly()
-                        throws IOException {
+                    public Iterable<Directive> toXembly() throws IOException {
                         return new XeChain(
                             new TkAuthenticated(TkError.this.base).source(req),
                             new XeLink("takes:logout", "/?PsByFlag=PsLogout")

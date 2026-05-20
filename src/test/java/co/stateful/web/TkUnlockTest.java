@@ -19,7 +19,6 @@ import org.takes.rq.RqMethod;
 
 /**
  * Test case for {@link TkUnlock}.
- *
  * @since 2.0
  */
 final class TkUnlockTest {
@@ -96,9 +95,8 @@ final class TkUnlockTest {
     @Test
     void handlesUrlEncodedLabelWithHashAndSlash() throws Exception {
         final FkBase base = new FkBase();
-        final String label = "objectionary/home#376";
         final String name = "rt-repo-objectionary-home";
-        base.user(URN.create("urn:test:4")).locks().lock(name, label);
+        base.user(URN.create("urn:test:4")).locks().lock(name, "objectionary/home#376");
         try {
             new TkUnlock(base).act(
                 new RqAuth(
@@ -121,10 +119,9 @@ final class TkUnlockTest {
 
     @Test
     void handlesNonExistentLockWithLabel() throws Exception {
-        final FkBase base = new FkBase();
         Assertions.assertThrows(
             RsForward.class,
-            () -> new TkUnlock(base).act(
+            () -> new TkUnlock(new FkBase()).act(
                 new RqAuth(
                     new RqFake(
                         RqMethod.GET,
