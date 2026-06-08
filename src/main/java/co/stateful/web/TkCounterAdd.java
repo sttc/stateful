@@ -51,7 +51,7 @@ public final class TkCounterAdd implements Take {
             );
         }
         final RqUser user = new RqUser(req, this.base);
-        if (Iterables.size(user.user().counters().names()) > Counters.MAX) {
+        if (Iterables.size(user.user().counters().names()) >= Counters.MAX) {
             throw new RsForward(
                 new RsFlash("too many counters in your account"),
                 "/counters"
