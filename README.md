@@ -25,7 +25,7 @@ read your URN (in the form `urn:github:<id>`) and your security token,
 and to rotate the token through the refresh link. Every REST call must
 carry both as request headers:
 
-```
+```http
 X-Sttc-URN: urn:github:526301
 X-Sttc-Token: B28F-38E4-B305-C3A3
 ```
@@ -39,7 +39,7 @@ Counter names are 1 to 32 characters from `[0-9a-zA-Z-]`. An account is
 capped at 64 counters. Create a counter with a form-encoded `POST` to
 `/counters/add`:
 
-```
+```bash
 curl -X POST https://www.stateful.co/counters/add \
   -H "X-Sttc-URN: urn:github:526301" \
   -H "X-Sttc-Token: B28F-38E4-B305-C3A3" \
@@ -54,7 +54,7 @@ value or move it by an arbitrary delta with a `GET` to
 plain text, so a `value=0` increment reads the counter without mutating
 it, and a negative value subtracts. Delete a counter with `/counters/delete?name=<name>`.
 
-```
+```bash
 curl -X PUT "https://www.stateful.co/c/test/set?value=123" \
   -H "X-Sttc-URN: urn:github:526301" \
   -H "X-Sttc-Token: B28F-38E4-B305-C3A3"
@@ -73,7 +73,7 @@ is capped at 4096 locks. Acquire a lock with a form-encoded `POST` to
 holder. The server replies HTTP 303 on success and HTTP 409 when the
 lock is held by another label:
 
-```
+```bash
 curl -X POST https://www.stateful.co/k/lock \
   -H "X-Sttc-URN: urn:github:526301" \
   -H "X-Sttc-Token: B28F-38E4-B305-C3A3" \
@@ -91,6 +91,6 @@ with `/k/label?name=<name>`; the body is the label as plain text.
 The build runs on Java 21 with Maven. Clone the repository and execute
 the full Qulice profile that gates pull requests in CI:
 
-```
+```bash
 mvn --batch-mode clean install -Pqulice
 ```
