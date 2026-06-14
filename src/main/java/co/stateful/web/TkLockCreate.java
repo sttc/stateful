@@ -74,7 +74,7 @@ public final class TkLockCreate implements Take {
             );
         }
         final RqUser user = new RqUser(req, this.base);
-        if (user.user().locks().names().size() > Locks.MAX) {
+        if (user.user().locks().names().size() >= Locks.MAX) {
             throw new RsForward(
                 new RsFlash("too many locks in your account"),
                 "/k"
