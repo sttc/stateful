@@ -9,6 +9,8 @@ import co.stateful.spi.User;
 import com.jcabi.urn.URN;
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.util.Iterator;
 import org.takes.HttpException;
 import org.takes.Request;
@@ -91,7 +93,12 @@ public final class PsHeader implements Pass {
         if (!user.exists()) {
             throw new HttpException(HttpURLConnection.HTTP_UNAUTHORIZED);
         }
-        if (!user.token().equals(token)) {
+        if (
+            !MessageDigest.isEqual(
+                user.token().getBytes(StandardCharsets.UTF_8),
+                token.getBytes(StandardCharsets.UTF_8)
+            )
+        ) {
             throw new HttpException(HttpURLConnection.HTTP_UNAUTHORIZED);
         }
         return new Opt.Single<>(
