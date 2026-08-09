@@ -5,6 +5,8 @@
 package co.stateful.web;
 
 import co.stateful.spi.Base;
+import com.google.common.base.Splitter;
+import com.google.common.collect.Iterables;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.takes.Request;
@@ -167,7 +169,9 @@ public final class TkApp extends TkWrap {
     private static Response counter(final Base base, final Request req,
         final boolean set) throws Exception {
         final Matcher matcher = TkApp.PTN_COUNTER.matcher(
-            req.head().iterator().next().split(" ")[1]
+            Iterables.get(
+                Splitter.on(' ').split(req.head().iterator().next()), 1
+            )
         );
         if (!matcher.matches()) {
             throw new IllegalStateException("Invalid counter URL");

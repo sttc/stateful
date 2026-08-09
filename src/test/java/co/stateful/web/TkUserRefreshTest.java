@@ -36,20 +36,20 @@ final class TkUserRefreshTest {
     }
 
     @Test
-    @SuppressWarnings("PMD.UnnecessaryLocalRule")
     void changesTokenAfterRefresh() throws Exception {
         final FkBase base = new FkBase();
         final String before = base.user(URN.create("urn:test:2")).token();
-        try {
-            new TkUserRefresh(base).act(
+        Assertions.assertThrows(
+            RsForward.class,
+            () -> new TkUserRefresh(base).act(
                 new RqAuth(
                     new RqFake(),
                     "urn:test:2",
                     "Üsér"
                 )
-            );
-        } catch (final RsForward ignored) {
-        }
+            ),
+            "TkUserRefresh did not forward after refresh"
+        );
         MatcherAssert.assertThat(
             "TkUserRefresh did not change token",
             base.user(URN.create("urn:test:2")).token(),

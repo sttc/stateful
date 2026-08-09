@@ -4,10 +4,10 @@
  */
 package co.stateful.fake;
 
+import com.google.common.collect.Iterables;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.Collections;
 import org.takes.Request;
 
 /**
@@ -38,12 +38,10 @@ public final class RqXml implements Request {
 
     @Override
     public Iterable<String> head() throws IOException {
-        final List<String> head = new LinkedList<>();
-        for (final String line : this.origin.head()) {
-            head.add(line);
-        }
-        head.add("Accept: text/xml");
-        return head;
+        return Iterables.concat(
+            this.origin.head(),
+            Collections.singleton("Accept: text/xml")
+        );
     }
 
     @Override

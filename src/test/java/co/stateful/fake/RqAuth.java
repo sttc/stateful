@@ -4,10 +4,11 @@
  */
 package co.stateful.fake;
 
+import com.google.common.collect.Iterables;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.LinkedList;
-import java.util.List;
+import java.nio.charset.StandardCharsets;
+import java.util.Collections;
 import org.takes.Request;
 import org.takes.facets.auth.Identity;
 import org.takes.facets.auth.codecs.CcPlain;
@@ -54,24 +55,23 @@ public final class RqAuth implements Request {
 
     @Override
     public Iterable<String> head() throws IOException {
-        final List<String> head = new LinkedList<>();
-        for (final String line : this.origin.head()) {
-            head.add(line);
-        }
-        head.add(
-            String.format(
-                "TkAuth: %s",
-                new String(
-                    new CcPlain().encode(
-                        new Identity.Simple(
-                            this.urn,
-                            java.util.Collections.singletonMap("name", this.name)
-                        )
+        return Iterables.concat(
+            this.origin.head(),
+            Collections.singleton(
+                String.format(
+                    "TkAuth: %s",
+                    new String(
+                        new CcPlain().encode(
+                            new Identity.Simple(
+                                this.urn,
+                                Collections.singletonMap("name", this.name)
+                            )
+                        ),
+                        StandardCharsets.UTF_8
                     )
                 )
             )
         );
-        return head;
     }
 
     @Override

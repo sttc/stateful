@@ -24,7 +24,6 @@ final class DyLocksITCase {
      * @throws Exception If some problem inside
      */
     @Test
-    @SuppressWarnings("PMD.UnnecessaryLocalRule")
     void locksAndUnlocksInThreads() throws Exception {
         final Locks locks = new DefaultUser(
             new URN("urn:test:787009")
@@ -60,7 +59,7 @@ final class DyLocksITCase {
             new URN("urn:test:78119")
         ).locks();
         final String name = "lock-980";
-        final String label = "some label \u20ac";
+        final String label = "some label €";
         locks.lock(name, label);
         MatcherAssert.assertThat(
             "unlock with wrong label should fail and return non-empty string",

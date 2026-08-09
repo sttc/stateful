@@ -47,8 +47,9 @@ final class TkUnlockTest {
     void removesLockAfterUnlock() throws Exception {
         final FkBase base = new FkBase();
         base.user(URN.create("urn:test:2")).locks().lock("secret", "password");
-        try {
-            new TkUnlock(base).act(
+        Assertions.assertThrows(
+            RsForward.class,
+            () -> new TkUnlock(base).act(
                 new RqAuth(
                     new RqFake(
                         RqMethod.GET,
@@ -57,9 +58,9 @@ final class TkUnlockTest {
                     "urn:test:2",
                     "Üsér"
                 )
-            );
-        } catch (final RsForward ignored) {
-        }
+            ),
+            "TkUnlock did not forward after unlock"
+        );
         MatcherAssert.assertThat(
             "TkUnlock did not remove lock",
             base.user(URN.create("urn:test:2")).locks().label("secret"),
@@ -97,8 +98,9 @@ final class TkUnlockTest {
         final FkBase base = new FkBase();
         final String name = "rt-repo-objectionary-home";
         base.user(URN.create("urn:test:4")).locks().lock(name, "objectionary/home#376");
-        try {
-            new TkUnlock(base).act(
+        Assertions.assertThrows(
+            RsForward.class,
+            () -> new TkUnlock(base).act(
                 new RqAuth(
                     new RqFake(
                         RqMethod.GET,
@@ -107,9 +109,9 @@ final class TkUnlockTest {
                     "urn:test:4",
                     "Üsér"
                 )
-            );
-        } catch (final RsForward ignored) {
-        }
+            ),
+            "TkUnlock did not forward after unlock with URL-encoded label"
+        );
         MatcherAssert.assertThat(
             "TkUnlock did not remove lock with URL-encoded label containing hash and slash",
             base.user(URN.create("urn:test:4")).locks().label(name),

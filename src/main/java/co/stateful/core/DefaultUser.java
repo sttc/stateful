@@ -34,7 +34,6 @@ import org.apache.commons.lang3.RandomStringUtils;
 /**
  * Default user.
  * @since 0.1
- * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
  */
 @Immutable
 @ToString

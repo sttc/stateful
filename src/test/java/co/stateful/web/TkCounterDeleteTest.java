@@ -44,8 +44,9 @@ final class TkCounterDeleteTest {
     void removesCounterAfterDeletion() throws Exception {
         final FkBase base = new FkBase();
         base.user(URN.create("urn:test:2")).counters().create("toremove");
-        try {
-            new TkCounterDelete(base).act(
+        Assertions.assertThrows(
+            RsForward.class,
+            () -> new TkCounterDelete(base).act(
                 new RqAuth(
                     new RqFake(
                         "GET",
@@ -54,9 +55,9 @@ final class TkCounterDeleteTest {
                     "urn:test:2",
                     "Üsér"
                 )
-            );
-        } catch (final RsForward ignored) {
-        }
+            ),
+            "TkCounterDelete did not forward after deletion"
+        );
         MatcherAssert.assertThat(
             "TkCounterDelete did not remove counter",
             base.user(URN.create("urn:test:2")).counters().get("toremove"),
