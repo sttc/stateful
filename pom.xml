@@ -18,6 +18,9 @@
   <description>Stateful RESTful Web Primitives</description>
   <url>https://www.stateful.co</url>
   <inceptionYear>2014</inceptionYear>
+  <properties>
+    <argLine/>
+  </properties>
   <organization>
     <name>Zerocracy</name>
     <url>https://www.zerocracy.com</url>
@@ -254,13 +257,13 @@
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
-          <argLine>--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.io=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED</argLine>
+          <argLine>@{argLine} --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.io=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED</argLine>
         </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-failsafe-plugin</artifactId>
         <configuration>
-          <argLine>--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.io=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED</argLine>
+          <argLine>@{argLine} --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.io=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED</argLine>
         </configuration>
         <executions>
           <execution>
