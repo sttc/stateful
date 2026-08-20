@@ -154,18 +154,6 @@ public final class TkApp extends TkWrap {
         );
     }
 
-    /**
-     * Dispatch a counter-set or counter-increment request.
-     *
-     * <p>Extracts the counter name from the URL, then delegates to the
-     * appropriate take.
-     *
-     * @param base Base
-     * @param req Incoming request
-     * @param set True for set, false for increment
-     * @return Response from the dispatched take
-     * @throws Exception If the take fails
-     */
     private static Response counter(final Base base, final Request req,
         final boolean set) throws Exception {
         final Matcher matcher = TkApp.PTN_COUNTER.matcher(

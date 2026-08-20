@@ -58,12 +58,6 @@ public final class TkAuthenticated {
         );
     }
 
-    /**
-     * Build the XeChain for an authenticated identity.
-     * @param identity Authenticated identity
-     * @return XeSource chain
-     * @throws IOException If fails
-     */
     private XeSource chain(final Identity identity) throws IOException {
         return new XeChain(
             new XeDirectives(

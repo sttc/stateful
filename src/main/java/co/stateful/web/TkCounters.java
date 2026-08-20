@@ -74,12 +74,6 @@ public final class TkCounters implements Take {
         );
     }
 
-    /**
-     * List counters.
-     * @param req Request
-     * @return XeSource
-     * @throws IOException If fails
-     */
     private XeSource list(final Request req) throws IOException {
         final Directives dirs = new Directives().add("counters");
         for (final String name : new RqUser(req, this.base).user().counters().names()) {

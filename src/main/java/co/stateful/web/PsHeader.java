@@ -78,13 +78,6 @@ public final class PsHeader implements Pass {
         return res;
     }
 
-    /**
-     * Authenticate with URN and token.
-     * @param urn User URN
-     * @param token User token
-     * @return Identity option
-     * @throws IOException If fails
-     */
     private Opt<Identity> auth(final URN urn, final String token)
         throws IOException {
         final User user = this.base.user(urn);

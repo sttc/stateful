@@ -133,12 +133,6 @@ public final class RtQuota implements Quota {
         }
     }
 
-    /**
-     * Insert a request timestamp for the current user.
-     * @param conn Database connection
-     * @param when Timestamp of the request
-     * @throws SQLException If a database error occurs
-     */
     private void insert(final Connection conn, final long when)
         throws SQLException {
         try (PreparedStatement stmt = conn.prepareStatement(RtQuota.INSERT)) {
@@ -148,12 +142,6 @@ public final class RtQuota implements Quota {
         }
     }
 
-    /**
-     * Remove expired request records for the current user.
-     * @param conn Database connection
-     * @param since Cutoff timestamp; entries older than this are removed
-     * @throws SQLException If a database error occurs
-     */
     private void purge(final Connection conn, final long since)
         throws SQLException {
         try (PreparedStatement stmt = conn.prepareStatement(RtQuota.DELETE)) {
@@ -163,13 +151,6 @@ public final class RtQuota implements Quota {
         }
     }
 
-    /**
-     * Count the requests by the current user in the active window.
-     * @param conn Database connection
-     * @param since Window start timestamp
-     * @return Number of requests within the window
-     * @throws SQLException If a database error occurs
-     */
     private int count(final Connection conn, final long since)
         throws SQLException {
         try (PreparedStatement stmt = conn.prepareStatement(RtQuota.COUNT)) {

@@ -131,10 +131,6 @@ final class DefaultUser implements User {
         return new DyLocks(DefaultUser.REGION.table(DyLocks.TBL), this.name);
     }
 
-    /**
-     * Build the shared DynamoDB region from the manifest.
-     * @return Prefixed region
-     */
     private static Region region() {
         final String key = Manifests.read("Stateful-DynamoKey");
         Credentials creds = new Credentials.Simple(

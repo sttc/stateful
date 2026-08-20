@@ -77,12 +77,6 @@ public final class TkLocks implements Take {
         );
     }
 
-    /**
-     * List locks.
-     * @param req Request
-     * @return XeSource
-     * @throws IOException If fails
-     */
     private XeSource list(final Request req) throws IOException {
         final Directives dirs = new Directives().add("locks");
         for (final Map.Entry<String, String> entry

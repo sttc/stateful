@@ -73,10 +73,6 @@ public final class TkAppFallback implements Take {
         return this.take.act(req);
     }
 
-    /**
-     * Not found response.
-     * @return Response
-     */
     private static Response notfound() {
         return new RsWithStatus(
             new RsText("Page not found"),
@@ -84,10 +80,6 @@ public final class TkAppFallback implements Take {
         );
     }
 
-    /**
-     * Unauthorized response.
-     * @return Response
-     */
     private static Response unauthorized() {
         return new RsWithStatus(
             new RsText("Authentication required"),
@@ -95,11 +87,6 @@ public final class TkAppFallback implements Take {
         );
     }
 
-    /**
-     * Conflict response.
-     * @param req Fallback request
-     * @return Response
-     */
     private static Response conflict(final RqFallback req) {
         return new RsWithStatus(
             new RsText(req.throwable().getMessage()),
@@ -107,11 +94,6 @@ public final class TkAppFallback implements Take {
         );
     }
 
-    /**
-     * Error response.
-     * @param req Fallback request
-     * @return Response
-     */
     private static Response error(final RqFallback req) {
         return new RsWithStatus(
             new RsText(

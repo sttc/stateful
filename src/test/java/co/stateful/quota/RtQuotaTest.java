@@ -77,11 +77,6 @@ final class RtQuotaTest {
         );
     }
 
-    /**
-     * Initialize the rate-limit tracking table on the test data source.
-     * @param src Data source to prepare
-     * @throws Exception If the schema cannot be created
-     */
     private static void prepare(final DataSource src) throws Exception {
         try (
             Connection conn = src.getConnection();
