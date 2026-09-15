@@ -27,6 +27,7 @@ import software.amazon.awssdk.services.dynamodb.model.PutItemRequest;
 
 /**
  * Locks in DynamoDB.
+ *
  * @since 1.1
  */
 @Immutable
@@ -67,6 +68,7 @@ final class DyLocks implements Locks {
 
     /**
      * Ctor.
+     *
      * @param tbl Dynamo table
      * @param urn Owner of them
      */

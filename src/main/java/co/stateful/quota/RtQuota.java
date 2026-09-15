@@ -17,7 +17,7 @@ import lombok.ToString;
  * Rate-throttling Quota backed by an in-memory H2 database.
  *
  * <p>Limits each user to a configurable number of API calls per minute.
- * Usage example:
+ * Usage example:</p>
  * <pre>{@code
  * JdbcDataSource ds = new JdbcDataSource();
  * ds.setURL("jdbc:h2:mem:rate-limit;DB_CLOSE_DELAY=-1");
@@ -34,33 +34,10 @@ public final class RtQuota implements Quota {
      * DDL that ensures the rate-limit tracking table exists.
      *
      * <p>Run this once on the configured data source before constructing any
-     * {@link RtQuota}; the constructor does not create the schema itself.
+     * {@link RtQuota}; the constructor does not create the schema itself.</p>
      */
     public static final String SCHEMA =
         "CREATE TABLE IF NOT EXISTS requests (usr VARCHAR(512), ts BIGINT)";
-
-    /**
-     * SQL to insert a new request timestamp.
-     */
-    private static final String INSERT =
-        "INSERT INTO requests (usr, ts) VALUES (?, ?)";
-
-    /**
-     * SQL to remove expired request records.
-     */
-    private static final String DELETE =
-        "DELETE FROM requests WHERE usr = ? AND ts < ?";
-
-    /**
-     * SQL to count requests in the current window.
-     */
-    private static final String COUNT =
-        "SELECT COUNT(*) FROM requests WHERE usr = ? AND ts >= ?";
-
-    /**
-     * Window duration in milliseconds (one minute).
-     */
-    private static final long WINDOW = 60_000L;
 
     /**
      * Shared data source for H2 in-memory database.
@@ -79,6 +56,7 @@ public final class RtQuota implements Quota {
 
     /**
      * Public constructor.
+     *
      * @param src H2 in-memory data source
      * @param max Maximum requests allowed per minute
      */
@@ -88,6 +66,7 @@ public final class RtQuota implements Quota {
 
     /**
      * Private constructor for child quotas created by {@code into()}.
+     *
      * @param src Data source
      * @param usr User identifier
      * @param max Maximum requests per minute
@@ -115,7 +94,7 @@ public final class RtQuota implements Quota {
             return;
         }
         final long now = System.currentTimeMillis();
-        final long since = now - RtQuota.WINDOW;
+        final long since = now - 60_000L;
         try (Connection conn = this.source.getConnection()) {
             this.insert(conn, now);
             this.purge(conn, since);
@@ -135,7 +114,11 @@ public final class RtQuota implements Quota {
 
     private void insert(final Connection conn, final long when)
         throws SQLException {
-        try (PreparedStatement stmt = conn.prepareStatement(RtQuota.INSERT)) {
+        try (
+            PreparedStatement stmt = conn.prepareStatement(
+                "INSERT INTO requests (usr, ts) VALUES (?, ?)"
+            )
+        ) {
             stmt.setString(1, this.user);
             stmt.setLong(2, when);
             stmt.executeUpdate();
@@ -144,7 +127,11 @@ public final class RtQuota implements Quota {
 
     private void purge(final Connection conn, final long since)
         throws SQLException {
-        try (PreparedStatement stmt = conn.prepareStatement(RtQuota.DELETE)) {
+        try (
+            PreparedStatement stmt = conn.prepareStatement(
+                "DELETE FROM requests WHERE usr = ? AND ts < ?"
+            )
+        ) {
             stmt.setString(1, this.user);
             stmt.setLong(2, since);
             stmt.executeUpdate();
@@ -153,7 +140,11 @@ public final class RtQuota implements Quota {
 
     private int count(final Connection conn, final long since)
         throws SQLException {
-        try (PreparedStatement stmt = conn.prepareStatement(RtQuota.COUNT)) {
+        try (
+            PreparedStatement stmt = conn.prepareStatement(
+                "SELECT COUNT(*) FROM requests WHERE usr = ? AND ts >= ?"
+            )
+        ) {
             stmt.setString(1, this.user);
             stmt.setLong(2, since);
             try (ResultSet rs = stmt.executeQuery()) {

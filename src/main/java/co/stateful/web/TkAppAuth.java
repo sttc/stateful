@@ -28,7 +28,7 @@ import org.takes.facets.auth.social.PsGithub;
  * Authentication wrapper.
  *
  * <p>Wraps the application with authentication via cookies and OAuth providers.
- * Usage example:
+ * Usage example:</p>
  * <pre>{@code
  * new TkAppAuth(base, origin)
  * }</pre>
@@ -85,6 +85,7 @@ public final class TkAppAuth implements Take {
 
     /**
      * Ctor.
+     *
      * @param base Base
      * @param origin Origin take
      */

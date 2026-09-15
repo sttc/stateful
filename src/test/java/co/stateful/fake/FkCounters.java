@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentMap;
  * Fake counters for testing.
  *
  * <p>In-memory counters collection.
- * Usage example:
+ * Usage example:</p>
  * <pre>{@code
  * Counters counters = new FkCounters();
  * counters.create("test");

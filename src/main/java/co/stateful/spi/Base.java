@@ -9,6 +9,7 @@ import com.jcabi.urn.URN;
 
 /**
  * Base.
+ *
  * @since 0.1
  */
 @Immutable
@@ -17,6 +18,7 @@ public interface Base {
 
     /**
      * Get one user.
+     *
      * @param urn URN of the user
      * @return User
      */

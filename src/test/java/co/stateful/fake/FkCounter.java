@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * Fake counter for testing.
  *
  * <p>In-memory counter that stores a single value.
- * Usage example:
+ * Usage example:</p>
  * <pre>{@code
  * Counter counter = new FkCounter();
  * counter.set(BigDecimal.TEN);
@@ -37,6 +37,7 @@ public final class FkCounter implements Counter {
 
     /**
      * Ctor.
+     *
      * @param initial Initial value
      */
     public FkCounter(final BigDecimal initial) {

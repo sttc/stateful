@@ -5,6 +5,7 @@
 
 /**
  * Quota tests.
+ *
  * @since 2.0
  */
 package co.stateful.quota;

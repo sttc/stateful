@@ -19,7 +19,7 @@ import org.takes.rs.RsEmpty;
  * Set counter take.
  *
  * <p>Handles PUT request to set a counter value.
- * Usage example:
+ * Usage example:</p>
  * <pre>{@code
  * new TkCounterSet(base, "test").act(request)
  * }</pre>
@@ -40,6 +40,7 @@ public final class TkCounterSet implements Take {
 
     /**
      * Ctor.
+     *
      * @param bse Base
      * @param cnt Counter name
      */

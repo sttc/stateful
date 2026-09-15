@@ -16,7 +16,7 @@ import org.takes.facets.forward.RsForward;
  * User token refresh take.
  *
  * <p>Handles GET request to refresh the security token.
- * Usage example:
+ * Usage example:</p>
  * <pre>{@code
  * new TkUserRefresh(base).act(request)
  * }</pre>
@@ -32,6 +32,7 @@ public final class TkUserRefresh implements Take {
 
     /**
      * Ctor.
+     *
      * @param bse Base
      */
     public TkUserRefresh(final Base bse) {

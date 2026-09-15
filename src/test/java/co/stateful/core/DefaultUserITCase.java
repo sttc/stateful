@@ -12,12 +12,14 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Integration case for {@link DefaultUser}.
+ *
  * @since 0.1
  */
 final class DefaultUserITCase {
 
     /**
      * DefaultUser can manage tokens.
+     *
      * @throws Exception If some problem inside
      */
     @Test

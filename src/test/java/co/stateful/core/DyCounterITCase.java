@@ -19,12 +19,14 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Integration case for {@link DyCounter}.
+ *
  * @since 0.1
  */
 final class DyCounterITCase {
 
     /**
      * DyCounter can increment and set.
+     *
      * @throws Exception If some problem inside
      */
     @Test
@@ -53,6 +55,7 @@ final class DyCounterITCase {
 
     /**
      * DyCounter can increment and set in parallel threads.
+     *
      * @throws Exception If some problem inside
      */
     @Test

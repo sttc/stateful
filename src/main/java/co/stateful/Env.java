@@ -10,7 +10,7 @@ import com.jcabi.manifests.Manifests;
  * Environment configuration reader.
  *
  * <p>This class provides access to manifest properties configured during build.
- * Usage example:
+ * Usage example:</p>
  * <pre>{@code
  * String version = new Env().read("Stateful-Version");
  * }</pre>
@@ -33,6 +33,7 @@ public final class Env {
 
     /**
      * Ctor.
+     *
      * @param pfx Prefix for keys
      */
     public Env(final String pfx) {
@@ -41,6 +42,7 @@ public final class Env {
 
     /**
      * Read a manifest property.
+     *
      * @param name Property name
      * @return Property value
      */

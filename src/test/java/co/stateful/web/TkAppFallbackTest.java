@@ -12,9 +12,11 @@ import org.junit.jupiter.api.Test;
 import org.takes.HttpException;
 import org.takes.rq.RqFake;
 import org.takes.rs.RsPrint;
+import org.takes.rs.RsText;
 
 /**
  * Test case for {@link TkAppFallback}.
+ *
  * @since 2.0
  */
 final class TkAppFallbackTest {
@@ -26,7 +28,7 @@ final class TkAppFallbackTest {
             new TextOf(
                 new RsPrint(
                     new TkAppFallback(
-                        req -> new org.takes.rs.RsText("résponse-αβγ")
+                        req -> new RsText("résponse-αβγ")
                     ).act(new RqFake())
                 ).body()
             ).asString(),

@@ -19,7 +19,7 @@ import org.takes.rq.RqWrap;
  * Request with user access.
  *
  * <p>Provides access to the authenticated user from the request.
- * Usage example:
+ * Usage example:</p>
  * <pre>{@code
  * User user = new RqUser(request, base).user();
  * }</pre>
@@ -35,6 +35,7 @@ public final class RqUser extends RqWrap {
 
     /**
      * Ctor.
+     *
      * @param req Request
      * @param bse Base
      */
@@ -45,6 +46,7 @@ public final class RqUser extends RqWrap {
 
     /**
      * Get user.
+     *
      * @return User
      * @throws IOException If fails or not authenticated
      */
@@ -58,6 +60,7 @@ public final class RqUser extends RqWrap {
 
     /**
      * Check if user is authenticated.
+     *
      * @return True if authenticated
      * @throws IOException If fails
      */

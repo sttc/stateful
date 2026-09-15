@@ -21,7 +21,7 @@ import org.takes.rq.form.RqFormBase;
  * Create lock take.
  *
  * <p>Handles POST request to create a new lock.
- * Usage example:
+ * Usage example:</p>
  * <pre>{@code
  * new TkLockCreate(base).act(request)
  * }</pre>
@@ -37,6 +37,7 @@ public final class TkLockCreate implements Take {
 
     /**
      * Ctor.
+     *
      * @param bse Base
      */
     public TkLockCreate(final Base bse) {

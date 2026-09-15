@@ -33,6 +33,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 
 /**
  * Default user.
+ *
  * @since 0.1
  */
 @Immutable
@@ -68,6 +69,7 @@ final class DefaultUser implements User {
 
     /**
      * Ctor.
+     *
      * @param urn Name of it
      */
     DefaultUser(final URN urn) {

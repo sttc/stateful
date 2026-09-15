@@ -24,7 +24,7 @@ import org.xembly.Directives;
  * Locks page take.
  *
  * <p>Renders the list of user's locks.
- * Usage example:
+ * Usage example:</p>
  * <pre>{@code
  * new TkLocks(base).act(request)
  * }</pre>
@@ -40,6 +40,7 @@ public final class TkLocks implements Take {
 
     /**
      * Ctor.
+     *
      * @param bse Base
      */
     public TkLocks(final Base bse) {

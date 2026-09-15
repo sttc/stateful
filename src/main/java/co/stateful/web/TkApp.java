@@ -24,7 +24,7 @@ import org.takes.tk.TkWrap;
  * Main application with routing.
  *
  * <p>Defines all routes and wraps with authentication, flash, and fallback.
- * Usage example:
+ * Usage example:</p>
  * <pre>{@code
  * new TkApp(base).act(request)
  * }</pre>
@@ -44,12 +44,8 @@ public final class TkApp extends TkWrap {
     private static final String WEBAPP = "/webapp";
 
     /**
-     * Robots.txt path.
-     */
-    private static final String ROBOTS = "/webapp/robots.txt";
-
-    /**
      * Ctor.
+     *
      * @param base Base
      */
     public TkApp(final Base base) {
@@ -62,7 +58,7 @@ public final class TkApp extends TkWrap {
                             new TkFork(
                                 new FkRegex(
                                     "/robots.txt",
-                                    new TkStatic(TkApp.ROBOTS)
+                                    new TkStatic("/webapp/robots.txt")
                                 ),
                                 new FkRegex(
                                     "/css/.*",

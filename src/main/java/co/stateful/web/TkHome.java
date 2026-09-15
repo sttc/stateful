@@ -21,7 +21,7 @@ import org.xembly.Directive;
  * Home page take.
  *
  * <p>Renders the front page with documentation.
- * Usage example:
+ * Usage example:</p>
  * <pre>{@code
  * new TkHome(base).act(request)
  * }</pre>
@@ -37,6 +37,7 @@ public final class TkHome implements Take {
 
     /**
      * Ctor.
+     *
      * @param bse Base
      */
     public TkHome(final Base bse) {

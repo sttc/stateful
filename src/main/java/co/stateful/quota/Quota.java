@@ -9,6 +9,7 @@ import java.io.IOException;
 
 /**
  * Quota.
+ *
  * @since 1.4
  */
 @Immutable
@@ -31,6 +32,7 @@ public interface Quota {
 
     /**
      * Into this path.
+     *
      * @param path Path
      * @return New quota
      */
@@ -38,6 +40,7 @@ public interface Quota {
 
     /**
      * Use this named service.
+     *
      * @param name Name of the service
      * @throws IOException If fails due to IO problem
      */

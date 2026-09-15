@@ -5,6 +5,7 @@
 
 /**
  * Core.
+ *
  * @since 0.1
  */
 package co.stateful.core;

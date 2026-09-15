@@ -22,7 +22,7 @@ import org.takes.rs.RsWithStatus;
  * Error handling wrapper.
  *
  * <p>Wraps the application with fallback error handling.
- * Usage example:
+ * Usage example:</p>
  * <pre>{@code
  * new TkAppFallback(origin)
  * }</pre>
@@ -38,6 +38,7 @@ public final class TkAppFallback implements Take {
 
     /**
      * Ctor.
+     *
      * @param origin Origin take
      */
     public TkAppFallback(final Take origin) {

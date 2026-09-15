@@ -19,7 +19,7 @@ import org.takes.rq.form.RqFormBase;
  * Add counter take.
  *
  * <p>Handles POST request to create a new counter.
- * Usage example:
+ * Usage example:</p>
  * <pre>{@code
  * new TkCounterAdd(base).act(request)
  * }</pre>
@@ -35,6 +35,7 @@ public final class TkCounterAdd implements Take {
 
     /**
      * Ctor.
+     *
      * @param bse Base
      */
     public TkCounterAdd(final Base bse) {

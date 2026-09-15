@@ -14,6 +14,7 @@ import lombok.ToString;
 
 /**
  * Quota on Locks.
+ *
  * @since 1.4
  */
 @Immutable
@@ -34,6 +35,7 @@ public final class QtLocks implements Locks {
 
     /**
      * Ctor.
+     *
      * @param org Original object
      * @param qta Quota
      */

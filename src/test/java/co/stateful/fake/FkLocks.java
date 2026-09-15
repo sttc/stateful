@@ -14,7 +14,7 @@ import java.util.concurrent.ConcurrentMap;
  * Fake locks for testing.
  *
  * <p>In-memory locks collection.
- * Usage example:
+ * Usage example:</p>
  * <pre>{@code
  * Locks locks = new FkLocks();
  * locks.lock("test", "label");

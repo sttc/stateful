@@ -16,6 +16,7 @@ import org.takes.http.FtRemote;
 
 /**
  * Integration test case for {@link TkApp}.
+ *
  * @since 2.0
  */
 final class TkAppITCase {

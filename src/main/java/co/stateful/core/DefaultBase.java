@@ -14,6 +14,7 @@ import lombok.ToString;
 
 /**
  * Default base.
+ *
  * @since 0.1
  */
 @Immutable
@@ -21,6 +22,13 @@ import lombok.ToString;
 @EqualsAndHashCode
 @Loggable(Loggable.DEBUG)
 public final class DefaultBase implements Base {
+
+    /**
+     * Constructor.
+     */
+    public DefaultBase() {
+        // Nothing to initialize.
+    }
 
     @Override
     public User user(final URN urn) {

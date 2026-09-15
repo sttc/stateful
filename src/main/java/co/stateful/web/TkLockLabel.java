@@ -16,7 +16,7 @@ import org.takes.rs.RsText;
  * Lock label take.
  *
  * <p>Handles GET request to read a lock label.
- * Usage example:
+ * Usage example:</p>
  * <pre>{@code
  * new TkLockLabel(base).act(request)
  * }</pre>
@@ -32,6 +32,7 @@ public final class TkLockLabel implements Take {
 
     /**
      * Ctor.
+     *
      * @param bse Base
      */
     public TkLockLabel(final Base bse) {

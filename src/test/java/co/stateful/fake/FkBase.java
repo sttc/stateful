@@ -14,7 +14,7 @@ import java.util.concurrent.ConcurrentMap;
  * Fake base for testing.
  *
  * <p>In-memory base with fake users.
- * Usage example:
+ * Usage example:</p>
  * <pre>{@code
  * Base base = new FkBase();
  * User user = base.user(URN.create("urn:test:1"));

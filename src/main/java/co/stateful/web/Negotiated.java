@@ -30,6 +30,7 @@ import org.takes.rs.xe.XeStylesheet;
  * Response wrapper that picks the content type based on the request's
  * Accept header and lazily delegates to either raw XML or XSL-transformed
  * HTML.
+ *
  * @since 2.0
  */
 final class Negotiated implements Response {
@@ -66,6 +67,7 @@ final class Negotiated implements Response {
 
     /**
      * Ctor.
+     *
      * @param sheet XSL stylesheet path
      * @param request Original HTTP request
      * @param srcs Extra XE sources to merge into the page

@@ -12,12 +12,14 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Integration case for {@link DyCounters}.
+ *
  * @since 0.1
  */
 final class DyCountersITCase {
 
     /**
      * DyCounters can manage counters.
+     *
      * @throws Exception If some problem inside
      */
     @Test

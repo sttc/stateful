@@ -14,7 +14,7 @@ import org.takes.Request;
  * Request with XML Accept header for testing.
  *
  * <p>Wraps a request with Accept: text/xml header.
- * Usage example:
+ * Usage example:</p>
  * <pre>{@code
  * Request req = new RqXml(new RqFake());
  * }</pre>
@@ -30,6 +30,7 @@ public final class RqXml implements Request {
 
     /**
      * Ctor.
+     *
      * @param req Origin request
      */
     public RqXml(final Request req) {

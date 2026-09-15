@@ -10,6 +10,7 @@ import java.util.Map;
 
 /**
  * Locks.
+ *
  * @since 1.1
  */
 @Immutable
@@ -22,6 +23,7 @@ public interface Locks {
 
     /**
      * Get list of them all, and their labels.
+     *
      * @return List of locks
      * @throws IOException If fails
      */
@@ -29,6 +31,7 @@ public interface Locks {
 
     /**
      * Lock it.
+     *
      * @param name Unique name of the lock
      * @param label Label to attach
      * @return Empty if success or a label of a current lock
@@ -38,6 +41,7 @@ public interface Locks {
 
     /**
      * Read label.
+     *
      * @param name Unique name of the lock
      * @return Empty if it doesn't exist, or a label
      * @throws IOException If fails
@@ -46,6 +50,7 @@ public interface Locks {
 
     /**
      * Unlock it.
+     *
      * @param name Unique name of the lock
      * @throws IOException If fails
      */
@@ -53,6 +58,7 @@ public interface Locks {
 
     /**
      * Unlock only if label matches.
+     *
      * @param name Unique name of the lock
      * @param label Label to match
      * @return Empty if success or label of current lock

@@ -5,6 +5,7 @@
 
 /**
  * Web layer tests.
+ *
  * @since 2.0
  */
 package co.stateful.web;

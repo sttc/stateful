@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
  *
  * <p>Tests that GitHub OAuth callback has all required
  * dependencies available at runtime by mocking GitHub's
- * OAuth server response.
+ * OAuth server response.</p>
  *
  * @since 2.0
  */

@@ -20,7 +20,7 @@ import org.takes.rq.RqHref;
  * Unlock take.
  *
  * <p>Handles GET request to remove a lock.
- * Usage example:
+ * Usage example:</p>
  * <pre>{@code
  * new TkUnlock(base).act(request)
  * }</pre>
@@ -36,6 +36,7 @@ public final class TkUnlock implements Take {
 
     /**
      * Ctor.
+     *
      * @param bse Base
      */
     public TkUnlock(final Base bse) {

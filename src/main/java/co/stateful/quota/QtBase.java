@@ -14,6 +14,7 @@ import lombok.ToString;
 
 /**
  * Quota on a Base.
+ *
  * @since 1.4
  */
 @Immutable
@@ -34,6 +35,7 @@ public final class QtBase implements Base {
 
     /**
      * Ctor.
+     *
      * @param org Original object
      * @param qta Quota
      */

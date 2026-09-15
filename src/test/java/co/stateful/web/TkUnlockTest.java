@@ -19,6 +19,7 @@ import org.takes.rq.RqMethod;
 
 /**
  * Test case for {@link TkUnlock}.
+ *
  * @since 2.0
  */
 final class TkUnlockTest {

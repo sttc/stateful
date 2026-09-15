@@ -14,6 +14,7 @@ import lombok.ToString;
 
 /**
  * Quota on counters.
+ *
  * @since 1.4
  */
 @Immutable
@@ -34,6 +35,7 @@ public final class QtCounters implements Counters {
 
     /**
      * Ctor.
+     *
      * @param org Original object
      * @param qta Quota
      */

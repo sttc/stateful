@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link RtQuota}.
+ *
  * @since 2.0
  */
 final class RtQuotaTest {

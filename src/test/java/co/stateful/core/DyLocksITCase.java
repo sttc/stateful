@@ -15,12 +15,14 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Integration case for {@link DyLocks}.
+ *
  * @since 0.1
  */
 final class DyLocksITCase {
 
     /**
      * DyLocks can lock/unlock in parallel threads.
+     *
      * @throws Exception If some problem inside
      */
     @Test
@@ -49,6 +51,7 @@ final class DyLocksITCase {
 
     /**
      * DyLocks can lock/unlock with mandatory label.
+     *
      * @throws Exception If some problem inside
      * @since 1.6
      */

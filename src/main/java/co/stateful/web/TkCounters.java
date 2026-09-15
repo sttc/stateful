@@ -23,7 +23,7 @@ import org.xembly.Directives;
  * Counters page take.
  *
  * <p>Renders the list of user's counters.
- * Usage example:
+ * Usage example:</p>
  * <pre>{@code
  * new TkCounters(base).act(request)
  * }</pre>
@@ -39,6 +39,7 @@ public final class TkCounters implements Take {
 
     /**
      * Ctor.
+     *
      * @param bse Base
      */
     public TkCounters(final Base bse) {

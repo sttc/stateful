@@ -20,7 +20,7 @@ import org.takes.rs.RsWithBody;
  * <p>Serves static resources from the classpath using the context classloader.
  * For single files, use with the full resource path. For directories, use
  * the base path and the request URI will be appended.
- * Usage example:
+ * Usage example:</p>
  * <pre>{@code
  * new TkStatic("/webapp/robots.txt")
  * new TkStatic("/webapp", true)
@@ -42,6 +42,7 @@ public final class TkStatic implements Take {
 
     /**
      * Ctor for single file.
+     *
      * @param resource Resource path
      */
     public TkStatic(final String resource) {
@@ -50,6 +51,7 @@ public final class TkStatic implements Take {
 
     /**
      * Ctor.
+     *
      * @param path Base path
      * @param directory Whether this is a directory
      */

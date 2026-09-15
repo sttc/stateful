@@ -20,7 +20,7 @@ import org.takes.http.FtCli;
  * Application entry point.
  *
  * <p>Starts the HTTP server using Takes framework with FtCli.
- * Usage example:
+ * Usage example:</p>
  * <pre>{@code
  * java -jar stateful.jar --port=8080
  * }</pre>
@@ -28,11 +28,6 @@ import org.takes.http.FtCli;
  * @since 2.0
  */
 public final class Entry {
-
-    /**
-     * Maximum requests per user per minute.
-     */
-    private static final int MAX_RPM = 300;
 
     /**
      * Ctor.
@@ -43,6 +38,7 @@ public final class Entry {
 
     /**
      * Entry point.
+     *
      * @param args Command line args
      * @throws IOException If fails
      */
@@ -58,7 +54,7 @@ public final class Entry {
             throw new IOException("Failed to initialize rate-limit table", ex);
         }
         new FtCli(
-            new TkApp(new QtBase(new DefaultBase(), new RtQuota(src, Entry.MAX_RPM))),
+            new TkApp(new QtBase(new DefaultBase(), new RtQuota(src, 300))),
             args
         ).start(Exit.NEVER);
     }

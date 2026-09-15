@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * Fake user for testing.
  *
  * <p>In-memory user with fake counters and locks.
- * Usage example:
+ * Usage example:</p>
  * <pre>{@code
  * User user = new FkUser();
  * user.counters().create("test");
@@ -48,6 +48,7 @@ public final class FkUser implements User {
 
     /**
      * Ctor.
+     *
      * @param counters Counters
      * @param locks Locks
      */
@@ -57,6 +58,7 @@ public final class FkUser implements User {
 
     /**
      * Ctor that stores all dependencies as-is.
+     *
      * @param counters Counters
      * @param locks Locks
      * @param token Initial token holder; empty value means lazy-generate

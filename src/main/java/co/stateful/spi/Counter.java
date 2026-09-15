@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 
 /**
  * Counter.
+ *
  * @since 0.1
  */
 @Immutable
@@ -17,6 +18,7 @@ public interface Counter {
 
     /**
      * Set specific value.
+     *
      * @param value Value to set
      * @throws IOException If fails due to IO problem
      */
@@ -24,6 +26,7 @@ public interface Counter {
 
     /**
      * Add value to it.
+     *
      * @param delta Delta to add
      * @return New value
      * @throws IOException If fails due to IO problem

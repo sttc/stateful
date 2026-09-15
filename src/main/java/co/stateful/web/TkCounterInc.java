@@ -19,7 +19,7 @@ import org.takes.rs.RsText;
  * Increment counter take.
  *
  * <p>Handles GET request to increment a counter value.
- * Usage example:
+ * Usage example:</p>
  * <pre>{@code
  * new TkCounterInc(base, "test").act(request)
  * }</pre>
@@ -40,6 +40,7 @@ public final class TkCounterInc implements Take {
 
     /**
      * Ctor.
+     *
      * @param bse Base
      * @param cnt Counter name
      */

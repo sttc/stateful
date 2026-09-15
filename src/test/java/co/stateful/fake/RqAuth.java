@@ -17,7 +17,7 @@ import org.takes.facets.auth.codecs.CcPlain;
  * Request with authentication for testing.
  *
  * <p>Wraps a request with authentication identity header.
- * Usage example:
+ * Usage example:</p>
  * <pre>{@code
  * Request req = new RqAuth(new RqFake(), "urn:test:1", "Tëst Üsér");
  * }</pre>
@@ -43,6 +43,7 @@ public final class RqAuth implements Request {
 
     /**
      * Ctor.
+     *
      * @param req Origin request
      * @param usr User URN
      * @param nme User name

@@ -15,7 +15,7 @@ import org.takes.rs.xe.XeSource;
  * <p>Wraps content with XML structure and applies XSL transformation
  * based on Accept header. Returns raw XML for text/xml or application/xml,
  * otherwise transforms to HTML.
- * Usage example:
+ * Usage example:</p>
  * <pre>{@code
  * new RsPage(
  *     "/webapp/xsl/index.xsl",
@@ -32,6 +32,7 @@ public final class RsPage extends RsWrap {
 
     /**
      * Ctor.
+     *
      * @param xsl XSL stylesheet path
      * @param req Request
      * @param sources Extra sources

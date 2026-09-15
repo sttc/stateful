@@ -20,6 +20,7 @@ import org.takes.rq.RqWithBody;
 
 /**
  * Test case for {@link TkLockCreate}.
+ *
  * @since 2.0
  */
 final class TkLockCreateTest {

@@ -16,6 +16,7 @@ import org.takes.rs.RsPrint;
 
 /**
  * Test case for {@link TkHome}.
+ *
  * @since 2.0
  */
 final class TkHomeTest {

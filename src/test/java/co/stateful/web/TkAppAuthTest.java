@@ -14,7 +14,7 @@ import org.takes.facets.fork.TkFork;
  * Test case for {@link TkAppAuth}.
  *
  * <p>Tests authentication wrapper functionality and ensures
- * that required dependencies for OAuth providers are available.
+ * that required dependencies for OAuth providers are available.</p>
  *
  * @since 2.0
  */

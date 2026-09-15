@@ -20,7 +20,7 @@ import org.xembly.Directive;
  * Error page take.
  *
  * <p>Renders the error page with 404 status.
- * Usage example:
+ * Usage example:</p>
  * <pre>{@code
  * new TkError(base).act(request)
  * }</pre>
@@ -36,6 +36,7 @@ public final class TkError implements Take {
 
     /**
      * Ctor.
+     *
      * @param bse Base
      */
     public TkError(final Base bse) {

@@ -22,7 +22,7 @@ import org.takes.rq.RqHeaders;
  * Pass for header-based authentication.
  *
  * <p>Authenticates users via X-Sttc-URN and X-Sttc-Token headers.
- * Usage example:
+ * Usage example:</p>
  * <pre>{@code
  * new PsChain(
  *     new PsHeader(base),
@@ -35,22 +35,13 @@ import org.takes.rq.RqHeaders;
 public final class PsHeader implements Pass {
 
     /**
-     * URN header.
-     */
-    private static final String HEADER_URN = "X-Sttc-URN";
-
-    /**
-     * Token header.
-     */
-    private static final String HEADER_TOKEN = "X-Sttc-Token";
-
-    /**
      * Base.
      */
     private final Base base;
 
     /**
      * Ctor.
+     *
      * @param bse Base
      */
     public PsHeader(final Base bse) {
@@ -60,8 +51,8 @@ public final class PsHeader implements Pass {
     @Override
     public Opt<Identity> enter(final Request req) throws IOException {
         final RqHeaders headers = new RqHeaders.Base(req);
-        final Iterator<String> urn = headers.header(PsHeader.HEADER_URN).iterator();
-        final Iterator<String> token = headers.header(PsHeader.HEADER_TOKEN).iterator();
+        final Iterator<String> urn = headers.header("X-Sttc-URN").iterator();
+        final Iterator<String> token = headers.header("X-Sttc-Token").iterator();
         Opt<Identity> result = new Opt.Empty<>();
         if (urn.hasNext() && token.hasNext()) {
             result = this.auth(

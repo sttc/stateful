@@ -22,7 +22,7 @@ import org.xembly.Directives;
  * Helper for authenticated page sources.
  *
  * <p>Provides common XeSource elements for authenticated users.
- * Usage example:
+ * Usage example:</p>
  * <pre>{@code
  * new TkAuthenticated(base).source(req)
  * }</pre>
@@ -38,6 +38,7 @@ public final class TkAuthenticated {
 
     /**
      * Ctor.
+     *
      * @param bse Base
      */
     public TkAuthenticated(final Base bse) {
@@ -46,6 +47,7 @@ public final class TkAuthenticated {
 
     /**
      * Create XeSource for authenticated user.
+     *
      * @param req Request
      * @return XeSource
      * @throws IOException If fails

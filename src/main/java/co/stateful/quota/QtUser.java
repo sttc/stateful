@@ -15,6 +15,7 @@ import lombok.ToString;
 
 /**
  * Quota on a User.
+ *
  * @since 1.4
  */
 @Immutable
@@ -35,6 +36,7 @@ public final class QtUser implements User {
 
     /**
      * Ctor.
+     *
      * @param org Original object
      * @param qta Quota
      */

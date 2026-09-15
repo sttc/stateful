@@ -16,6 +16,7 @@ import org.takes.rq.RqFake;
 
 /**
  * Test case for {@link TkCounterDelete}.
+ *
  * @since 2.0
  */
 final class TkCounterDeleteTest {

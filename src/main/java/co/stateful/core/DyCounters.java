@@ -25,6 +25,7 @@ import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 
 /**
  * Counters in DynamoDB.
+ *
  * @since 0.1
  */
 @Immutable
@@ -65,6 +66,7 @@ final class DyCounters implements Counters {
 
     /**
      * Ctor.
+     *
      * @param tbl Dynamo table
      * @param urn Owner of them
      */
