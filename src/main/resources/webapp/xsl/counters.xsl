@@ -92,7 +92,7 @@
       <td>
         <form method="post" action="{links/link[@rel='delete']/@href}">
           <button type="submit" class="btn btn-default" aria-label="Delete counter">
-            <i class="fa fa-trash-o">
+            <i class="fa-regular fa-trash-can">
               <xsl:comment>empty</xsl:comment>
             </i>
           </button>
