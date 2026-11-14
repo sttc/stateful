@@ -90,11 +90,13 @@
         </div>
       </td>
       <td>
-        <a href="{links/link[@rel='delete']/@href}">
-          <i class="fa fa-trash-o">
-            <xsl:comment>empty</xsl:comment>
-          </i>
-        </a>
+        <form method="post" action="{links/link[@rel='delete']/@href}">
+          <button type="submit" class="btn btn-default" aria-label="Delete counter">
+            <i class="fa fa-trash-o">
+              <xsl:comment>empty</xsl:comment>
+            </i>
+          </button>
+        </form>
       </td>
     </tr>
   </xsl:template>

@@ -37,7 +37,7 @@ final class TkCounterIncTest {
                     new TkCounterInc(base, "счётчик-αβγ").act(
                         new RqAuth(
                             new RqFake(
-                                "GET",
+                                "POST",
                                 "/c/счётчик-αβγ/inc?value=5"
                             ),
                             urn.toString(),
@@ -63,7 +63,7 @@ final class TkCounterIncTest {
                     new TkCounterInc(base, "cnt").act(
                         new RqAuth(
                             new RqFake(
-                                "GET",
+                                "POST",
                                 "/c/cnt/inc?value=-25"
                             ),
                             urn.toString(),
@@ -82,7 +82,7 @@ final class TkCounterIncTest {
             new TkCounterInc(new FkBase(), "test").act(
                 new RqAuth(
                     new RqFake(
-                        "GET",
+                        "POST",
                         "/c/test/inc?value=invalid"
                     ),
                     "urn:test:3",

@@ -37,6 +37,7 @@ $(document).ready(
         function increment($input, value) {
             $.ajax(
                 {
+                    type: 'POST',
                     url: $input.attr('data-href-increment') + '?value=' + value,
                     success: function (data) {
                         $input.val(data);
