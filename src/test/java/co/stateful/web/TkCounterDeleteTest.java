@@ -30,7 +30,7 @@ final class TkCounterDeleteTest {
             () -> new TkCounterDelete(base).act(
                 new RqAuth(
                     new RqFake(
-                        "GET",
+                        "POST",
                         "/counters/delete?name=счётчик-αβγ"
                     ),
                     "urn:test:1",
@@ -50,7 +50,7 @@ final class TkCounterDeleteTest {
             () -> new TkCounterDelete(base).act(
                 new RqAuth(
                     new RqFake(
-                        "GET",
+                        "POST",
                         "/counters/delete?name=toremove"
                     ),
                     "urn:test:2",

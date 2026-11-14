@@ -18,7 +18,7 @@ import org.takes.rs.RsText;
 /**
  * Increment counter take.
  *
- * <p>Handles GET request to increment a counter value.
+ * <p>Handles POST request to increment a counter value.
  * Usage example:</p>
  * <pre>{@code
  * new TkCounterInc(base, "test").act(request)

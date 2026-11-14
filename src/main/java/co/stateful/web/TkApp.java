@@ -103,7 +103,12 @@ public final class TkApp extends TkWrap {
                                 ),
                                 new FkRegex(
                                     "/counters/delete",
-                                    new TkCounterDelete(base)
+                                    new TkFork(
+                                        new FkMethods(
+                                            "POST",
+                                            new TkCounterDelete(base)
+                                        )
+                                    )
                                 ),
                                 new FkRegex(
                                     "/c/(?<name>[^/]+)/set",
@@ -113,18 +118,19 @@ public final class TkApp extends TkWrap {
                                             (Take) req -> TkApp.counter(
                                                 base, req, true
                                             )
-                                        ),
-                                        new FkMethods(
-                                            "GET",
-                                            (Take) req -> TkApp.counter(
-                                                base, req, true
-                                            )
                                         )
                                     )
                                 ),
                                 new FkRegex(
                                     "/c/(?<name>[^/]+)/inc",
-                                    (Take) req -> TkApp.counter(base, req, false)
+                                    new TkFork(
+                                        new FkMethods(
+                                            "POST",
+                                            (Take) req -> TkApp.counter(
+                                                base, req, false
+                                            )
+                                        )
+                                    )
                                 ),
                                 new FkRegex("/k", new TkLocks(base)),
                                 new FkRegex(

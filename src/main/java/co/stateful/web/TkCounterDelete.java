@@ -16,7 +16,7 @@ import org.takes.rq.RqHref;
 /**
  * Delete counter take.
  *
- * <p>Handles GET request to delete a counter.
+ * <p>Handles POST request to delete a counter.
  * Usage example:</p>
  * <pre>{@code
  * new TkCounterDelete(base).act(request)
