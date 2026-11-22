@@ -7,7 +7,7 @@
   <skin>
     <groupId>com.jcabi</groupId>
     <artifactId>jcabi-maven-skin</artifactId>
-    <version>2.0.1</version>
+    <version>2.0.2</version>
   </skin>
   <bannerLeft name="stateful" href="https://www.stateful.co/">
     <image src="https://img.stateful.co/pomegranate.png" alt="stateful" width="64" height="64"/>
